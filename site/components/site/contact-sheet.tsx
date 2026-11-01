@@ -16,14 +16,15 @@ export function ContactSheet({
   onOpen: (index: number, card: HTMLButtonElement) => void;
 }) {
   return (
-    <div className="sheet" role="region" aria-label={`${category.title}, ${category.items.length} pieces`}>
+    <div className="sheet" style={{ position: "relative" }} role="region" aria-label={`${category.title}, ${category.items.length} pieces`}>
       <span className="sheet-holes" aria-hidden="true"><i /><i /><i /></span>
-      <ol className="sheet-grid">
+      {/* core layout is inline too, so the grid holds even if the stylesheet is stale */}
+      <ol className="sheet-grid" style={{ display: "grid", gridTemplateColumns: "repeat(var(--sheet-cols, 3), minmax(0, 1fr))", listStyle: "none", margin: 0, padding: 0 }}>
         {category.items.map((it, i) => (
           <li key={it.id}>
-            <button type="button" className="sheet-print" onClick={(e) => onOpen(i, e.currentTarget)} aria-label={`Open ${it.title}, ${category.kind}`}>
+            <button type="button" className="sheet-print" style={{ display: "flex", flexDirection: "column", width: "100%" }} onClick={(e) => onOpen(i, e.currentTarget)} aria-label={`Open ${it.title}, ${category.kind}`}>
               <span className="sheet-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-              <span className="sheet-photo">
+              <span className="sheet-photo" style={{ position: "relative", display: "block", width: "100%", aspectRatio: "336 / 392", overflow: "hidden" }}>
                 <Image
                   src={it.image.src}
                   alt=""
