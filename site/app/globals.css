@@ -290,7 +290,7 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) { .gv-chip { transition: none; } .gv-chip:hover { transform: none; } }
 
 
-/* Contact sheet (Comics): cream sheet, binder holes, numbered prints */
+/* Contact sheet (Comics): white sheet, binder holes, numbered prints */
 .sheet {
   position: relative; box-sizing: border-box; background: var(--color-white);
   margin: max(28px, calc(48 * var(--u))) max(16px, calc(72 * var(--u))) 0 max(16px, calc(164 / 1512 * 100vw));

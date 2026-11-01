@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { GalleryCategory } from "@/lib/galleries";
 
 /**
- * Contact-sheet layout (Comics): a cream sheet with binder holes, a numbered grid of prints
+ * Contact-sheet layout (Comics): a white sheet with binder holes, a numbered grid of prints
  * ("01" above, square photo, "—" below). Three columns, two on phones. Clicking a print opens the viewer.
  */
 export function ContactSheet({
@@ -16,7 +16,7 @@ export function ContactSheet({
   onOpen: (index: number, card: HTMLButtonElement) => void;
 }) {
   return (
-    <div className="sheet" style={{ position: "relative" }} role="region" aria-label={`${category.title}, ${category.items.length} pieces`}>
+    <div className="sheet" style={{ position: "relative", background: "#FFFFFF" }} role="region" aria-label={`${category.title}, ${category.items.length} pieces`}>
       <span className="sheet-holes" aria-hidden="true"><i /><i /><i /></span>
       {/* core layout is inline too, so the grid holds even if the stylesheet is stale */}
       <ol className="sheet-grid" style={{ display: "grid", gridTemplateColumns: "repeat(var(--sheet-cols, 3), minmax(0, 1fr))", listStyle: "none", margin: 0, padding: 0 }}>
