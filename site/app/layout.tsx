@@ -30,7 +30,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
-        <link rel="preload" as="image" href="/logo-patch.webp" type="image/webp" fetchPriority="high" />
       </head>
       <body className={`${bebas.variable} ${mouse.variable} ${vt323.variable}`}>
         <RoughFilter />

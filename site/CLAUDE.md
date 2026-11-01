@@ -65,7 +65,7 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 - Every category uses the one `components/ui/circular-gallery.tsx`. Rings with fewer than 6 cards repeat their cards (repeats are hidden from Tab and screen readers). Radius grows with the card count.
 - Ring turns with horizontal scroll (trackpad / Shift + wheel), drag, swipe and ← →; vertical scroll still moves the page. Paused off screen and with reduced motion.
 - Clicking a card opens the viewer: white screen, full image (slide decks: every slide in a scrolling column + "Open the PDF"), ← → or swipe between pieces, Esc/Close returns focus to the card.
-- Layout per category: `layout` in lib/galleries.ts. Comics uses "sheet" (components/site/contact-sheet.tsx: a cream
+- Layout per category: `layout` in lib/galleries.ts. Comics uses "sheet" (components/site/contact-sheet.tsx: a white
   contact sheet with binder holes, numbered prints "01…", square photos, "—" below; 3 columns, 2 on phones), from
   Dhruv's reference. The others use the orbital gallery ("orbit", the default).
 - Titles to check: all 13 "Hustler Jerseys · NN" (files were IMG_xxxx), Comics "SONDR" (IMG_0523 2) and "Mr. Sondr" (Illustration_sans_titre).

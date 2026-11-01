@@ -292,7 +292,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Contact sheet (Comics): cream sheet, binder holes, numbered prints */
 .sheet {
-  position: relative; box-sizing: border-box; background: var(--color-cream);
+  position: relative; box-sizing: border-box; background: var(--color-white);
   margin: max(28px, calc(48 * var(--u))) max(16px, calc(72 * var(--u))) 0 max(16px, calc(164 / 1512 * 100vw));
   padding: max(28px, calc(64 * var(--u))) max(20px, calc(64 * var(--u))) max(20px, calc(40 * var(--u))) max(56px, calc(120 * var(--u)));
 }
