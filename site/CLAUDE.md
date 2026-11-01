@@ -23,10 +23,12 @@ components/intro/    everything about the landing (one controller)
   boot-script.ts         <head> script: sets html classes before first paint
   landing.tsx            the TV layer: opener → patch at rest → leave transition, keyboard (a future Slot A plugs in here)
   tv-engine.ts           canvas engine ported from design/tv-intro-reference.html (+ static sound)
-components/site/     header.tsx, hero.tsx, site-footer.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx
+components/site/     header.tsx, hero.tsx, site-footer.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx,
+                     category-gallery.tsx (heading + orbital gallery + viewer), gallery-viewer.tsx (full-image viewer)
 components/ui/       pasted components (Slots A–C and later prompts)
-lib/                 utils.ts (cn), lenis-store.ts
-public/              logo-patch.webp, logo-mark-black.png, signature.png, resume.pdf (PLACEHOLDER)
+lib/                 utils.ts (cn), lenis-store.ts, galleries.ts (all gallery content: categories, titles, images)
+public/              artsy/comics/, projects/hustler-jerseys/, projects/school/ (optimised WebP; School also has the PDFs),
+                     logo-patch.webp, logo-mark-black.png, signature.png, resume.pdf (PLACEHOLDER)
 ```
 
 ## Colour tokens (the only colours; defined once in `app/globals.css` as CSS variables + Tailwind theme)
@@ -50,7 +52,20 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 `--u` = one pixel of the 1512×982 mockup = `min(100vw/1512, 100vh/982)`. Phones (<640px) have their own rules at the end of globals.css.
 
 ## Routes
-`/` landing + hero · `/artsy` · `/projects` · `/about` (placeholders: header, title, "Coming up next.", footer). Only `/` ever shows the landing.
+`/` landing + hero · `/artsy` · `/projects` · `/about` (placeholder: header, title, "Coming up next.", footer). Only `/` ever shows the landing.
+
+## Gallery pages (Step 2)
+| page | category (id) | source folder (Downloads/DESIGN/…) | public folder |
+|---|---|---|---|
+| /projects | HUSTLER JERSEYS (#hustler-jerseys) | Hustler Jerseys | projects/hustler-jerseys |
+| /projects | SCHOOL (#school) | School (PDF slide decks) | projects/school (one WebP per slide + the PDF) |
+| /artsy | COMICS (#comics) | Comics | artsy/comics |
+- Content lives in `lib/galleries.ts`. A new category = one entry in `PROJECTS` or `ARTSY` (+ its images in public/).
+- Images: WebP, longest side ≤2400px, quality 82, alpha flattened on white; originals untouched in DESIGN/. Order alphabetical (case-insensitive).
+- Every category uses the one `components/ui/circular-gallery.tsx`. Rings with fewer than 6 cards repeat their cards (repeats are hidden from Tab and screen readers). Radius grows with the card count.
+- Ring turns with horizontal scroll (trackpad / Shift + wheel), drag, swipe and ← →; vertical scroll still moves the page. Paused off screen and with reduced motion.
+- Clicking a card opens the viewer: white screen, full image (slide decks: every slide in a scrolling column + "Open the PDF"), ← → or swipe between pieces, Esc/Close returns focus to the card.
+- Titles to check: all 13 "Hustler Jerseys · NN" (files were IMG_xxxx), Comics "SONDR" (IMG_0523 2) and "Mr. Sondr" (Illustration_sans_titre).
 
 ## Landing states (components/intro/intro-controller.tsx)
 `landing → leaving → hero → returning → landing`
@@ -71,6 +86,7 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 |---|---|---|---|
 | A · logo animation | **pending** (default in use) | components/intro/landing.tsx | Dhruv removed the scroll-driven pixel loader (Nov 2026): he wants TV opener → hero directly. The default (hover glitch, click → CRT line → hero) is live. It's still in git history (commit 72535c1) |
 | B · nav buttons | **filled** | components/ui/animated-dock.tsx | dock magnification: chips swell 1×→2× within ±150px, label 1→1.5, springs mass .1/stiffness 150/damping 12; mouse only (off on touch and phones) |
+| D · orbital gallery | **filled** | components/ui/circular-gallery.tsx (+ site/category-gallery.tsx) | 21st.dev circular gallery; used for HUSTLER JERSEYS, SCHOOL and COMICS. Its dark caption fade, shadow and back-card fade are kept as in the prompt (Dhruv asked for the preview to look like the prompt) |
 | C · footer | **filled** | components/ui/halftone-wordmark-footer.tsx (+ site/site-footer.tsx) | halftone "HARDIN" in Bebas, red band, white dots that snap black when pushed; grain off |
 All changes inside pasted files are marked `SONDR:`.
 
@@ -92,4 +108,5 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
+- Step 2: /projects (Hustler Jerseys, School) and /artsy (Comics) with the orbital gallery and a full-image viewer.
 - Step 1b: Slot A removed at Dhruv's request; the landing goes straight from the TV opener to the hero (default transition).
