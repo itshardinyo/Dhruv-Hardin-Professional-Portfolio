@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gallery";
 import { GalleryViewer } from "./gallery-viewer";
+import { ContactSheet } from "./contact-sheet";
 import type { GalleryCategory } from "@/lib/galleries";
 
 const MIN_RING = 6; // a ring with fewer cards looks empty, so short categories repeat round it
@@ -15,6 +16,7 @@ export function CategoryGallery({ category }: { category: GalleryCategory }) {
   React.useEffect(() => setTouch(window.matchMedia("(hover: none)").matches), []);
 
   const n = category.items.length;
+  const sheet = category.layout === "sheet";
   const items: GalleryItem[] = React.useMemo(() => {
     const base = category.items.map((it) => ({
       common: it.title,
@@ -40,16 +42,19 @@ export function CategoryGallery({ category }: { category: GalleryCategory }) {
           <span className="cat-name">{category.title}</span>
         </h2>
         <p className="cat-hint">
-          {touch ? "Swipe sideways to spin · tap a card to see it full size" : "Scroll sideways or drag to spin · click a card to see it full size"}
+          {sheet
+            ? touch ? "Tap a piece to see it full size" : "Click a piece to see it full size"
+            : touch ? "Swipe sideways to spin · tap a card to see it full size" : "Scroll sideways or drag to spin · click a card to see it full size"}
         </p>
       </div>
       {n === 0 ? (
         <p className="cat-empty">Placeholder: no images found for {category.title} yet.</p>
+      ) : sheet ? (
+        <ContactSheet category={category} onOpen={(i, card) => { opener.current = card; setOpen(i); }} />
       ) : (
         <CircularGallery
           items={items}
           radius={Math.max(600, Math.round((items.length * 330) / (2 * Math.PI)))}
-          cardStyle={category.cardStyle}
           label={`${category.title} gallery, ${n} ${n === 1 ? "piece" : "pieces"}`}
           onOpen={(i, card) => { opener.current = card; setOpen(i % n); }}
         />

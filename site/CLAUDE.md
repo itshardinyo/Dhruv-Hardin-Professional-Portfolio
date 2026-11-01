@@ -65,8 +65,9 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 - Every category uses the one `components/ui/circular-gallery.tsx`. Rings with fewer than 6 cards repeat their cards (repeats are hidden from Tab and screen readers). Radius grows with the card count.
 - Ring turns with horizontal scroll (trackpad / Shift + wheel), drag, swipe and ← →; vertical scroll still moves the page. Paused off screen and with reduced motion.
 - Clicking a card opens the viewer: white screen, full image (slide decks: every slide in a scrolling column + "Open the PDF"), ← → or swipe between pieces, Esc/Close returns focus to the card.
-- Card looks: `cardStyle` per category in lib/galleries.ts. Comics uses "print" (contact-sheet card from Dhruv's
-  reference: cream sheet, "01" number above, square photo, "—" below); the others use the prompt's default card.
+- Layout per category: `layout` in lib/galleries.ts. Comics uses "sheet" (components/site/contact-sheet.tsx: a cream
+  contact sheet with binder holes, numbered prints "01…", square photos, "—" below; 3 columns, 2 on phones), from
+  Dhruv's reference. The others use the orbital gallery ("orbit", the default).
 - Titles to check: all 13 "Hustler Jerseys · NN" (files were IMG_xxxx), Comics "SONDR" (IMG_0523 2) and "Mr. Sondr" (Illustration_sans_titre).
 
 ## Landing states (components/intro/intro-controller.tsx)
@@ -88,7 +89,7 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 |---|---|---|---|
 | A · logo animation | **pending** (default in use) | components/intro/landing.tsx | Dhruv removed the scroll-driven pixel loader (Nov 2026): he wants TV opener → hero directly. The default (hover glitch, click → CRT line → hero) is live. It's still in git history (commit 72535c1) |
 | B · nav buttons | **filled** | components/ui/animated-dock.tsx | dock magnification: chips swell 1×→2× within ±150px, label 1→1.5, springs mass .1/stiffness 150/damping 12; mouse only (off on touch and phones) |
-| D · orbital gallery | **filled** | components/ui/circular-gallery.tsx (+ site/category-gallery.tsx) | 21st.dev circular gallery; used for HUSTLER JERSEYS, SCHOOL and COMICS. Its dark caption fade, shadow and back-card fade are kept as in the prompt (Dhruv asked for the preview to look like the prompt) |
+| D · orbital gallery | **filled** | components/ui/circular-gallery.tsx (+ site/category-gallery.tsx) | 21st.dev circular gallery; used for HUSTLER JERSEYS and SCHOOL (Comics uses the contact sheet). Its dark caption fade, shadow and back-card fade are kept as in the prompt (Dhruv asked for the preview to look like the prompt) |
 | C · footer | **filled** | components/ui/halftone-wordmark-footer.tsx (+ site/site-footer.tsx) | halftone "HARDIN" in Bebas, red band, white dots that snap black when pushed; grain off |
 All changes inside pasted files are marked `SONDR:`.
 
@@ -110,6 +111,6 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
-- Step 2b: Comics cards restyled as contact-sheet prints (cardStyle "print").
+- Step 2b: Comics shown as a contact-sheet grid instead of the orbital gallery (layout "sheet").
 - Step 2: /projects (Hustler Jerseys, School) and /artsy (Comics) with the orbital gallery and a full-image viewer.
 - Step 1b: Slot A removed at Dhruv's request; the landing goes straight from the TV opener to the hero (default transition).

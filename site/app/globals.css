@@ -289,7 +289,25 @@ html.lenis, html.lenis body { height: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .gv-chip { transition: none; } .gv-chip:hover { transform: none; } }
 
-/* Contact-sheet card (Comics): number above, square photo, dash below */
-.cg-print { gap: .7em; }
-.cg-num, .cg-dash { display: block; letter-spacing: .04em; }
-.cg-photo { min-height: 0; }
+
+/* Contact sheet (Comics): cream sheet, binder holes, numbered prints */
+.sheet {
+  position: relative; box-sizing: border-box; background: var(--color-cream);
+  margin: max(28px, calc(48 * var(--u))) max(16px, calc(72 * var(--u))) 0 max(16px, calc(164 / 1512 * 100vw));
+  padding: max(28px, calc(64 * var(--u))) max(20px, calc(64 * var(--u))) max(20px, calc(40 * var(--u))) max(56px, calc(120 * var(--u)));
+}
+.sheet-holes { position: absolute; left: max(16px, calc(36 * var(--u))); top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-evenly; }
+.sheet-holes i { display: block; width: max(16px, calc(28 * var(--u))); height: max(16px, calc(28 * var(--u))); border-radius: 50%; background: var(--color-black); }
+.sheet-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: max(20px, calc(64 * var(--u))); row-gap: max(24px, calc(56 * var(--u))); }
+.sheet-print {
+  display: flex; flex-direction: column; gap: max(8px, calc(14 * var(--u))); width: 100%; margin: 0; padding: 0;
+  border: 0; background: none; color: var(--color-black); text-align: left; cursor: zoom-in;
+  font: 400 max(14px, calc(20 * var(--u)))/1 var(--font-hand); letter-spacing: .04em;
+}
+.sheet-photo { position: relative; display: block; width: 100%; aspect-ratio: 336 / 392; overflow: hidden; background: var(--color-black); }
+.sheet-print:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+@media (max-width: 639px) {
+  .sheet { margin: 24px 16px 0; padding: 24px 16px 20px 44px; }
+  .sheet-holes { left: 14px; }
+  .sheet-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
