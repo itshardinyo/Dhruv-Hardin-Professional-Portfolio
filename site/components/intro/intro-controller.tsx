@@ -52,7 +52,8 @@ export function useIntro() {
 const html = () => document.documentElement.classList;
 
 export function useReducedMotion() {
-  const [reduced, setReduced] = React.useState(false);
+  // Read synchronously on the client so the landing's first effect already knows (it decides TV vs still patch).
+  const [reduced, setReduced] = React.useState(() => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   React.useEffect(() => {
     const m = window.matchMedia("(prefers-reduced-motion: reduce)");
     const on = () => setReduced(m.matches);

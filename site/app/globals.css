@@ -5,7 +5,7 @@
    The TV look (static, scanlines, vignette, glow and colour fringes on TV text)
    is the only place greys, tints or transparency are allowed.
    ========================================================================== */
-@theme {
+@theme static {
   --color-*: initial;
   --color-red: #F80A02;
   --color-cream: #FFF3D8;
@@ -59,6 +59,10 @@
 
 html { background: var(--color-white); }
 body {
+  /* next/font puts its family variables on <body>, so the font tokens are resolved here too */
+  --font-display: var(--font-bebas), "Bebas Neue", Impact, sans-serif;
+  --font-hand: var(--font-mouse), "Mouse Memoirs", "Arial Narrow", sans-serif;
+  --font-osd: var(--font-vt323), "VT323", ui-monospace, monospace;
   margin: 0;
   background: var(--color-white);
   color: var(--color-black);
@@ -230,3 +234,6 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) {
   .tv-roll, .go * { animation: none !important; }
 }
+
+/* Slot A: the landing leaves as soon as it is ready, so its demo "Replay" link is never offered */
+.slot-a-scroller .la-replay { display: none !important; }
