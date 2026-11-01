@@ -49,6 +49,7 @@ export function CategoryGallery({ category }: { category: GalleryCategory }) {
         <CircularGallery
           items={items}
           radius={Math.max(600, Math.round((items.length * 330) / (2 * Math.PI)))}
+          cardStyle={category.cardStyle}
           label={`${category.title} gallery, ${n} ${n === 1 ? "piece" : "pieces"}`}
           onOpen={(i, card) => { opener.current = card; setOpen(i % n); }}
         />

@@ -288,3 +288,8 @@ html.lenis, html.lenis body { height: auto; }
   .gv-actions .gv-chip-red { flex: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .gv-chip { transition: none; } .gv-chip:hover { transform: none; } }
+
+/* Contact-sheet card (Comics): number above, square photo, dash below */
+.cg-print { gap: .7em; }
+.cg-num, .cg-dash { display: block; letter-spacing: .04em; }
+.cg-photo { min-height: 0; }

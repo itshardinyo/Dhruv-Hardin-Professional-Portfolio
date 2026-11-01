@@ -65,6 +65,8 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 - Every category uses the one `components/ui/circular-gallery.tsx`. Rings with fewer than 6 cards repeat their cards (repeats are hidden from Tab and screen readers). Radius grows with the card count.
 - Ring turns with horizontal scroll (trackpad / Shift + wheel), drag, swipe and ← →; vertical scroll still moves the page. Paused off screen and with reduced motion.
 - Clicking a card opens the viewer: white screen, full image (slide decks: every slide in a scrolling column + "Open the PDF"), ← → or swipe between pieces, Esc/Close returns focus to the card.
+- Card looks: `cardStyle` per category in lib/galleries.ts. Comics uses "print" (contact-sheet card from Dhruv's
+  reference: cream sheet, "01" number above, square photo, "—" below); the others use the prompt's default card.
 - Titles to check: all 13 "Hustler Jerseys · NN" (files were IMG_xxxx), Comics "SONDR" (IMG_0523 2) and "Mr. Sondr" (Illustration_sans_titre).
 
 ## Landing states (components/intro/intro-controller.tsx)
@@ -108,5 +110,6 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
+- Step 2b: Comics cards restyled as contact-sheet prints (cardStyle "print").
 - Step 2: /projects (Hustler Jerseys, School) and /artsy (Comics) with the orbital gallery and a full-image viewer.
 - Step 1b: Slot A removed at Dhruv's request; the landing goes straight from the TV opener to the hero (default transition).

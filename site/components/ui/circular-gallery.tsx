@@ -12,6 +12,8 @@
   - sizes scale down with the container width so the ring fits phones
   - only animates while on screen; with reduced motion it stands still
   - Next.js <Image>, site fonts, the "Photo by" demo line removed
+  - `cardStyle="print"`: a contact-sheet card (cream sheet, number above, square photo, dash below) instead of
+    the default card; the ring, motion and interaction are the same
 */
 
 import React, { useState, useEffect, useRef, HTMLAttributes } from "react";
@@ -51,12 +53,14 @@ interface CircularGalleryProps extends Omit<HTMLAttributes<HTMLDivElement>, "onS
   onOpen?: (index: number, card: HTMLButtonElement) => void;
   /** SONDR: accessible name of the region. */
   label?: string;
+  /** SONDR: "default" = the original card; "print" = contact-sheet card (used for Comics). */
+  cardStyle?: "default" | "print";
 }
 
 const DEG_PER_PX = 0.18; // SONDR: how far a horizontal scroll or drag turns the ring
 
 const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
-  ({ items, className, radius = 600, autoRotateSpeed = 0.02, onOpen, label = "Circular 3D Gallery", style, ...props }, ref) => {
+  ({ items, className, radius = 600, autoRotateSpeed = 0.02, onOpen, label = "Circular 3D Gallery", cardStyle = "default", style, ...props }, ref) => {
     const [rotation, setRotation] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
     const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -227,8 +231,29 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                     if (drag.current.moved > 6) { drag.current.moved = 0; return; } // a drag, not a click
                     onOpen?.(i, e.currentTarget);
                   }}
-                  className="cg-card relative block w-full h-full rounded-lg shadow-2xl overflow-hidden group border border-border bg-white cursor-pointer p-0 text-left"
+                  className={cardStyle === "print"
+                    ? "cg-card cg-print relative flex flex-col w-full h-full bg-cream text-black cursor-pointer text-left border-0"
+                    : "cg-card relative block w-full h-full rounded-lg shadow-2xl overflow-hidden group border border-border bg-white cursor-pointer p-0 text-left"}
+                  style={cardStyle === "print" ? { padding: `${Math.max(8, 14 * scale)}px`, fontSize: Math.max(10, 13 * scale) } : undefined}
                 >
+                  {cardStyle === "print" ? (
+                    <>
+                      <span className="cg-num font-hand leading-none">{String((i % items.filter((it) => !it.repeat).length) + 1).padStart(2, "0")}</span>
+                      <span className="cg-photo relative block flex-1 overflow-hidden">
+                        <Image
+                          src={item.photo.url}
+                          alt=""
+                          fill
+                          sizes="(max-width: 639px) 140px, 300px"
+                          draggable={false}
+                          className="object-cover pointer-events-none"
+                          style={{ objectPosition: item.photo.pos || "center" }}
+                        />
+                      </span>
+                      <span className="cg-dash font-hand leading-none" aria-hidden="true">—</span>
+                    </>
+                  ) : (
+                    <>
                   <Image
                     src={item.photo.url}
                     alt=""
@@ -243,6 +268,8 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                     <h3 className="font-display uppercase leading-none" style={{ fontSize: Math.max(18, 30 * scale) }}>{item.common}</h3>
                     {item.binomial && <em className="block not-italic font-hand leading-tight mt-1 line-clamp-2" style={{ fontSize: Math.max(13, 17 * scale) }}>{item.binomial}</em>}
                   </div>
+                    </>
+                  )}
                 </button>
               </div>
             );

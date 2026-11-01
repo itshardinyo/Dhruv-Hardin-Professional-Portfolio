@@ -26,6 +26,8 @@ export interface GalleryCategory {
   title: string;
   /** "Hustler jersey", "School project", "Comic": added to alt text */
   kind: string;
+  /** card look in the orbit: "default" (the prompt's card) or "print" (contact-sheet card) */
+  cardStyle?: "default" | "print";
   items: GalleryEntry[];
 }
 
@@ -82,6 +84,7 @@ export const ARTSY: GalleryCategory[] = [
     id: "comics",
     title: "Comics",
     kind: "Comic",
+    cardStyle: "print",
     items: [
       { id: "comic-01", title: "Da Monsta", image: img("/artsy/comics/da-monsta.webp", 2400, 1004) },
       { id: "comic-02", title: "Da Prison", image: img("/artsy/comics/da-prison.webp", 2400, 1004) },
