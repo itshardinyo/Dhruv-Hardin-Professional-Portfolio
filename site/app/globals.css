@@ -88,14 +88,8 @@ html.lenis, html.lenis body { height: auto; }
 .landing.behind { z-index: 0; }
 .tv-screen { position: absolute; inset: 0; transform-origin: 50% 50%; }
 .tv-screen.off { opacity: 0; }
-.tv-canvas, .tv-fuzz { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.tv-fuzz, .tv-roll, .tv-scan, .tv-vig { pointer-events: none; z-index: 2; }
-.slot-a-scroller {
-  position: absolute; inset: 0; z-index: 1; overflow-y: auto; overscroll-behavior: contain;
-  scrollbar-width: none; visibility: hidden; outline: none;
-}
-.slot-a-scroller::-webkit-scrollbar { display: none; }
-.slot-a-scroller[data-phase="slot"] { visibility: visible; }
+.tv-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.tv-roll, .tv-scan, .tv-vig { pointer-events: none; z-index: 2; }
 .tv-roll {
   position: absolute; left: 0; right: 0; top: 0; height: 30vh;
   background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.05) 50%, rgba(255,255,255,0));
@@ -118,6 +112,8 @@ html.lenis, html.lenis body { height: auto; }
 }
 .tv-enter:focus { outline: none; }
 .osd-cue { left: 50%; bottom: clamp(16px, 4.6vh, 46px); transform: translateX(-50%); font-size: clamp(20px, 2.3vw, 32px); padding: .15em .5em; }
+.osd-cue.on { animation: blink 1.2s steps(1, end) infinite; }
+@keyframes blink { 0%, 62% { opacity: 1; } 63%, 100% { opacity: .08; } }
 .tv-enter:focus-visible .osd-cue { outline: 2px solid var(--color-white); outline-offset: 4px; }
 .tv-flash { position: absolute; inset: 0; z-index: 6; background: var(--color-white); transform: scaleY(0); pointer-events: none; }
 
@@ -232,8 +228,6 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tv-roll, .go * { animation: none !important; }
+  .tv-roll, .osd-cue.on, .go * { animation: none !important; }
 }
 
-/* Slot A: the landing leaves as soon as it is ready, so its demo "Replay" link is never offered */
-.slot-a-scroller .la-replay { display: none !important; }

@@ -1,21 +1,20 @@
 /*
   TV engine: the HBO-style opener, ported from design/tv-intro-reference.html.
 
-  States: warming → intro → idle → handover → slot → leave
+  States: warming → intro → idle → leave
           still (reduced motion), off.
   - warming:  0.3s of empty landing background
   - intro:    tube warm-up (done by the Landing component), static, the patch forms out of the snow, RGB split,
               glitch slices, glint. FULL lands at rest at ~3.8s from load, SHORT (header replay) in ~1.2s.
-  - idle:     the patch at rest with a faint shimmer, then a short hold
-  - handover: the patch pixelates into Slot A's 66×53 grid while the screen flashes to Slot A's white field
-  - slot:     Slot A is on screen; this engine only paints the faint static on the overlay canvas
-  - leave:    a burst of static over everything (the Landing then collapses the CRT and opens the hero)
+  - idle:     the patch at rest with a faint shimmer and the odd glitch; hovering it glitches harder (RGB split,
+              a little static). Waits for a click, tap or Enter.
+  - leave:    a short burst of static (the Landing then collapses the CRT to a line and opens the hero)
 
   Static, scanlines, vignette and the glow and colour fringes are the TV look and the only place where colours
   outside the palette (greys, tints, transparency) are allowed.
 */
 
-export type TvState = "boot" | "warming" | "intro" | "idle" | "handover" | "slot" | "leave" | "still" | "off";
+export type TvState = "boot" | "warming" | "intro" | "idle" | "leave" | "still" | "off";
 
 type Timeline = {
   ch: number; P: number[]; E: number[]; A: number[]; L: number[]; N: number[]; S: number[]; SL: number[]; SW: number[];
@@ -36,11 +35,8 @@ const squeeze = (tl: Timeline, off: number, k: number): Timeline => {
 const SHORT = squeeze(FULL, 450, 0.42);
 
 const BASE = "#1E1E1E";
-const FIELD = "#FFFFFF"; // Slot A's field
 const STATIC_TINT = "#ff4a3a"; // multiplies the grey snow inside the patch so it reads red (TV effect only)
 const NF = 6, PAD = 48;
-export const HANDOVER_MS = 460;
-export const GRID = { cols: 66, rows: 31 }; // the patch's footprint in Slot A's cell grid
 
 const clamp = (v: number, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
 const ramp = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
@@ -53,28 +49,25 @@ const mk = (w: number, h: number) => {
 
 export interface TvCallbacks {
   onChannel?: (on: boolean) => void; // show/hide the "CH 22" OSD
-  onIdle?: () => void; // the patch is at rest
-  onHandover?: () => void; // the handover has finished: show Slot A
+  onIdle?: () => void; // the patch is at rest: show "CLICK TO TUNE IN"
 }
 
 export class TvEngine {
   state: TvState = "boot";
   private ctx: CanvasRenderingContext2D;
-  private fx: CanvasRenderingContext2D;
   private TL: Timeline = FULL;
   private W = 0; private H = 0; private dpr = 1;
   lx = 0; ly = 0; lw = 0; lh = 0;
   private NW = 0; private NH = 0; private noise: HTMLCanvasElement[] = [];
   private tmp!: HTMLCanvasElement; private tx!: CanvasRenderingContext2D;
   private emblem!: HTMLCanvasElement; private sil!: HTMLCanvasElement; private chans: HTMLCanvasElement[] = [];
-  private patchS!: HTMLCanvasElement; private emblemS!: HTMLCanvasElement; private pix!: HTMLCanvasElement;
+  private patchS!: HTMLCanvasElement; private emblemS!: HTMLCanvasElement;
   private t0 = 0; private stateT = 0; private raf = 0; private nextGlitch = 0; private glitchUntil = 0;
-  private chOn = false; private idleAt = 0; private holdMs = 600; private lastFuzz = 0;
+  private chOn = false;
   hover = false;
 
-  constructor(private cv: HTMLCanvasElement, private fuzz: HTMLCanvasElement, private logo: HTMLImageElement, private cb: TvCallbacks = {}) {
+  constructor(private cv: HTMLCanvasElement, private logo: HTMLImageElement, private cb: TvCallbacks = {}) {
     this.ctx = cv.getContext("2d")!;
-    this.fx = fuzz.getContext("2d")!;
     this.layers();
     this.size();
   }
@@ -112,7 +105,6 @@ export class TvEngine {
     this.W = window.innerWidth; this.H = window.innerHeight;
     const { W, H, dpr } = this;
     this.cv.width = Math.round(W * dpr); this.cv.height = Math.round(H * dpr);
-    this.fuzz.width = Math.round(W * Math.min(dpr, 1)); this.fuzz.height = Math.round(H * Math.min(dpr, 1));
     const ar = logo.naturalWidth / logo.naturalHeight;
     this.lw = Math.min(W * 0.9, H * 0.74 * ar); this.lh = this.lw / ar; // patch: 90% of width or 74% of height
     this.lx = (W - this.lw) / 2; this.ly = (H - this.lh) / 2;
@@ -122,7 +114,6 @@ export class TvEngine {
     this.tmp = mk(this.lw / 2, this.lh / 2); this.tx = this.tmp.getContext("2d")!;
     this.patchS = mk(this.tmp.width, this.tmp.height); this.patchS.getContext("2d")!.drawImage(logo, 0, 0, this.tmp.width, this.tmp.height);
     this.emblemS = mk(this.tmp.width, this.tmp.height); this.emblemS.getContext("2d")!.drawImage(this.emblem, 0, 0, this.tmp.width, this.tmp.height);
-    this.pix = mk(GRID.cols, GRID.rows);
     if (this.state === "still") this.drawStill();
   }
 
@@ -222,28 +213,11 @@ export class TvEngine {
     ctx.globalCompositeOperation = "source-over";
   }
 
-  // Handover: the patch drops through coarser and coarser pixel grids until it sits on Slot A's 66-cell grid.
-  private pixelated(k: number) {
-    const { ctx, pix, logo, lx, ly, lw, lh } = this;
-    const steps = [1, 0.25, 0.12, 0.06];
-    const lev = Math.min(steps.length - 1, Math.floor(k * steps.length));
-    if (lev === 0) { this.drawLogo(1, 4 + Math.random() * 6, Math.random() < 0.4); return; }
-    const cols = Math.max(GRID.cols, Math.round((lw / 2) * steps[lev])), rows = Math.max(GRID.rows, Math.round((lh / 2) * steps[lev]));
-    const c = lev === steps.length - 1 ? GRID : { cols, rows };
-    if (pix.width !== c.cols || pix.height !== c.rows) { pix.width = c.cols; pix.height = c.rows; }
-    const px = pix.getContext("2d")!;
-    px.clearRect(0, 0, c.cols, c.rows); px.imageSmoothingEnabled = true; px.drawImage(logo, 0, 0, c.cols, c.rows);
-    ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(pix, lx, ly, lw, lh);
-  }
-
   /* ---------- the loop ---------- */
   private frame = (now: number) => {
     this.raf = requestAnimationFrame(this.frame);
     const st = this.state;
-    if (st === "slot" || st === "leave") { this.paintFuzz(now); if (st === "slot") return; }
-    let bg = BASE;
-    let A = 0, P = 0, E = 0, L = 0, N = 0, s = 0, sl = false, sw = -1, pixK = -1;
+    let A = 0, P = 0, E = 0, L = 0, N = 0, s = 0, sl = false, sw = -1, fl = 0;
     if (st === "intro") {
       const T = this.TL, t = now - this.t0;
       A = 1 - eo(ramp(t, T.A[0], T.A[1]));
@@ -255,54 +229,33 @@ export class TvEngine {
       sl = t > T.SL[0] && t < T.SL[1] && Math.random() < 0.22;
       if (t > T.SW[0] && t < T.SW[1]) sw = (t - T.SW[0]) / (T.SW[1] - T.SW[0]);
       if (t > T.ch && !this.chOn) { this.chOn = true; this.cb.onChannel?.(true); }
-      if (t > T.idle) { this.state = "idle"; this.idleAt = now; this.nextGlitch = now + 2400; this.cb.onIdle?.(); }
+      if (t > T.idle) { this.state = "idle"; this.nextGlitch = now + 2400; this.cb.onIdle?.(); }
     } else if (st === "idle") {
       A = this.hover ? 0.09 : 0.035; L = 1;
       N = this.hover ? 0.08 + Math.random() * 0.12 : 0.025;
       s = this.hover ? 2 + Math.random() * 5 : 0;
       sl = this.hover && Math.random() < 0.08;
+      fl = Math.random() * 0.05;
       if (now > this.nextGlitch) { this.glitchUntil = now + 120; this.nextGlitch = now + 2600 + Math.random() * 3400; }
       if (now < this.glitchUntil) { s = Math.max(s, 6); sl = Math.random() < 0.6; N = Math.max(N, 0.2); }
-      if (this.holdMs >= 0 && now - this.idleAt > this.holdMs) this.handover();
-    } else if (st === "handover") {
-      const t = now - this.stateT, k = clamp(t / HANDOVER_MS);
-      const w = ramp(t, HANDOVER_MS * 0.45, HANDOVER_MS * 0.8);
-      A = 0.18 * (1 - w); pixK = k;
-      bg = w >= 1 ? FIELD : BASE;
-      this.clearTube(bg);
-      if (w > 0 && w < 1) { this.ctx.globalAlpha = eo(w); this.ctx.fillStyle = FIELD; this.ctx.fillRect(0, 0, this.W, this.H); this.ctx.globalAlpha = 1; }
-      this.pixelated(pixK);
-      if (A > 0.004) this.drawNoise(A);
-      if (t >= HANDOVER_MS) { this.state = "slot"; this.clearTube(FIELD); this.cb.onHandover?.(); }
-      return;
     } else if (st === "leave") {
-      return;
+      const t = now - this.stateT;
+      A = eo(ramp(t, 0, 200)); L = 1;
+      N = 0.25 + 0.65 * ramp(t, 0, 220);
+      s = 6 + 22 * Math.random() * ramp(t, 0, 200);
+      sl = Math.random() < 0.55;
     } else {
       return;
     }
-    this.clearTube(bg);
+    this.clearTube();
     if (A > 0.004) this.drawNoise(A);
     if (P > 0.004) this.maskedNoise(this.patchS, P, "source-over", STATIC_TINT);
     if (E > 0.004) this.maskedNoise(this.emblemS, E, "lighter");
     if (L > 0.004) this.drawLogo(L, s, sl);
     if (N > 0.004 && L > 0.004) this.maskedNoise(this.patchS, N * L, "source-over");
     if (sw >= 0) this.sweep(sw);
-    if (st === "idle") { const fl = Math.random() * 0.05; this.ctx.fillStyle = "rgba(0,0,0," + fl.toFixed(3) + ")"; this.ctx.fillRect(0, 0, this.W, this.H); }
+    if (fl > 0) { this.ctx.fillStyle = "rgba(0,0,0," + fl.toFixed(3) + ")"; this.ctx.fillRect(0, 0, this.W, this.H); }
   };
-
-  // Faint static over Slot A (the TV overlay); during "leave" it swells into a burst.
-  private paintFuzz(now: number) {
-    const { fx, fuzz } = this;
-    const leaving = this.state === "leave";
-    if (!leaving && now - this.lastFuzz < 33) return; // ~30fps is plenty for a faint shimmer
-    this.lastFuzz = now;
-    const a = leaving ? 0.25 + 0.65 * ramp(now - this.stateT, 0, 220) : 0.045;
-    fx.setTransform(1, 0, 0, 1, 0, 0);
-    fx.clearRect(0, 0, fuzz.width, fuzz.height);
-    fx.globalAlpha = a; fx.imageSmoothingEnabled = false;
-    fx.drawImage(this.pick(), this.jit(), this.jit(), this.NW, this.NH, 0, 0, fuzz.width, fuzz.height);
-    fx.globalAlpha = 1;
-  }
 
   private loop() { if (!this.raf) this.raf = requestAnimationFrame(this.frame); }
 
@@ -312,7 +265,7 @@ export class TvEngine {
     this.clearTube();
     window.setTimeout(() => {
       if (this.state !== "warming") return;
-      this.TL = FULL; this.holdMs = 600; this.t0 = performance.now() + 260; this.state = "intro";
+      this.TL = FULL; this.t0 = performance.now() + 260; this.state = "intro";
       onScreenOn();
       this.loop();
     }, 300);
@@ -321,15 +274,7 @@ export class TvEngine {
   /** Header replay: straight into the static, no blank pause or warm-up. */
   short() {
     this.chOn = false; this.cb.onChannel?.(false);
-    this.TL = SHORT; this.holdMs = 250; this.t0 = performance.now(); this.state = "intro";
-    this.loop();
-  }
-
-  /** Jump straight to the handover (Enter during the opener). */
-  handover() {
-    if (this.state !== "intro" && this.state !== "idle") return;
-    if (this.chOn) { this.chOn = false; this.cb.onChannel?.(false); }
-    this.state = "handover"; this.stateT = performance.now();
+    this.TL = SHORT; this.t0 = performance.now(); this.state = "intro";
     this.loop();
   }
 

@@ -1,15 +1,16 @@
 "use client";
 
 /*
-  The landing layer on "/": TV opener → Slot A → hero.
-  Slot A lives in ./slot-a.tsx; swap it there without touching the hero, header or footer.
+  The landing layer on "/": TV opener → patch at rest → click, tap or Enter → hero.
+  Slot A is empty (removed at Dhruv's request), so the default transition runs: a short burst of static,
+  the screen collapses to a bright line (0.3s), the line opens into the white hero (0.4s), then the hero entrance.
+  A future Slot A plugs in here without touching the hero, header or footer.
 */
 
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import { useIntro } from "./intro-controller";
 import { TvEngine, staticSound } from "./tv-engine";
-import { SlotA, type SlotAHandle } from "./slot-a";
 
 export function Landing() {
   const pathname = usePathname();
@@ -18,42 +19,40 @@ export function Landing() {
   return <LandingLayer />;
 }
 
-type Phase = "tv" | "slot";
-
 function LandingLayer() {
   const { state, setState, finish, collapseRef, reduced } = useIntro();
   const rootRef = React.useRef<HTMLDivElement>(null);
   const screenRef = React.useRef<HTMLDivElement>(null);
   const cvRef = React.useRef<HTMLCanvasElement>(null);
-  const fuzzRef = React.useRef<HTMLCanvasElement>(null);
   const chRef = React.useRef<HTMLDivElement>(null);
+  const cueRef = React.useRef<HTMLSpanElement>(null);
+  const enterRef = React.useRef<HTMLButtonElement>(null);
   const flashRef = React.useRef<HTMLDivElement>(null);
   const imgRef = React.useRef<HTMLImageElement>(null);
-  const scrollerRef = React.useRef<HTMLDivElement>(null);
   const engineRef = React.useRef<TvEngine | null>(null);
-  const slotRef = React.useRef<SlotAHandle | null>(null);
   const leavingRef = React.useRef(false);
-  const [phase, setPhase] = React.useState<Phase>("tv");
-  const [still, setStill] = React.useState(false); // reduced motion: the patch, no animation
-  const [slotSize, setSlotSize] = React.useState(0);
   const [touch, setTouch] = React.useState(false);
   const startState = React.useRef(state);
 
   React.useEffect(() => setTouch(window.matchMedia("(hover: none)").matches), []);
 
+  const focusEnter = () => enterRef.current?.focus({ preventScroll: true });
+
   /* ---------- landing → hero ---------- */
   const leave = React.useCallback(() => {
     if (leavingRef.current) return;
-    leavingRef.current = true;
     const engine = engineRef.current, screen = screenRef.current, flash = flashRef.current, root = rootRef.current;
+    if (!engine) { leavingRef.current = true; finish(true); return; } // patch not ready yet: go straight in
+    leavingRef.current = true;
     setState("leaving");
-    if (reduced || !engine || !screen || !flash || !root) {
+    chRef.current?.classList.remove("on");
+    cueRef.current?.classList.remove("on");
+    if (reduced || !screen || !flash || !root) {
       if (root) root.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" }).onfinish = () => finish(true);
       else finish(true);
       return;
     }
     engine.leave();
-    chRef.current?.classList.remove("on");
     staticSound();
     window.setTimeout(() => {
       screen.animate(
@@ -85,39 +84,35 @@ function LandingLayer() {
 
   /* ---------- boot ---------- */
   React.useEffect(() => {
-    const img = imgRef.current, cv = cvRef.current, fuzz = fuzzRef.current, screen = screenRef.current, root = rootRef.current;
-    if (!img || !cv || !fuzz || !screen || !root) return;
+    const img = imgRef.current, cv = cvRef.current, screen = screenRef.current, root = rootRef.current;
+    if (!img || !cv || !screen || !root) return;
     let alive = true;
     let rt = 0;
     const onResize = () => {
       window.clearTimeout(rt);
       rt = window.setTimeout(() => engineRef.current?.size(), 120);
     };
+    const showCue = () => { cueRef.current?.classList.add("on"); focusEnter(); };
 
     const start = () => {
       if (!alive || engineRef.current) return;
       if (!img.naturalWidth) { finish(false); return; } // no patch: never trap the visitor on a blank screen
-      const engine = new TvEngine(cv, fuzz, img, {
+      const engine = new TvEngine(cv, img, {
         onChannel: (on) => chRef.current?.classList.toggle("on", on),
-        onHandover: () => {
-          setPhase("slot");
-          slotRef.current?.resetClock();
-          requestAnimationFrame(() => scrollerRef.current?.focus({ preventScroll: true }));
-        },
+        onIdle: showCue,
       });
       engineRef.current = engine;
-      setSlotSize(engine.lh / window.innerHeight);
       window.addEventListener("resize", onResize);
 
       if (reduced) {
-        screen.classList.remove("off");
-        engine.drawStill();
-        chRef.current?.classList.add("on");
-        setStill(true);
         if (startState.current === "returning") {
           document.documentElement.classList.add("intro-on", "pre");
           setState("landing");
         }
+        screen.classList.remove("off");
+        engine.drawStill();
+        chRef.current?.classList.add("on");
+        showCue();
         return;
       }
 
@@ -128,6 +123,7 @@ function LandingLayer() {
           setState("landing");
           screen.classList.remove("off");
           engine.short();
+          focusEnter();
         };
         if (collapseRef.current && site) {
           // The hero switches off like a CRT (0.3s), then the short opener plays.
@@ -166,6 +162,7 @@ function LandingLayer() {
           ],
           { duration: 600, easing: "cubic-bezier(.3,.7,.25,1)" },
         );
+        focusEnter();
       });
     };
 
@@ -182,29 +179,16 @@ function LandingLayer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* ---------- keyboard: Enter plays Slot A, Esc skips to the hero ---------- */
+  /* ---------- keyboard: Enter tunes in, Esc skips to the hero ---------- */
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (leavingRef.current) return;
-      if (e.key === "Escape") { e.preventDefault(); skip(); return; }
-      if (e.key !== "Enter") return;
-      const el = document.activeElement as HTMLElement | null;
-      if (el?.classList.contains("la-cta") || el?.classList.contains("la-skip")) return; // the button handles it
-      e.preventDefault();
-      if (still) { leave(); return; }
-      const engine = engineRef.current;
-      const playSlot = () => {
-        rootRef.current?.querySelector<HTMLButtonElement>(".la-skip")?.click();
-        window.setTimeout(() => rootRef.current?.querySelector<HTMLButtonElement>(".la-cta")?.focus({ preventScroll: true }), 1400);
-      };
-      if (phase === "tv") {
-        engine?.handover();
-        window.setTimeout(playSlot, 520);
-      } else playSlot();
+      if (e.key === "Escape") { e.preventDefault(); skip(); }
+      else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); leave(); }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [phase, still, leave, skip]);
+  }, [leave, skip]);
 
   const onPointerMove = (e: React.PointerEvent) => {
     const en = engineRef.current;
@@ -217,37 +201,20 @@ function LandingLayer() {
       ref={rootRef}
       className="landing"
       data-lenis-prevent
-      role="dialog"
-      aria-modal="true"
-      aria-label="SONDR Rules The World. Press Enter to tune in, Escape to skip."
       onPointerMove={onPointerMove}
       onPointerLeave={() => { if (engineRef.current) engineRef.current.hover = false; }}
     >
       <div ref={screenRef} className="tv-screen off">
         <canvas ref={cvRef} className="tv-canvas" aria-hidden="true" />
-        <div
-          ref={scrollerRef}
-          className="slot-a-scroller"
-          tabIndex={-1}
-          data-phase={phase}
-          aria-hidden={phase !== "slot"}
-        >
-          {slotSize > 0 && !reduced && (
-            <SlotA scroller={scrollerRef} size={slotSize} handleRef={slotRef} onComplete={() => window.setTimeout(leave, 350)} />
-          )}
-        </div>
         <div className="tv-roll" aria-hidden="true" />
         <div className="tv-scan" aria-hidden="true" />
         <div className="tv-vig" aria-hidden="true" />
-        <canvas ref={fuzzRef} className="tv-fuzz" aria-hidden="true" />
         <div ref={chRef} className="osd osd-ch" aria-hidden="true">
           CH 22
         </div>
-        {still && (
-          <button type="button" className="tv-enter" onClick={leave} autoFocus aria-label="Enter the site">
-            <span className="osd osd-cue on">{touch ? "TAP TO TUNE IN" : "CLICK TO TUNE IN"}</span>
-          </button>
-        )}
+        <button ref={enterRef} type="button" className="tv-enter" onClick={leave} aria-label="SONDR Rules The World. Enter the site (Escape skips)">
+          <span ref={cueRef} className="osd osd-cue">{touch ? "TAP TO TUNE IN" : "CLICK TO TUNE IN"}</span>
+        </button>
       </div>
       <div ref={flashRef} className="tv-flash" />
       {/* eslint-disable-next-line @next/next/no-img-element */}

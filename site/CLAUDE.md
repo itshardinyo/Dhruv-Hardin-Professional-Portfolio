@@ -21,10 +21,8 @@ app/                 layout.tsx (fonts, boot script, providers, header/footer), 
 components/intro/    everything about the landing (one controller)
   intro-controller.tsx   IntroProvider + useIntro(): state, replay(), finish()
   boot-script.ts         <head> script: sets html classes before first paint
-  landing.tsx            the TV layer: opener → Slot A → leave transition, keyboard
+  landing.tsx            the TV layer: opener → patch at rest → leave transition, keyboard (a future Slot A plugs in here)
   tv-engine.ts           canvas engine ported from design/tv-intro-reference.html (+ static sound)
-  slot-a.tsx             adapter that maps Slot A onto SONDR (swap Slot A here)
-  patch-frames.ts        66×53 1-bit frames of the patch turning, generated from public/logo-patch.webp
 components/site/     header.tsx, hero.tsx, site-footer.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx
 components/ui/       pasted components (Slots A–C and later prompts)
 lib/                 utils.ts (cn), lenis-store.ts
@@ -40,13 +38,12 @@ public/              logo-patch.webp, logo-mark-black.png, signature.png, resume
 | `--color-white` | #FFFFFF | page background |
 | `--color-landing` | #1E1E1E | landing background |
 Tailwind's default palette is switched off (`--color-*: initial`). No other colours, tints, gradients or transparency,
-except the TV look (static, scanlines, vignette, glow/fringes on TV text, the hero entrance's brief RGB glitch) and
-Slot A's on-screen design-tool layer (it is drawn on the TV screen). Values are colour-profile corrected: use as written.
+except the TV look (static, scanlines, vignette, glow/fringes on TV text, the hero entrance's brief RGB glitch). Values are colour-profile corrected: use as written.
 
 ## Font tokens
 - `--font-display` Bebas Neue (`--font-bebas`): headline/display, uppercase, roughened with `filter:url(#rough)` + a thin same-colour text stroke
 - `--font-hand` Mouse Memoirs (`--font-mouse`): nav chips, small text
-- `--font-osd` VT323 (`--font-vt323`): TV text ("CH 22", "CLICK TO TUNE IN") and Slot A's labels
+- `--font-osd` VT323 (`--font-vt323`): TV text ("CH 22", "CLICK TO TUNE IN")
 - `#rough` (components/site/rough-filter.tsx): turbulence + displacement, scale = 3.4% of the hero font size, 2.5–7.5px
 
 ## Layout unit
@@ -60,19 +57,19 @@ Slot A's on-screen design-tool layer (it is drawn on the TV screen). Values are 
 - Full load of `/` → landing. Back/forward to `/` → hero. `/?skip=1` → hero. Other routes → never.
 - html classes: `intro-on` (landing up, scroll locked), `pre` (hero/header hidden), `go` (hero entrance playing, removed after 1.8s).
 - `#site` is `inert` while the landing is up; the footer isn't rendered; Lenis is off.
-- Flow: 0.3s blank → tube warm-up → static → patch forms (HBO style) → glint → at rest ~3.8s → patch pixelates into
-  Slot A (white field, TV overlay kept: scanlines, vignette, faint static) → visitor scrolls Slot A → "Tune in" →
-  pixels reassemble, patch turns once ("Tuning in") → static burst, CRT collapses to a line, line opens into the
-  white hero → hero entrance (dots pop, lines wipe in with RGB glitch, signature wipes, header drops; ≤1.6s).
+- Flow: 0.3s blank → tube warm-up → static → patch forms (HBO style) → glint → at rest ~3.8s with
+  "CLICK TO TUNE IN" ("TAP TO TUNE IN" on touch) blinking; hovering the patch glitches it → click, tap or Enter →
+  static burst + quiet static sound (≤10% volume), CRT collapses to a line (0.3s), line opens into the white hero
+  (0.4s) → hero entrance (dots pop, lines wipe in with RGB glitch, signature wipes, header drops; ≤1.6s).
 - Header logo ("Replay the SONDR intro"): on `/` the hero collapses like a CRT (0.3s) then the short opener (~1.2s);
-  from another page it goes to `/` and plays the short opener. Then Slot A waits again.
-- Keyboard: Enter plays Slot A (scrolls it to the button and focuses it; Enter again presses it). Esc skips to the hero.
+  from another page it goes to `/` and plays the short opener. Then it waits for the click again.
+- Keyboard: Enter (or Space) tunes in. Esc skips to the hero.
 - Reduced motion: no static/CRT; the patch shows still with "CLICK TO TUNE IN"; click/Enter → 200ms crossfade. No parallax, no Lenis.
 
 ## Slots
 | slot | status | file | notes |
 |---|---|---|---|
-| A · logo animation | **filled** | components/ui/loading-animation.tsx (+ intro/slot-a.tsx) | scroll-driven pixel loader; trigger = scroll inside the landing's own scroll container; its "Scroll" cue replaces "CLICK TO TUNE IN" |
+| A · logo animation | **pending** (default in use) | components/intro/landing.tsx | Dhruv removed the scroll-driven pixel loader (Nov 2026): he wants TV opener → hero directly. The default (hover glitch, click → CRT line → hero) is live. It's still in git history (commit 72535c1) |
 | B · nav buttons | **filled** | components/ui/animated-dock.tsx | dock magnification: chips swell 1×→2× within ±150px, label 1→1.5, springs mass .1/stiffness 150/damping 12; mouse only (off on touch and phones) |
 | C · footer | **filled** | components/ui/halftone-wordmark-footer.tsx (+ site/site-footer.tsx) | halftone "HARDIN" in Bebas, red band, white dots that snap black when pushed; grain off |
 All changes inside pasted files are marked `SONDR:`.
@@ -95,3 +92,4 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
+- Step 1b: Slot A removed at Dhruv's request; the landing goes straight from the TV opener to the hero (default transition).
