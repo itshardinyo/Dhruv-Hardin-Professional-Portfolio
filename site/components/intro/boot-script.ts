@@ -1,0 +1,2 @@
+/* Runs in <head> before first paint, so a full load of "/" never flashes the hero (or the landing on ?skip=1). */
+export const BOOT_SCRIPT = `(function(){try{var d=document.documentElement;if(location.pathname!=='/')return;var n=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];if(/(^|[?&])skip=1(&|$)/.test(location.search)||(n&&n.type==='back_forward'))d.classList.add('intro-skip');else d.classList.add('intro-on','pre')}catch(e){}})()`;

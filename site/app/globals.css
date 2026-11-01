@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Tokens. These five colours are the only colours on the site (see CLAUDE.md).
+   The TV look (static, scanlines, vignette, glow and colour fringes on TV text)
+   is the only place greys, tints or transparency are allowed.
+   ========================================================================== */
+@theme {
+  --color-*: initial;
+  --color-red: #F80A02;
+  --color-cream: #FFF3D8;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-landing: #1E1E1E;
+
+  --font-*: initial;
+  --font-display: var(--font-bebas), "Bebas Neue", Impact, sans-serif;
+  --font-hand: var(--font-mouse), "Mouse Memoirs", "Arial Narrow", sans-serif;
+  --font-osd: var(--font-vt323), "VT323", ui-monospace, monospace;
+}
+
+/* shadcn/ui aliases, so pasted components resolve to the palette */
+:root {
+  --background: var(--color-white);
+  --foreground: var(--color-black);
+  --primary: var(--color-red);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-cream);
+  --secondary-foreground: var(--color-black);
+  --accent: var(--color-red);
+  --accent-foreground: var(--color-white);
+  --muted: var(--color-cream);
+  --muted-foreground: var(--color-black);
+  --border: var(--color-black);
+  --input: var(--color-black);
+  --ring: var(--color-red);
+  --radius: 0px;
+
+  /* one pixel of the 1512×982 mockup frame */
+  --u: min(calc(100vw / 1512), calc(100vh / 982));
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+html { background: var(--color-white); }
+body {
+  margin: 0;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: var(--font-hand);
+  -webkit-font-smoothing: antialiased;
+}
+#site { position: relative; background: var(--color-white); }
+#site.front { z-index: 101; }
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+html.intro-on, html.intro-on body { overflow: hidden; }
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+
+/* ==========================================================================
+   Landing: the TV (components/intro)
+   ========================================================================== */
+.intro-skip .landing { display: none; }
+.landing {
+  position: fixed; inset: 0; z-index: 100; overflow: hidden;
+  background: var(--color-landing);
+  user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.landing.behind { z-index: 0; }
+.tv-screen { position: absolute; inset: 0; transform-origin: 50% 50%; }
+.tv-screen.off { opacity: 0; }
+.tv-canvas, .tv-fuzz { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.tv-fuzz, .tv-roll, .tv-scan, .tv-vig { pointer-events: none; z-index: 2; }
+.slot-a-scroller {
+  position: absolute; inset: 0; z-index: 1; overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: none; visibility: hidden; outline: none;
+}
+.slot-a-scroller::-webkit-scrollbar { display: none; }
+.slot-a-scroller[data-phase="slot"] { visibility: visible; }
+.tv-roll {
+  position: absolute; left: 0; right: 0; top: 0; height: 30vh;
+  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.05) 50%, rgba(255,255,255,0));
+  transform: translateY(-35vh); animation: tv-roll 6.5s linear infinite;
+}
+@keyframes tv-roll { to { transform: translateY(105vh); } }
+.tv-scan { position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(0,0,0,.34) 0 1px, rgba(0,0,0,0) 1px 3px); }
+.tv-vig { position: absolute; inset: 0; background: radial-gradient(125% 100% at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,.6) 100%); }
+.osd {
+  position: absolute; z-index: 5; font-family: var(--font-osd); color: var(--color-white);
+  letter-spacing: .06em; line-height: 1; white-space: nowrap; pointer-events: none;
+  text-shadow: 0 0 8px rgba(255,255,255,.45), 2px 0 rgba(255,40,80,.45), -2px 0 rgba(40,200,255,.45);
+  opacity: 0; transition: opacity .2s steps(2, end);
+}
+.osd.on { opacity: 1; }
+.osd-ch { top: clamp(14px, 3.2vh, 34px); right: clamp(18px, 3.4vw, 48px); font-size: clamp(28px, 4vw, 60px); }
+.tv-enter {
+  position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; margin: 0; padding: 0; border: 0;
+  background: none; color: inherit; font: inherit; cursor: pointer; appearance: none;
+}
+.tv-enter:focus { outline: none; }
+.osd-cue { left: 50%; bottom: clamp(16px, 4.6vh, 46px); transform: translateX(-50%); font-size: clamp(20px, 2.3vw, 32px); padding: .15em .5em; }
+.tv-enter:focus-visible .osd-cue { outline: 2px solid var(--color-white); outline-offset: 4px; }
+.tv-flash { position: absolute; inset: 0; z-index: 6; background: var(--color-white); transform: scaleY(0); pointer-events: none; }
+
+/* ==========================================================================
+   Header (every page except during the landing)
+   ========================================================================== */
+.site-header {
+  left: 0; right: 0; top: 0; z-index: 20; pointer-events: none;
+  height: calc(max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 16px);
+}
+.site-header.is-home { position: absolute; }
+.site-header.is-sticky { position: sticky; background: var(--color-white); }
+.site-header > * { pointer-events: auto; }
+.mark {
+  position: absolute; left: 16px; top: max(12px, calc(24 * var(--u))); width: max(72px, calc(270 * var(--u)));
+  margin: 0; padding: 0; border: 0; background: none; cursor: pointer; line-height: 0;
+}
+.mark img { display: block; width: 100%; height: auto; }
+.mark:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+.nav {
+  position: absolute; top: max(12px, calc(28 * var(--u))); right: max(16px, calc(72 * var(--u)));
+  font-family: var(--font-hand); font-size: max(16px, calc(46 * var(--u)));
+}
+.dock { gap: calc(34 * var(--u)); }
+.dock-chip { box-sizing: border-box; min-width: 3.78em; height: 1.37em; background: var(--color-cream); }
+.dock-chip.is-active { background: var(--color-red); }
+.dock-link { color: var(--color-black); text-decoration: none; line-height: 1; white-space: nowrap; padding: 0 .35em .04em; }
+.dock-chip.is-active .dock-link { color: var(--color-white); }
+.dock-link:focus-visible { outline: none; }
+.dock-chip:has(.dock-link:focus-visible) { outline: 3px solid var(--color-red); outline-offset: 3px; }
+
+/* ==========================================================================
+   Hero (hero-mockup.png), measured in --u
+   ========================================================================== */
+.hero { position: relative; height: 100vh; min-height: 400px; overflow: hidden; background: var(--color-white); }
+.hero-body {
+  position: absolute; left: max(16px, calc(244 / 1512 * 100vw)); top: calc(51.73% - 1.3158em); height: 2.6316em;
+  font-size: calc(190 * var(--u));
+}
+.dots { position: absolute; left: -.0053em; top: 0; display: flex; gap: .134em; }
+.dots i { display: block; width: .2053em; height: .2053em; border-radius: 50%; background: var(--color-red); filter: url(#rough); }
+.headline {
+  margin: 0; font: 400 1em/1 var(--font-display); letter-spacing: .0157em; word-spacing: .1437em;
+  text-transform: uppercase; color: var(--color-red);
+}
+.headline:focus { outline: none; }
+.line { position: absolute; left: 0; white-space: nowrap; }
+.l1 { top: calc(.6474em - .0969em); }
+.l2 { top: calc(1.9316em - .0969em); }
+.txt { display: inline-block; filter: url(#rough); -webkit-text-stroke: .016em currentColor; }
+.sig {
+  position: absolute; right: max(16px, calc(27 * var(--u))); bottom: max(16px, calc(57 * var(--u)));
+  width: max(140px, calc(314 * var(--u)));
+}
+.sig img { display: block; width: 100%; height: auto; }
+
+/* hero entrance: dots pop, lines wipe in with an RGB glitch, signature wipes in, header drops in (1.6s max) */
+.pre .site-header .mark, .pre .site-header .dock-chip, .pre .dots i, .pre .txt, .pre .sig { visibility: hidden; }
+.go .dots i { animation: pop .4s cubic-bezier(.3,1.7,.5,1) backwards; }
+.go .dots i:nth-child(1) { animation-delay: .05s; }
+.go .dots i:nth-child(2) { animation-delay: .14s; }
+.go .dots i:nth-child(3) { animation-delay: .23s; }
+.go .l1 .txt { animation: wipe .6s cubic-bezier(.75,0,.2,1) .32s backwards, rgb .7s steps(4,end) .32s backwards; }
+.go .l2 .txt { animation: wipe .6s cubic-bezier(.75,0,.2,1) .55s backwards, rgb .7s steps(4,end) .55s backwards; }
+.go .sig img { animation: sign .6s cubic-bezier(.6,0,.3,1) .9s backwards; }
+.go .site-header .mark { animation: drop .45s cubic-bezier(.25,1.4,.5,1) 1s backwards; }
+.go .site-header .dock-chip { animation: drop .45s cubic-bezier(.25,1.4,.5,1) backwards; }
+.go .site-header .dock-chip:nth-child(1) { animation-delay: 1.06s; }
+.go .site-header .dock-chip:nth-child(2) { animation-delay: 1.12s; }
+.go .site-header .dock-chip:nth-child(3) { animation-delay: 1.18s; }
+@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes wipe { from { clip-path: inset(-20% 100% -20% -3%); } to { clip-path: inset(-20% -4% -20% -3%); } }
+@keyframes rgb {
+  0% { text-shadow: -.04em 0 rgba(0,170,255,.85), .04em 0 rgba(255,0,90,.85); }
+  50% { text-shadow: .02em 0 rgba(0,170,255,.6), -.02em 0 rgba(255,0,90,.6); }
+  100% { text-shadow: none; }
+}
+@keyframes sign { from { clip-path: inset(-10% 100% -10% -2%); } to { clip-path: inset(-10% -2% -10% -2%); } }
+@keyframes drop { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
+
+/* ==========================================================================
+   Placeholder pages and footer
+   ========================================================================== */
+.placeholder {
+  min-height: calc(100vh - (max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 16px));
+  box-sizing: border-box; padding: calc(80 * var(--u)) 16px calc(120 * var(--u)) max(16px, calc(244 / 1512 * 100vw));
+}
+.display-rough {
+  margin: 0; font: 400 max(64px, calc(190 * var(--u)))/1 var(--font-display); letter-spacing: .0157em; word-spacing: .1437em;
+  text-transform: uppercase; color: var(--color-red); white-space: nowrap;
+  filter: url(#rough); -webkit-text-stroke: .016em currentColor;
+}
+.coming { margin: .6em 0 0; font-family: var(--font-hand); font-size: max(24px, calc(46 * var(--u))); color: var(--color-black); }
+.footer-slot { background: var(--color-red); }
+.footer-slot .hwf-root { --hwf-size: 22px; --hwf-track: .06em; }
+
+/* ==========================================================================
+   Phones (under 640px)
+   ========================================================================== */
+@media (max-width: 639px) {
+  .site-header { height: 79px; }
+  .mark { width: 72px; top: 16px; }
+  .nav { top: 21px; right: 16px; font-size: 18px; }
+  .dock { gap: 6px; }
+  .dock-chip { min-width: 0; height: 36px; }
+  .dock-link { padding: 0 .55em .04em; }
+  .hero-body { left: 16px; top: calc(50% - 1.3158em); font-size: min(calc((100vw - 32px) / 5.53), 19.3vh); }
+  .sig { width: 160px; right: 16px; bottom: 24px; }
+  .placeholder { min-height: calc(100vh - 79px); padding: 32px 16px 64px; }
+  .display-rough { font-size: min(calc((100vw - 32px) / 4.2), 96px); white-space: normal; }
+  .footer-slot .hwf-root { --hwf-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-roll, .go * { animation: none !important; }
+}
