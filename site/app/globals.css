@@ -245,10 +245,10 @@ html.lenis, html.lenis body { height: auto; }
   text-transform: uppercase; color: var(--color-black);
 }
 .cat-name { filter: url(#rough); -webkit-text-stroke: .016em currentColor; }
-.cat-dots { display: inline-flex; gap: .134em; font-size: .5em; margin-right: .1em; }
-.cat-dots i { display: block; width: .2053em; height: .2053em; border-radius: 50%; background: var(--color-red); filter: url(#rough); }
-/* medium: as tall as the PROJECTS title's line (228px at 1512), so never bigger than it */
-.cat-logo { display: block; height: max(96px, calc(220 * var(--u))); width: auto; }
+/* the Hustler Jerseys logo leads /projects: about half the screen tall on arrival, the gallery peeking below */
+.cat-logo { display: block; height: clamp(180px, 48vh, 500px); width: auto; max-width: calc(100vw - 32px); object-fit: contain; }
+.gallery-page--logo-led { padding-top: max(8px, calc(24 * var(--u))); }
+.gallery-page--logo-led > .cat:first-of-type { margin-top: 0; }
 .cat-hint { margin: .6em 0 0; font-family: var(--font-hand); font-size: max(18px, calc(26 * var(--u))); color: var(--color-black); }
 .cat-empty { margin: 1em 16px 0 max(16px, calc(244 / 1512 * 100vw)); padding: 1em; background: var(--color-cream); font-family: var(--font-hand); font-size: 22px; }
 .cg-card:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
@@ -285,6 +285,7 @@ html.lenis, html.lenis body { height: auto; }
 
 @media (max-width: 639px) {
   .gallery-page { padding: 24px 0 64px; }
+  .cat-logo { height: auto; width: min(86vw, 340px); }
   .gv-foot { flex-direction: column; align-items: stretch; }
   .gv-actions { justify-content: space-between; }
   .gv-actions .gv-chip-red { flex: 1; }

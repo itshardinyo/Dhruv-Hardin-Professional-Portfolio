@@ -11,8 +11,9 @@ export const metadata: Metadata = {
 /** Projects: one orbital gallery per category. Add a category in lib/galleries.ts. */
 export default function Page() {
   return (
-    <div className="gallery-page">
-      <h1 className="display-rough">Projects</h1>
+    <div className="gallery-page gallery-page--logo-led">
+      {/* the Hustler Jerseys logo leads the page; the title stays for screen readers and search */}
+      <h1 className="sr-only">Projects</h1>
       {PROJECTS.map((c) => (
         <CategoryGallery key={c.id} category={c} hint={false} />
       ))}

@@ -8,7 +8,7 @@ import type { GalleryCategory } from "@/lib/galleries";
 
 const MIN_RING = 6; // a ring with fewer cards looks empty, so short categories repeat round it
 
-/** One category: heading with the hero's three dots, the orbital gallery, and its full-image viewer. */
+/** One category: heading (text or logo), the gallery, and its full-image viewer. */
 export function CategoryGallery({ category, hint = true }: { category: GalleryCategory; hint?: boolean }) {
   const [open, setOpen] = React.useState<number | null>(null);
   const opener = React.useRef<HTMLButtonElement | null>(null);
@@ -38,7 +38,6 @@ export function CategoryGallery({ category, hint = true }: { category: GalleryCa
     <section id={category.id} className="cat" aria-labelledby={`${category.id}-title`}>
       <div className="cat-head">
         <h2 id={`${category.id}-title`} className="cat-title">
-          <span className="cat-dots" aria-hidden="true"><i /><i /><i /></span>
           {category.logo ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img className="cat-logo" src={category.logo.src} width={category.logo.width} height={category.logo.height} alt={category.title} />
