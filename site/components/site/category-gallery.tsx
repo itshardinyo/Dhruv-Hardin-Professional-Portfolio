@@ -4,6 +4,7 @@ import * as React from "react";
 import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gallery";
 import { GalleryViewer } from "./gallery-viewer";
 import { ContactSheet } from "./contact-sheet";
+import { ArcLogo } from "./arc-logo";
 import type { GalleryCategory } from "@/lib/galleries";
 
 const MIN_RING = 6; // a ring with fewer cards looks empty, so short categories repeat round it
@@ -39,8 +40,7 @@ export function CategoryGallery({ category, hint = true }: { category: GalleryCa
       <div className="cat-head">
         <h2 id={`${category.id}-title`} className="cat-title">
           {category.logo ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className="cat-logo" src={category.logo.src} width={category.logo.width} height={category.logo.height} alt={category.title} />
+            <ArcLogo src={category.logo.src} width={category.logo.width} height={category.logo.height} text={category.title} />
           ) : (
             <span className="cat-name">{category.title}</span>
           )}

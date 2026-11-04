@@ -244,9 +244,12 @@ html.lenis, html.lenis body { height: auto; }
   font: 400 max(44px, calc(110 * var(--u)))/1 var(--font-display); letter-spacing: .0157em; word-spacing: .1437em;
   text-transform: uppercase; color: var(--color-black);
 }
-.cat-name { filter: url(#rough); -webkit-text-stroke: .016em currentColor; }
+.cat-name { filter: url(#rough); -webkit-text-stroke: .016em currentColor; text-wrap: balance; max-width: 16em; }
 /* the Hustler Jerseys logo leads /projects: about half the screen tall on arrival, the gallery peeking below */
 .cat-logo { display: block; height: clamp(180px, 48vh, 500px); width: auto; max-width: calc(100vw - 32px); object-fit: contain; }
+/* logo + curved name: same logo size as before, plus the lettering band above it */
+.cat-logo--arc { height: clamp(215px, 57vh, 590px); overflow: visible; }
+.cat-arc-text { font-family: var(--font-display); fill: var(--color-red); stroke: var(--color-red); stroke-width: 2; letter-spacing: .04em; }
 .gallery-page--logo-led { padding-top: max(8px, calc(24 * var(--u))); }
 .gallery-page--logo-led > .cat:first-of-type { margin-top: 0; }
 .cat-hint { margin: .6em 0 0; font-family: var(--font-hand); font-size: max(18px, calc(26 * var(--u))); color: var(--color-black); }
@@ -286,6 +289,7 @@ html.lenis, html.lenis body { height: auto; }
 @media (max-width: 639px) {
   .gallery-page { padding: 24px 0 64px; }
   .cat-logo { height: auto; width: min(86vw, 340px); }
+  .cat-logo--arc { width: min(92vw, 380px); }
   .gv-foot { flex-direction: column; align-items: stretch; }
   .gv-actions { justify-content: space-between; }
   .gv-actions .gv-chip-red { flex: 1; }

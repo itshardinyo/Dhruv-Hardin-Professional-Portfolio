@@ -28,7 +28,7 @@ export interface GalleryCategory {
   kind: string;
   /** "orbit" (default): the 21st.dev orbital gallery · "sheet": a numbered contact-sheet grid (Comics) */
   layout?: "orbit" | "sheet";
-  /** optional logo shown in place of the heading text (title stays as the accessible name) */
+  /** optional logo shown in place of the heading text, with the title curved in red over its top edge */
   logo?: GalleryImage;
   items: GalleryEntry[];
 }
@@ -85,7 +85,7 @@ export const PROJECTS: GalleryCategory[] = [
 export const ARTSY: GalleryCategory[] = [
   {
     id: "comics",
-    title: "Comics",
+    title: "SONDR COMICS Presents: Da Villain Da Begin’nin",
     kind: "Comic",
     layout: "sheet",
     items: [
