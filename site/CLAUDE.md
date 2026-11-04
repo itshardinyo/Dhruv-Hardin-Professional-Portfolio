@@ -28,7 +28,7 @@ components/site/     header.tsx, hero.tsx, site-footer.tsx, smooth-scroll.tsx, r
 components/ui/       pasted components (Slots A–C and later prompts)
 lib/                 utils.ts (cn), lenis-store.ts, galleries.ts (all gallery content: categories, titles, images)
 public/              artsy/comics/, projects/hustler-jerseys/, projects/school/ (optimised WebP; School also has the PDFs),
-                     logo-patch.webp, logo-mark-black.png, signature.png, resume.pdf (PLACEHOLDER)
+                     logo-patch.webp, logo-mark-black.png, signature.png, resume.pdf (Dhruv_Hardin_Resume.pdf from DESIGN/)
 ```
 
 ## Colour tokens (the only colours; defined once in `app/globals.css` as CSS variables + Tailwind theme)
@@ -103,7 +103,7 @@ All changes inside pasted files are marked `SONDR:`.
 If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Details
-- LinkedIn https://www.linkedin.com/in/dhruv-hardin-b01390176/ · Email dhruv.d.hardin@gmail.com · Resume `/resume.pdf` (**placeholder: replace public/resume.pdf**)
+- LinkedIn https://www.linkedin.com/in/dhruv-hardin-b01390176/ · Email dhruv.d.hardin@gmail.com · Resume `/resume.pdf` (Dhruv’s real resume, from DESIGN/Dhruv_Hardin_Resume.pdf)
 - Footer: Email copies the address and shows "Copied" (plus a mailto link), LinkedIn and Resume open new tabs, Back to top uses Lenis.
 - Hero scroll on `/`: line 1 rises 8vh, line 2 14vh, dots + signature fade, over the first screen of scrolling (or the whole distance to the footer when that's shorter, which it is: the footer is 560px).
 - Set `NEXT_PUBLIC_SITE_URL` when deploying so Open Graph image URLs are absolute.
@@ -111,6 +111,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
+- Step 2g: /about shows "Dhruv Hardin is really good looking human being" under the title; real resume at public/resume.pdf (copy in design/resume.pdf).
 - Step 2f: "HUSTLER JERSEYS" set in red along the top of the logo's oval (components/site/arc-logo.tsx, SVG textPath, Bebas + #rough). Comics category renamed "SONDR COMICS Presents: Da Villain Da Begin’nin" (shown uppercase, balanced over two lines).
 - Step 2e: /projects has no visible "PROJECTS" title (sr-only h1); the Hustler Jerseys logo leads the page (clamp(180px, 48vh, 500px) tall; phones min(86vw, 340px) wide). The red three-dot marks are gone from all category headings; only the hero keeps its dots.
 - Step 2d: page titles (PROJECTS, ARTSY) and category headings (Hustler logo, CASE STUDIES, COMICS) centred; Hustler logo enlarged to the PROJECTS line height (220u, min 96px).

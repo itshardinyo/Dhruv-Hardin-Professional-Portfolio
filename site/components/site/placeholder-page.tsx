@@ -1,9 +1,9 @@
-/** Placeholder for Artsy, Projects and About me until their prompts arrive. */
-export function PlaceholderPage({ title }: { title: string }) {
+/** Simple page: big title and one line of text (About me for now). */
+export function PlaceholderPage({ title, text = "Coming up next." }: { title: string; text?: string }) {
   return (
     <section className="placeholder">
       <h1 className="display-rough">{title}</h1>
-      <p className="coming">Coming up next.</p>
+      <p className="coming">{text}</p>
     </section>
   );
 }
