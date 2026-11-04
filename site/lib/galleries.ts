@@ -28,8 +28,10 @@ export interface GalleryCategory {
   kind: string;
   /** "orbit" (default): the 21st.dev orbital gallery · "sheet": a numbered contact-sheet grid (Comics) */
   layout?: "orbit" | "sheet";
-  /** optional logo shown in place of the heading text, with the title curved in red over its top edge */
+  /** optional logo shown in place of the heading text, with the title set round it */
   logo?: GalleryImage;
+  /** small marks either side of the logo, e.g. "•EST•" and "•2024•" */
+  logoSides?: [string, string];
   items: GalleryEntry[];
 }
 
@@ -41,6 +43,7 @@ export const PROJECTS: GalleryCategory[] = [
     title: "Hustler Jerseys",
     kind: "Hustler jersey",
     logo: img("/projects/hustler-jerseys/hustler-logo.webp", 900, 736),
+    logoSides: ["•EST•", "•2024•"],
     items: [
       { id: "jersey-01", title: "Hustler Jerseys · 01", image: img("/projects/hustler-jerseys/illustration-sans-titre-1.webp", 1800, 2400), pos: "50% 30%" },
       { id: "jersey-02", title: "Hustler Jerseys · 02", image: img("/projects/hustler-jerseys/img-0024.webp", 938, 2031), pos: "50% 30%" },

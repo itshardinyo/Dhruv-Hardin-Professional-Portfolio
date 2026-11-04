@@ -1,6 +1,7 @@
 /**
  * A round logo ringed by its name in red (Hustler Jerseys): the first word fills the top of the oval,
- * the rest fills the bottom, both reading upright, left to right. One SVG: logo image + two curved text paths.
+ * the rest fills the bottom, both reading upright, left to right; optional marks either side ("•EST•", "•2024•").
+ * One SVG: logo image + two curved text paths + two side labels.
  */
 
 /** length of half an ellipse (numeric, good to well under 1%) */
@@ -14,7 +15,9 @@ function halfEllipse(rx: number, ry: number) {
   return len;
 }
 
-export function ArcLogo({ src, width, height, text }: { src: string; width: number; height: number; text: string }) {
+export function ArcLogo({
+  src, width, height, text, left, right,
+}: { src: string; width: number; height: number; text: string; left?: string; right?: string }) {
   const words = text.toUpperCase().trim().split(/\s+/);
   const topWord = words[0], bottomWord = words.slice(1).join(" ") || "";
   const cx = width / 2, cy = height / 2;
@@ -26,12 +29,16 @@ export function ArcLogo({ src, width, height, text }: { src: string; width: numb
   // bottom: letters sit between the rim and the baseline, so the baseline is one cap height further out
   const bx = cx + gap + cap, by = cy + gap + cap;
   const pad = Math.ceil(gap + fs);
+  // side marks, level with the middle of the logo (like "•EST•" / "•2022•" on the SONDR mark)
+  const sfs = fs * 0.62;
+  const sideW = Math.max(left?.length ?? 0, right?.length ?? 0) * sfs * 0.46;
+  const padX = Math.ceil(Math.max(pad, gap * 1.4 + sideW));
   const id = `arc-${text.replace(/\W+/g, "-").toLowerCase()}`;
   const fill = 0.5; // share of each half-oval the word spreads across: centred over the top / under the bottom, letters close together
   return (
     <svg
       className="cat-logo cat-logo--arc"
-      viewBox={`${-pad} ${-pad} ${width + pad * 2} ${height + pad * 2}`}
+      viewBox={`${-padX} ${-pad} ${width + padX * 2} ${height + pad * 2}`}
       role="img"
       aria-label={text}
     >
@@ -47,6 +54,16 @@ export function ArcLogo({ src, width, height, text }: { src: string; width: numb
           {topWord}
         </textPath>
       </text>
+      {left && (
+        <text className="cat-arc-text" fontSize={sfs} filter="url(#rough)" x={-gap * 1.4} y={cy} textAnchor="end" dominantBaseline="central">
+          {left}
+        </text>
+      )}
+      {right && (
+        <text className="cat-arc-text" fontSize={sfs} filter="url(#rough)" x={width + gap * 1.4} y={cy} textAnchor="start" dominantBaseline="central">
+          {right}
+        </text>
+      )}
       {bottomWord && (
         <text className="cat-arc-text" fontSize={fs} filter="url(#rough)">
           <textPath href={`#${id}-bottom`} startOffset="50%" textAnchor="middle" textLength={halfEllipse(bx, by) * fill} lengthAdjust="spacing">

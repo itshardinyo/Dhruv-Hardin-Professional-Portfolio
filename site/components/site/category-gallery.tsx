@@ -40,7 +40,7 @@ export function CategoryGallery({ category, hint = true }: { category: GalleryCa
       <div className="cat-head">
         <h2 id={`${category.id}-title`} className="cat-title">
           {category.logo ? (
-            <ArcLogo src={category.logo.src} width={category.logo.width} height={category.logo.height} text={category.title} />
+            <ArcLogo src={category.logo.src} width={category.logo.width} height={category.logo.height} text={category.title} left={category.logoSides?.[0]} right={category.logoSides?.[1]} />
           ) : (
             <span className="cat-name">{category.title}</span>
           )}
