@@ -111,6 +111,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
+- Step 2j: About me shows the signature bottom-right, same size and place as on the hero (`signature` prop on PlaceholderPage, reuses `.sig`).
 - Step 2i: "•EST•" left and "•2024•" right of the Hustler logo, level with its centre, same black lettering (`logoSides` in lib/galleries.ts).
 - Step 2h: Hustler logo lettering is black and heavier (same-colour outline), letters set closer (each word spans 50% of its half-oval). Comics reordered to match DESIGN/Comics (1 Da Villain … 6 Eskapades, 7 Mr Sondr Ponders, 8 Sondr Sunset). Artsy hint hidden. About: "Dhruv Hardin is a very good looking human being."
 - Step 2g: /about shows "Dhruv Hardin is really good looking human being" under the title; real resume at public/resume.pdf (copy in design/resume.pdf).
