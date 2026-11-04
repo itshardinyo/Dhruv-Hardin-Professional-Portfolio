@@ -111,6 +111,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
+- Step 2d: page titles (PROJECTS, ARTSY) and category headings (Hustler logo, CASE STUDIES, COMICS) centred; Hustler logo enlarged to the PROJECTS line height (220u, min 96px).
 - Step 2b: Comics shown as a contact-sheet grid instead of the orbital gallery (layout "sheet").
 - Step 2: /projects (Hustler Jerseys, School → renamed Case Studies) and /artsy (Comics) with the orbital gallery and a full-image viewer.
 - Step 1b: Slot A removed at Dhruv's request; the landing goes straight from the TV opener to the hero (default transition).

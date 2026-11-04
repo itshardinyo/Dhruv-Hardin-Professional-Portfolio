@@ -236,18 +236,19 @@ html.lenis, html.lenis body { height: auto; }
    Gallery pages (/projects, /artsy): categories with an orbital gallery each
    ========================================================================== */
 .gallery-page { box-sizing: border-box; padding: calc(80 * var(--u)) 0 calc(160 * var(--u)); overflow-x: clip; }
-.gallery-page > .display-rough { padding: 0 16px 0 max(16px, calc(244 / 1512 * 100vw)); }
+.gallery-page > .display-rough { padding: 0 16px; text-align: center; }
 .cat { margin-top: max(72px, calc(150 * var(--u))); scroll-margin-top: calc(max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 24px); }
-.cat-head { padding: 0 16px 0 max(16px, calc(244 / 1512 * 100vw)); }
+.cat-head { padding: 0 16px; text-align: center; }
 .cat-title {
-  position: relative; margin: 0; display: flex; align-items: center; gap: .3em;
+  position: relative; margin: 0; display: flex; align-items: center; justify-content: center; gap: .3em;
   font: 400 max(44px, calc(110 * var(--u)))/1 var(--font-display); letter-spacing: .0157em; word-spacing: .1437em;
   text-transform: uppercase; color: var(--color-black);
 }
 .cat-name { filter: url(#rough); -webkit-text-stroke: .016em currentColor; }
 .cat-dots { display: inline-flex; gap: .134em; font-size: .5em; margin-right: .1em; }
 .cat-dots i { display: block; width: .2053em; height: .2053em; border-radius: 50%; background: var(--color-red); filter: url(#rough); }
-.cat-logo { display: block; height: 1.6em; width: auto; }
+/* medium: as tall as the PROJECTS title's line (228px at 1512), so never bigger than it */
+.cat-logo { display: block; height: max(96px, calc(220 * var(--u))); width: auto; }
 .cat-hint { margin: .6em 0 0; font-family: var(--font-hand); font-size: max(18px, calc(26 * var(--u))); color: var(--color-black); }
 .cat-empty { margin: 1em 16px 0 max(16px, calc(244 / 1512 * 100vw)); padding: 1em; background: var(--color-cream); font-family: var(--font-hand); font-size: 22px; }
 .cg-card:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
