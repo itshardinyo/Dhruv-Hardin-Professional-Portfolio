@@ -9,7 +9,7 @@ import type { GalleryCategory } from "@/lib/galleries";
 const MIN_RING = 6; // a ring with fewer cards looks empty, so short categories repeat round it
 
 /** One category: heading with the hero's three dots, the orbital gallery, and its full-image viewer. */
-export function CategoryGallery({ category }: { category: GalleryCategory }) {
+export function CategoryGallery({ category, hint = true }: { category: GalleryCategory; hint?: boolean }) {
   const [open, setOpen] = React.useState<number | null>(null);
   const opener = React.useRef<HTMLButtonElement | null>(null);
   const [touch, setTouch] = React.useState(false);
@@ -39,13 +39,18 @@ export function CategoryGallery({ category }: { category: GalleryCategory }) {
       <div className="cat-head">
         <h2 id={`${category.id}-title`} className="cat-title">
           <span className="cat-dots" aria-hidden="true"><i /><i /><i /></span>
-          <span className="cat-name">{category.title}</span>
+          {category.logo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="cat-logo" src={category.logo.src} width={category.logo.width} height={category.logo.height} alt={category.title} />
+          ) : (
+            <span className="cat-name">{category.title}</span>
+          )}
         </h2>
-        <p className="cat-hint">
+        {hint && <p className="cat-hint">
           {sheet
             ? touch ? "Tap a piece to see it full size" : "Click a piece to see it full size"
             : touch ? "Swipe sideways to spin · tap a card to see it full size" : "Scroll sideways or drag to spin · click a card to see it full size"}
-        </p>
+        </p>}
       </div>
       {n === 0 ? (
         <p className="cat-empty">Placeholder: no images found for {category.title} yet.</p>

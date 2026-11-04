@@ -247,6 +247,7 @@ html.lenis, html.lenis body { height: auto; }
 .cat-name { filter: url(#rough); -webkit-text-stroke: .016em currentColor; }
 .cat-dots { display: inline-flex; gap: .134em; font-size: .5em; margin-right: .1em; }
 .cat-dots i { display: block; width: .2053em; height: .2053em; border-radius: 50%; background: var(--color-red); filter: url(#rough); }
+.cat-logo { display: block; height: 1.6em; width: auto; }
 .cat-hint { margin: .6em 0 0; font-family: var(--font-hand); font-size: max(18px, calc(26 * var(--u))); color: var(--color-black); }
 .cat-empty { margin: 1em 16px 0 max(16px, calc(244 / 1512 * 100vw)); padding: 1em; background: var(--color-cream); font-family: var(--font-hand); font-size: 22px; }
 .cg-card:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
