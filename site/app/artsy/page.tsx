@@ -14,7 +14,7 @@ export default function Page() {
     <div className="gallery-page">
       <h1 className="display-rough">Artsy</h1>
       {ARTSY.map((c) => (
-        <CategoryGallery key={c.id} category={c} />
+        <CategoryGallery key={c.id} category={c} hint={false} />
       ))}
     </div>
   );

@@ -111,6 +111,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Changelog
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
+- Step 2h: Hustler logo lettering is black and heavier (same-colour outline), letters set closer (each word spans 50% of its half-oval). Comics reordered to match DESIGN/Comics (1 Da Villain … 6 Eskapades, 7 Mr Sondr Ponders, 8 Sondr Sunset). Artsy hint hidden. About: "Dhruv Hardin is a very good looking human being."
 - Step 2g: /about shows "Dhruv Hardin is really good looking human being" under the title; real resume at public/resume.pdf (copy in design/resume.pdf).
 - Step 2f: "HUSTLER" spread across the top of the logo's oval and "JERSEYS" across the bottom (upright), in red, ringing the logo (components/site/arc-logo.tsx, SVG textPath, Bebas + #rough). Comics category renamed "SONDR COMICS Presents: Da Villain Da Begin’nin" (shown uppercase, balanced over two lines).
 - Step 2e: /projects has no visible "PROJECTS" title (sr-only h1); the Hustler Jerseys logo leads the page (clamp(180px, 48vh, 500px) tall; phones min(86vw, 340px) wide). The red three-dot marks are gone from all category headings; only the hero keeps its dots.

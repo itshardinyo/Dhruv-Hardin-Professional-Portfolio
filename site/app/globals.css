@@ -249,7 +249,8 @@ html.lenis, html.lenis body { height: auto; }
 .cat-logo { display: block; height: clamp(180px, 48vh, 500px); width: auto; max-width: calc(100vw - 32px); object-fit: contain; }
 /* logo ringed by its name (top word over, other words under): the lettering band adds to the logo's height */
 .cat-logo--arc { height: clamp(260px, 68vh, 700px); overflow: visible; }
-.cat-arc-text { font-family: var(--font-display); fill: var(--color-red); stroke: var(--color-red); stroke-width: 2; letter-spacing: .04em; }
+/* black, heavier than Bebas alone: a same-colour outline thickens every stroke */
+.cat-arc-text { font-family: var(--font-display); fill: var(--color-black); stroke: var(--color-black); stroke-width: 9; stroke-linejoin: round; paint-order: stroke; }
 .gallery-page--logo-led { padding-top: max(8px, calc(24 * var(--u))); }
 .gallery-page--logo-led > .cat:first-of-type { margin-top: 0; }
 .cat-hint { margin: .6em 0 0; font-family: var(--font-hand); font-size: max(18px, calc(26 * var(--u))); color: var(--color-black); }

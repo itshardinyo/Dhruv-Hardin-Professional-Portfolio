@@ -18,16 +18,16 @@ export function ArcLogo({ src, width, height, text }: { src: string; width: numb
   const words = text.toUpperCase().trim().split(/\s+/);
   const topWord = words[0], bottomWord = words.slice(1).join(" ") || "";
   const cx = width / 2, cy = height / 2;
-  const fs = width * 0.175; // letter size, relative to the logo
+  const fs = width * 0.16; // letter size, relative to the logo
   const cap = fs * 0.72; // Bebas Neue cap height
-  const gap = width * 0.022; // space between the logo's rim and the letters
+  const gap = width * 0.03; // space between the logo's rim and the letters
   // top: baseline just outside the rim, letters stand outward
   const tx = cx + gap, ty = cy + gap;
   // bottom: letters sit between the rim and the baseline, so the baseline is one cap height further out
   const bx = cx + gap + cap, by = cy + gap + cap;
   const pad = Math.ceil(gap + fs);
   const id = `arc-${text.replace(/\W+/g, "-").toLowerCase()}`;
-  const fill = 0.8; // share of each half-oval the word spreads across
+  const fill = 0.5; // share of each half-oval the word spreads across: centred over the top / under the bottom, letters close together
   return (
     <svg
       className="cat-logo cat-logo--arc"
