@@ -36,8 +36,8 @@ export default function Page() {
                 <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" />
               </filter>
             </svg>
-            <div className="about-stars" role="img" aria-label="Six crowns out of five">
-              {Array.from({ length: 6 }, (_, i) => (
+            <div className="about-stars" role="img" aria-label="Five crowns out of five">
+              {Array.from({ length: 5 }, (_, i) => (
                 <svg key={i} viewBox="0 0 120 92" aria-hidden="true">
                   {/* Dhruv's crown: red, three even points, black outline, three horizontal lines across it */}
                   <g fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" filter="url(#ms-brush-crown)">
