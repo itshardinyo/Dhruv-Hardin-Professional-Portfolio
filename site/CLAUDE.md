@@ -81,7 +81,7 @@ except Mr. Sondr's smoke (grey #8A8A8A, blur/turbulence, fades) and the lighter'
   "CLICK TO TUNE IN" ("TAP TO TUNE IN" on touch) blinking; hovering the patch glitches it → click, tap or Enter →
   static burst + quiet static sound (≤10% volume), CRT collapses to a line (0.3s), line opens into the white hero
   (0.4s) → hero entrance: dots pop, lines wipe in with RGB glitch, signature wipes, header drops (≤1.6s); then Mr. Sondr pops up with the cigarette already in his mouth (1.5s), his hand comes up with a Zippo engraved with the SONDR logo (2.4s), flame (3s), tip catches (3.3s), smoke (3.55s), hand drops away (≈5.1s), he smiles (5s). The smoking loop (drags + exhales, cigarette stays in his mouth) starts at 5.3s.
-- Header logo ("Replay the SONDR intro"): on `/` the hero collapses like a CRT (0.3s) then the short opener (~1.2s);
+- Header logo: single click = music player; double click = back to the TV landing: on `/` the hero collapses like a CRT (0.3s) then the short opener (~1.2s);
   from another page it goes to `/` and plays the short opener. Then it waits for the click again.
 - Keyboard: Enter (or Space) tunes in. Esc skips to the hero.
 - Reduced motion: no static/CRT; the patch shows still with "CLICK TO TUNE IN"; click/Enter → 200ms crossfade. No parallax, no Lenis.
@@ -109,11 +109,12 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Footer: brand + two columns. "Say hi" (the title) and "Email" open the contact form; LinkedIn and Instagram are logo-only links, Instagram under LinkedIn (labels kept for screen readers). Second column: Artsy, Projects, About me with no visible "Pages" heading. No Files column. Back to top uses Lenis.
 - Contact form (components/site/contact-form.tsx): name, your email, subject, message → POST to FormSubmit (formsubmit.co/ajax/dhruv.d.hardin@gmail.com, free, no account). The first message from the live site sends Dhruv a one-time "Activate form" email; he clicks it once, then messages arrive in his inbox (reply goes to the sender). On failure it offers a prefilled mailto. The one exception to "no transparency": its black veil behind the card.
 - Hero scroll on `/`: line 1 rises 8vh, line 2 14vh, dots + signature fade, over the first screen of scrolling (or the whole distance to the footer when that's shorter, which it is: the footer is 560px).
-- Music: list tracks (MP3s Dhruv has the rights to) in `PLAYLIST` in lib/music.ts, files in public/music/. Starts on the "Tune in" click (landing dispatches `sondr:music-start`) or on the first click/tap/key on any other page (browsers block sound before a gesture). Lives in the root layout so it keeps playing across pages; loops the list. Chip bottom-right (cream, red equaliser bars): mute/unmute (remembered in localStorage), → skips. Hidden on the landing and when the playlist is empty. Spotify can't autoplay full tracks for visitors, so it isn't the source.
+- Music: list tracks (MP3s Dhruv has the rights to) in `PLAYLIST` in lib/music.ts, files in public/music/. `MusicProvider` (components/site/music-player.tsx) wraps the site in the root layout, so the audio keeps playing across pages. Starts on the "Tune in" click (landing dispatches `sondr:music-start`) or on the first click/tap/key on any other page, unless the visitor paused it before (localStorage). The header SONDR logo is the player: one click opens a Spotify-like drop-down (`MusicPanel`: now playing, seekable progress, ⏮ ▶/❚❚ ⏭, queue); a double click (two clicks within 260ms) goes back to the TV landing (replay). The logo spins faster while music plays. Spotify can't autoplay full tracks for visitors, so it isn't the source.
 - Set `NEXT_PUBLIC_SITE_URL` when deploying so Open Graph image URLs are absolute.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3o: the spinning header logo is the music player (one click: Spotify-like drop-down; double click: back to the TV landing). Floating music chip removed. Ready for more MP3s.
 - Step 3n: "Just One More Drink" removed at Dhruv's request; playlist empty again, so the player is hidden.
 - Step 3m: first track: "Just One More Drink · Jazz Noir" (82-min mix, re-encoded 64 kbps MP3 ≈39 MB, public/music/just-one-more-drink.mp3). Audio preload="none" (streams once it starts); a single track loops.
 - Step 3l: five crowns, one per discipline.

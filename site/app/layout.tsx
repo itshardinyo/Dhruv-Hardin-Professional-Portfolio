@@ -7,7 +7,7 @@ import { BOOT_SCRIPT } from "@/components/intro/boot-script";
 import { Header } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
-import { MusicPlayer } from "@/components/site/music-player";
+import { MusicProvider } from "@/components/site/music-player";
 import { RoughFilter } from "@/components/site/rough-filter";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas", display: "block" });
@@ -35,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className={`${bebas.variable} ${mouse.variable} ${vt323.variable}`}>
         <RoughFilter />
         <IntroProvider>
+          <MusicProvider>
           <SmoothScroll />
           <Landing />
           <div id="site">
@@ -42,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main id="main">{children}</main>
             <SiteFooter />
           </div>
-          <MusicPlayer />
+          </MusicProvider>
         </IntroProvider>
       </body>
     </html>
