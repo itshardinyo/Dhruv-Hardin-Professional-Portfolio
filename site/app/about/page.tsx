@@ -30,16 +30,19 @@ export default function Page() {
             <footer>— Robin Hardin</footer>
           </blockquote>
           <figure className="about-rating">
+            <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+              <filter id="ms-brush-crown" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="4" result="n" />
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" />
+              </filter>
+            </svg>
             <div className="about-stars" role="img" aria-label="Six crowns out of five">
               {Array.from({ length: 6 }, (_, i) => (
                 <svg key={i} viewBox="0 0 120 92" aria-hidden="true">
-                  {/* an original SONDR crown in Mr. Sondr's brush style: red, five points, three white jewels */}
-                  <g>
-                    <path d="M10 82 L6 26 L32 50 L46 12 L60 44 L74 12 L88 50 L114 26 L110 82 Z" fill="#F80A02" stroke="#000" strokeWidth="7" strokeLinejoin="round" />
-                    <path d="M10 66 L110 66" stroke="#000" strokeWidth="6" />
-                    <circle cx="34" cy="74" r="4.5" fill="#fff" stroke="#000" strokeWidth="2.5" />
-                    <circle cx="60" cy="74" r="4.5" fill="#fff" stroke="#000" strokeWidth="2.5" />
-                    <circle cx="86" cy="74" r="4.5" fill="#fff" stroke="#000" strokeWidth="2.5" />
+                  {/* Dhruv's crown (original): loose black ink, five points, three horizontal lines across it */}
+                  <g fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" filter="url(#ms-brush-crown)">
+                    <path d="M14 84 L10 22 L32 48 L46 14 L60 42 L74 14 L88 48 L110 22 L106 84 Z" fill="#fff" strokeWidth="7" />
+                    <path d="M14 58 L106 58 M13 68 L107 68 M13 77 L107 77" strokeWidth="4.5" />
                   </g>
                 </svg>
               ))}
