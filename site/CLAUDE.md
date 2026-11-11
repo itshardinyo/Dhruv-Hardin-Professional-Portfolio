@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2s: headline (with its dots) centred in the space right of Mr. Sondr so his face and hand show (`--ms-r` = his right edge), font 190u → 176u so it keeps a margin on the right. Phones keep their own rule.
 - Step 2r: back to the cigarette (joint removed) and the original headline entrance (wipe + RGB glitch). Mr. Sondr comes last again; his puff now just follows his pop-up (no longer reveals the text). Smoke loop unchanged. `go` lasts 4.8s.
 - Step 2q: drawing finished past its canvas (right shoulder + sleeve), cigarette now a joint (cone, roach, twisted burning end). Entrance reordered around him: he opens it, his puff (.ms-puff, above the headline) reveals "You've reached, Dhruv Hardin." (replaces the wipe/RGB glitch on the lines). Smoking loop slowed to 12s with eased hand moves, slow drawn-out exhale and lazier tip smoke. `go` lasts 4.3s.
 - Step 2p: Mr. Sondr fades removed (plain black outline). Added a smoking hand drawn in SVG in his brush style (thick round black strokes, #ms-brush turbulence, red ember): cigarette at the corner of his mouth; loop every 7s from 3.2s: hand lowers while 3 puffs drift out of his mouth, then back up; 3 thin wisps always curl off the tip. Reduced motion: still.

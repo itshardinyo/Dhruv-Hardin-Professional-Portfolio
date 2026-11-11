@@ -150,8 +150,10 @@ html.lenis, html.lenis body { height: auto; }
    ========================================================================== */
 .hero { position: relative; height: 100vh; min-height: 400px; overflow: hidden; background: var(--color-white); }
 .hero-body {
-  position: absolute; left: max(16px, calc(244 / 1512 * 100vw)); top: calc(51.73% - 1.3158em); height: 2.6316em;
-  font-size: calc(190 * var(--u));
+  position: absolute; top: calc(51.73% - 1.3158em); height: 2.6316em;
+  font-size: calc(176 * var(--u));
+  /* centred in the space right of Mr. Sondr (his face and hand stay clear); the headline is ~5.8em wide */
+  left: max(16px, calc(var(--ms-r) + (100vw - var(--ms-r) - 5.8em) / 2));
 }
 .dots { position: absolute; left: -.0053em; top: 0; display: flex; gap: .134em; }
 .dots i { display: block; width: .2053em; height: .2053em; border-radius: 50%; background: var(--color-red); filter: url(#rough); }
@@ -170,7 +172,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 .sig img { display: block; width: 100%; height: auto; }
 /* Mr. Sondr: big, bottom-left, about a quarter of the screen, plain black outline behind the headline */
-.hero { --ms-h: min(72vh, calc(700 * var(--u))); }
+.hero { --ms-h: min(72vh, calc(700 * var(--u))); --ms-r: calc(-120 * var(--u) + var(--ms-h) * .601 + 24px); /* right edge of his hair and hand */ }
 .hero-body { z-index: 1; }
 .mr-sondr {
   position: absolute; left: calc(-120 * var(--u)); bottom: 0; z-index: 0;
