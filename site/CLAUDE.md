@@ -23,7 +23,7 @@ components/intro/    everything about the landing (one controller)
   boot-script.ts         <head> script: sets html classes before first paint
   landing.tsx            the TV layer: opener → patch at rest → leave transition, keyboard (a future Slot A plugs in here)
   tv-engine.ts           canvas engine ported from design/tv-intro-reference.html (+ static sound)
-components/site/     header.tsx, hero.tsx, site-footer.tsx, contact-form.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx,
+components/site/     header.tsx, hero.tsx, mr-sondr.tsx (MrSondrArt: the Mr. Sondr SVG, shared by hero + about), site-footer.tsx, contact-form.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx,
                      category-gallery.tsx (heading + orbital gallery + viewer), gallery-viewer.tsx (full-image viewer)
 components/ui/       pasted components (Slots A–C and later prompts)
 lib/                 utils.ts (cn), lenis-store.ts, galleries.ts (all gallery content: categories, titles, images)
@@ -52,7 +52,7 @@ except Mr. Sondr's smoke (grey #8A8A8A, blur/turbulence, fades) and the lighter'
 `--u` = one pixel of the 1512×982 mockup = `min(100vw/1512, 100vh/982)`. Phones (<640px) have their own rules at the end of globals.css.
 
 ## Routes
-`/` landing + hero · `/artsy` · `/projects` · `/about` (placeholder: header, title, "Coming up next.", footer). Only `/` ever shows the landing.
+`/` landing + hero · `/artsy` · `/projects` · `/about` (Mr. Sondr smoking bottom-left, "ABOUT ME" top-right with Dhruv's bio under it; copy in app/about/page.tsx). Only `/` ever shows the landing.
 
 ## Gallery pages (Step 2)
 | page | category (id) | source folder (Downloads/DESIGN/…) | public folder |
@@ -113,6 +113,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3b: /about rebuilt: Mr. Sondr (shared MrSondrArt) smoking bottom-left (fades up, loop starts after 1.2s via `--ms-loop`), title top-right, draft bio (from what Dhruv has shared; he'll edit). Signature removed from /about.
 - Step 3a: footer: Pages column removed, LinkedIn/Instagram shown as logos only, "Say hi" opens a contact form (name, email, subject, message) sent to Dhruv's inbox via FormSubmit.
 - Step 2z: cigarette now sits in his mouth (no smoking hand); in the entrance his hand comes up holding a Zippo with the SONDR logo (public/logo-mark-black.png) on the case, lights it, drops away. Loop = drags (tip glows, cigarette lifts) + slow exhale. `go` lasts 5.8s.
 - Step 2y: footer: duplicate email line removed, LinkedIn + Instagram logos (simple currentColor SVGs, `icon` on FooterLink), Files column (Resume) removed, grid now brand + 2 columns.
