@@ -7,6 +7,7 @@ import { BOOT_SCRIPT } from "@/components/intro/boot-script";
 import { Header } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
+import { MusicPlayer } from "@/components/site/music-player";
 import { RoughFilter } from "@/components/site/rough-filter";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas", display: "block" });
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main id="main">{children}</main>
             <SiteFooter />
           </div>
+          <MusicPlayer />
         </IntroProvider>
       </body>
     </html>

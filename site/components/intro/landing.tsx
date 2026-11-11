@@ -8,6 +8,7 @@
 */
 
 import * as React from "react";
+import { MUSIC_START_EVENT } from "@/lib/music";
 import { usePathname } from "next/navigation";
 import { useIntro } from "./intro-controller";
 import { TvEngine, staticSound } from "./tv-engine";
@@ -41,6 +42,7 @@ function LandingLayer() {
   /* ---------- landing → hero ---------- */
   const leave = React.useCallback(() => {
     if (leavingRef.current) return;
+    window.dispatchEvent(new Event(MUSIC_START_EVENT)); // start the site music on this click (browsers need a gesture)
     const engine = engineRef.current, screen = screenRef.current, flash = flashRef.current, root = rootRef.current;
     if (!engine) { leavingRef.current = true; finish(true); return; } // patch not ready yet: go straight in
     leavingRef.current = true;

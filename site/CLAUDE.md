@@ -23,10 +23,10 @@ components/intro/    everything about the landing (one controller)
   boot-script.ts         <head> script: sets html classes before first paint
   landing.tsx            the TV layer: opener → patch at rest → leave transition, keyboard (a future Slot A plugs in here)
   tv-engine.ts           canvas engine ported from design/tv-intro-reference.html (+ static sound)
-components/site/     header.tsx, hero.tsx, mr-sondr.tsx (MrSondrArt: the Mr. Sondr SVG, shared by hero + about), site-footer.tsx, contact-form.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx,
+components/site/     header.tsx, hero.tsx, music-player.tsx (site-wide music, mounted in layout), mr-sondr.tsx (MrSondrArt: the Mr. Sondr SVG, shared by hero + about), site-footer.tsx, contact-form.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx,
                      category-gallery.tsx (heading + orbital gallery + viewer), gallery-viewer.tsx (full-image viewer)
 components/ui/       pasted components (Slots A–C and later prompts)
-lib/                 utils.ts (cn), lenis-store.ts, galleries.ts (all gallery content: categories, titles, images)
+lib/                 music.ts (PLAYLIST: tracks in public/music/), utils.ts (cn), lenis-store.ts, galleries.ts (all gallery content: categories, titles, images)
 public/              artsy/comics/, projects/hustler-jerseys/, projects/school/ (optimised WebP; School also has the PDFs),
                      logo-patch.webp, logo-mark-black.png, signature.png, resume.pdf (Dhruv_Hardin_Resume.pdf from DESIGN/)
 ```
@@ -109,10 +109,12 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Footer: brand + two columns. "Say hi" (the title) and "Email" open the contact form; LinkedIn and Instagram are logo-only links, Instagram under LinkedIn (labels kept for screen readers). Second column: Artsy, Projects, About me with no visible "Pages" heading. No Files column. Back to top uses Lenis.
 - Contact form (components/site/contact-form.tsx): name, your email, subject, message → POST to FormSubmit (formsubmit.co/ajax/dhruv.d.hardin@gmail.com, free, no account). The first message from the live site sends Dhruv a one-time "Activate form" email; he clicks it once, then messages arrive in his inbox (reply goes to the sender). On failure it offers a prefilled mailto. The one exception to "no transparency": its black veil behind the card.
 - Hero scroll on `/`: line 1 rises 8vh, line 2 14vh, dots + signature fade, over the first screen of scrolling (or the whole distance to the footer when that's shorter, which it is: the footer is 560px).
+- Music: list tracks (MP3s Dhruv has the rights to) in `PLAYLIST` in lib/music.ts, files in public/music/. Starts on the "Tune in" click (landing dispatches `sondr:music-start`) or on the first click/tap/key on any other page (browsers block sound before a gesture). Lives in the root layout so it keeps playing across pages; loops the list. Chip bottom-right (cream, red equaliser bars): mute/unmute (remembered in localStorage), → skips. Hidden on the landing and when the playlist is empty. Spotify can't autoplay full tracks for visitors, so it isn't the source.
 - Set `NEXT_PUBLIC_SITE_URL` when deploying so Open Graph image URLs are absolute.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3i: site-wide music player (components/site/music-player.tsx, lib/music.ts), waiting for tracks.
 - Step 3h: rating stars → six original SONDR crowns (red, five points, three white jewels, black brush outline; not Basquiat's crown, which is his estate's trademark); disciplines in a centred 3-over-2 formation.
 - Step 3g: headphones redrawn flat (one thick black band, chunky black cups, white SONDR on the cups). No Marshall branding (their trademark).
 - Step 3f: /about title centred in its column; six 3D poster-style stars (hard black drop, tilted, pop in one by one); disciplines shown as quoted poster review blurbs (Bebas); "creative ambitions".
