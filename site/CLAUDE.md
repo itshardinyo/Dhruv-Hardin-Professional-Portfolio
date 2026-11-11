@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2w: viewer shows a single piece as big as the screen allows (fills the stage with object-fit: contain, small originals scale up); bars a little slimmer.
 - Step 2v: smoke redone from Dhruv's Pinterest reference: one `#ms-plume` symbol (billowing grey puffs, darker grey shading, black outline, curl on top, loose droplets) that only rises straight up — off the tip (2 staggered) and one big plume on the exhale. Opening puff over the headline removed. Loop starts at 2.4s; `go` lasts 3.8s.
 - Step 2u: headline nudged back toward Mr. Sondr (spare room split 22% left / 78% right instead of centred).
 - Step 2t: smoke is now puff clouds, not scribbles: one `#ms-cloud` symbol (bumpy white blob, thick black brush outline, small curls) reused for the little puffs off the tip, the exhale clouds in the loop and the opening puff (clouds billow out of his mouth, then drift up and fade).

@@ -120,7 +120,7 @@ export function GalleryViewer({
                   width={p.width}
                   height={p.height}
                   alt={pages.length > 1 ? `${item.title}, slide ${k + 1} of ${pages.length}. ${category.kind}` : `${item.title}. ${category.kind}`}
-                  sizes="(max-width: 639px) 100vw, 86vw"
+                  sizes={pages.length > 1 ? "(max-width: 639px) 100vw, 86vw" : "100vw"}
                   priority={k === 0}
                   className="gv-img"
                 />
