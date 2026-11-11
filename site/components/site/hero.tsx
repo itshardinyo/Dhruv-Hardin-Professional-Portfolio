@@ -57,6 +57,14 @@ export function Hero() {
               <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="7" result="n" />
               <feDisplacementMap in="SourceGraphic" in2="n" scale="6" />
             </filter>
+            {/* one puff of smoke, drawn like his clouds: bumpy white blob, thick black outline, a curl or two */}
+            <symbol id="ms-cloud" viewBox="-110 -80 220 160" overflow="visible">
+              <g filter="url(#ms-brush)">
+                <g fill="none" stroke="#000" strokeWidth="16"><circle cx="-55" cy="12" r="42" /><circle cx="-8" cy="-18" r="52" /><circle cx="48" cy="6" r="44" /><circle cx="-20" cy="36" r="36" /><circle cx="28" cy="38" r="36" /><circle cx="80" cy="30" r="26" /></g>
+                <g fill="#fff"><circle cx="-55" cy="12" r="42" /><circle cx="-8" cy="-18" r="52" /><circle cx="48" cy="6" r="44" /><circle cx="-20" cy="36" r="36" /><circle cx="28" cy="38" r="36" /><circle cx="80" cy="30" r="26" /></g>
+                <path d="M-40 10 c10 -16 32 -16 40 0 M14 -26 c8 -12 26 -10 30 4 M30 30 c6 -8 18 -8 22 2" fill="none" stroke="#000" strokeWidth="7" strokeLinecap="round" />
+              </g>
+            </symbol>
           </defs>
           <image href="/mr-sondr-outline.webp" x="0" y="380" width="1640" height="1980" />
           {/* the drawing ran off its canvas on the right: finish the shoulder and sleeve */}
@@ -88,33 +96,31 @@ export function Hero() {
                 <path d="M-100 -2 L46 -26 L49 -8 L-97 14 Z" fill="#fff" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
                 <path className="ms-ember" d="M46 -26 L72 -30 L75 -12 L49 -8 Z" fill="#F80A02" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
               </g>
-              {/* smoke drifting off the tip */}
-              <g className="ms-smoke" fill="none" stroke="#000" strokeWidth="5" strokeLinecap="round">
-                <path d="M82 -40 C62 -90 112 -120 88 -170 C68 -210 114 -240 94 -290 C80 -320 104 -350 92 -380" />
-                <path d="M88 -44 C112 -96 72 -130 102 -180 C126 -220 86 -260 112 -310 C128 -340 104 -370 118 -400" />
-                <path d="M78 -42 C52 -80 86 -110 64 -150 C46 -184 76 -210 60 -246 C50 -270 70 -296 58 -320" />
+              {/* little puffs drifting off the tip */}
+              <g className="ms-smoke">
+                <g><use href="#ms-cloud" x="44" y="-100" width="70" height="51" /></g>
+                <g><use href="#ms-cloud" x="40" y="-104" width="78" height="57" /></g>
+                <g><use href="#ms-cloud" x="46" y="-98" width="64" height="47" /></g>
               </g>
             </g>
           </g>
-          {/* the slow exhale in the loop */}
-          <g className="ms-exhale" fill="none" stroke="#000" strokeWidth="9" strokeLinecap="round">
-            <path pathLength={1} d="M780 1330 C730 1290 770 1240 720 1190 C670 1140 730 1090 690 1030 C660 985 700 940 670 890" />
-            <path pathLength={1} d="M770 1340 C700 1340 690 1290 630 1270 C570 1250 590 1190 540 1160 C500 1135 520 1090 490 1060" />
-            <path pathLength={1} d="M790 1325 C800 1270 760 1230 790 1170 C820 1110 780 1070 800 1010 C812 970 790 940 800 900" />
+          {/* the slow exhale in the loop: clouds rolling out of his mouth */}
+          <g className="ms-exhale">
+            <g><use href="#ms-cloud" x="760" y="1150" width="420" height="305" /></g>
+            <g><use href="#ms-cloud" x="820" y="1040" width="520" height="378" /></g>
+            <g><use href="#ms-cloud" x="740" y="1220" width="320" height="233" /></g>
           </g>
         </svg>
       </motion.div>
-      {/* his first puff: smoke from his mouth drifting out over the headline */}
+      {/* his first puff: clouds rolling out of his mouth into the gap by the headline, then drifting off */}
       <div className="ms-puff" aria-hidden="true">
-        <svg viewBox="0 0 1150 600" fill="none" stroke="#000" strokeWidth="4" strokeLinecap="round">
-          <path pathLength={1} d="M0 300 C80 260 140 330 230 280 S380 200 470 250 S640 330 760 240 S960 160 1100 220" />
-          <path pathLength={1} d="M0 304 C70 330 160 360 260 330 S430 380 560 340 S760 300 880 360 S1020 420 1120 380" />
-          <path pathLength={1} d="M8 292 C90 220 170 210 230 160 S360 120 430 170 S560 140 640 100 S800 60 900 110" />
-          <path pathLength={1} d="M8 310 C100 380 200 440 320 430 S500 500 620 470 S780 520 900 480" />
-          <path pathLength={1} d="M380 280 c-40 -40 30 -80 60 -40 s-10 60 -40 40" />
-          <path pathLength={1} d="M700 330 c-40 -40 30 -80 60 -40 s-10 60 -40 40" />
-          <path pathLength={1} d="M520 180 c-30 -30 25 -60 45 -30 s-8 45 -30 30" />
-          <path pathLength={1} d="M860 250 c-34 -34 28 -70 52 -36 s-9 52 -34 36" />
+        <svg viewBox="0 0 1150 600">
+          <g><use href="#ms-cloud" x="0" y="250" width="150" height="109" /></g>
+          <g><use href="#ms-cloud" x="60" y="200" width="190" height="138" /></g>
+          <g><use href="#ms-cloud" x="150" y="150" width="230" height="167" /></g>
+          <g><use href="#ms-cloud" x="260" y="110" width="260" height="189" /></g>
+          <g><use href="#ms-cloud" x="120" y="260" width="170" height="124" /></g>
+          <g><use href="#ms-cloud" x="330" y="40" width="220" height="160" /></g>
         </svg>
       </div>
       <motion.div className="sig" style={{ opacity: fade }}>
