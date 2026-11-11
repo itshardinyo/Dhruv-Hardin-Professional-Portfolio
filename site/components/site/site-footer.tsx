@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import HalftoneWordmarkFooter, { type FooterColumn } from "@/components/ui/halftone-wordmark-footer";
 import { useIntro } from "@/components/intro/intro-controller";
 import { scrollToTop } from "@/lib/lenis-store";
+import { ContactForm } from "@/components/site/contact-form";
 
 const EMAIL = "dhruv.d.hardin@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/dhruv-hardin-b01390176/";
@@ -28,30 +29,25 @@ const InstagramIcon = (
 export function SiteFooter() {
   const pathname = usePathname();
   const { state } = useIntro();
-  const [copied, setCopied] = React.useState(false);
+  const [contact, setContact] = React.useState(false);
   const [face, setFace] = React.useState<string | null>(null);
   React.useEffect(() => {
     // The canvas needs the real family name next/font generated, not a CSS variable.
     setFace(getComputedStyle(document.body).getPropertyValue("--font-bebas").trim() || '"Bebas Neue", Impact, sans-serif');
   }, []);
 
-  const copy = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const done = () => { setCopied(true); window.setTimeout(() => setCopied(false), 1800); };
-    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(EMAIL).then(done, () => { window.location.href = `mailto:${EMAIL}`; });
-    else window.location.href = `mailto:${EMAIL}`;
-  };
+  const openForm = (e?: React.MouseEvent) => { e?.preventDefault(); setContact(true); };
 
   const columns: FooterColumn[] = [
     {
       title: "Say hi",
+      onTitleClick: openForm,
       links: [
-        { label: copied ? "Copied" : "Email", href: `mailto:${EMAIL}`, onClick: copy },
-        { label: "LinkedIn", href: LINKEDIN, target: "_blank", icon: LinkedInIcon },
-        ...(INSTAGRAM ? [{ label: "Instagram", href: INSTAGRAM, target: "_blank", icon: InstagramIcon }] : []),
+        { label: "Email", href: `mailto:${EMAIL}`, onClick: openForm },
+        { label: "LinkedIn", href: LINKEDIN, target: "_blank", icon: LinkedInIcon, iconOnly: true },
+        ...(INSTAGRAM ? [{ label: "Instagram", href: INSTAGRAM, target: "_blank", icon: InstagramIcon, iconOnly: true }] : []),
       ],
     },
-    { title: "Pages", links: [{ label: "Artsy", href: "/artsy" }, { label: "Projects", href: "/projects" }, { label: "About me", href: "/about" }] },
   ];
 
   if (pathname === "/" && state !== "hero") return null;
@@ -69,7 +65,7 @@ export function SiteFooter() {
         rough={4}
         height="560px"
       />
-      <span className="sr-only" role="status" aria-live="polite">{copied ? "Email address copied" : ""}</span>
+      <ContactForm open={contact} onClose={() => setContact(false)} to={EMAIL} />
     </div>
   );
 }

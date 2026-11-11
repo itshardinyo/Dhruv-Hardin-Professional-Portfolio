@@ -23,7 +23,7 @@ components/intro/    everything about the landing (one controller)
   boot-script.ts         <head> script: sets html classes before first paint
   landing.tsx            the TV layer: opener → patch at rest → leave transition, keyboard (a future Slot A plugs in here)
   tv-engine.ts           canvas engine ported from design/tv-intro-reference.html (+ static sound)
-components/site/     header.tsx, hero.tsx, site-footer.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx,
+components/site/     header.tsx, hero.tsx, site-footer.tsx, contact-form.tsx, smooth-scroll.tsx, rough-filter.tsx, placeholder-page.tsx,
                      category-gallery.tsx (heading + orbital gallery + viewer), gallery-viewer.tsx (full-image viewer)
 components/ui/       pasted components (Slots A–C and later prompts)
 lib/                 utils.ts (cn), lenis-store.ts, galleries.ts (all gallery content: categories, titles, images)
@@ -106,12 +106,14 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Details
 - LinkedIn https://www.linkedin.com/in/dhruv-hardin-b01390176/ · Instagram https://www.instagram.com/itsd.hardin_/ · Email dhruv.d.hardin@gmail.com · Resume `/resume.pdf` (Dhruv’s real resume, from DESIGN/Dhruv_Hardin_Resume.pdf)
-- Footer: Say hi = Email (copies the address, shows "Copied"), LinkedIn (logo, new tab), Instagram (logo, new tab, @itsd.hardin_). Pages column. No Files column. Back to top uses Lenis.
+- Footer: brand + one column. "Say hi" (the title) and "Email" open the contact form; LinkedIn and Instagram are logo-only links side by side (labels kept for screen readers). No Pages or Files columns. Back to top uses Lenis.
+- Contact form (components/site/contact-form.tsx): name, your email, subject, message → POST to FormSubmit (formsubmit.co/ajax/dhruv.d.hardin@gmail.com, free, no account). The first message from the live site sends Dhruv a one-time "Activate form" email; he clicks it once, then messages arrive in his inbox (reply goes to the sender). On failure it offers a prefilled mailto. The one exception to "no transparency": its black veil behind the card.
 - Hero scroll on `/`: line 1 rises 8vh, line 2 14vh, dots + signature fade, over the first screen of scrolling (or the whole distance to the footer when that's shorter, which it is: the footer is 560px).
 - Set `NEXT_PUBLIC_SITE_URL` when deploying so Open Graph image URLs are absolute.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3a: footer: Pages column removed, LinkedIn/Instagram shown as logos only, "Say hi" opens a contact form (name, email, subject, message) sent to Dhruv's inbox via FormSubmit.
 - Step 2z: cigarette now sits in his mouth (no smoking hand); in the entrance his hand comes up holding a Zippo with the SONDR logo (public/logo-mark-black.png) on the case, lights it, drops away. Loop = drags (tip glows, cigarette lifts) + slow exhale. `go` lasts 5.8s.
 - Step 2y: footer: duplicate email line removed, LinkedIn + Instagram logos (simple currentColor SVGs, `icon` on FooterLink), Files column (Resume) removed, grid now brand + 2 columns.
 - Step 2x: lighting animation in the entrance (lighter in his other hand, flickering red flame + glow, tip catches, smoke starts). Smoke made realistic: soft grey ribbons through animated turbulence + blur (#ms-smokefx), a thin stream flowing up off the tip and thinning out (mask), a soft exhale rolling up from his mouth. Cartoon plume symbol removed. Loop starts at 4.6s; `go` lasts 5s.

@@ -39,11 +39,15 @@ export interface FooterLink {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
   /** SONDR: a small logo shown before the label (LinkedIn, Instagram). */
   icon?: React.ReactNode
+  /** SONDR: show only the logo (label kept for screen readers); logo-only links sit side by side. */
+  iconOnly?: boolean
 }
 
 export interface FooterColumn {
   title: string
   links: FooterLink[]
+  /** SONDR: make the title a button (e.g. "Say hi" opens the contact form). */
+  onTitleClick?: () => void
 }
 
 export interface HalftoneWordmarkFooterProps {
@@ -180,7 +184,7 @@ const HWF_CSS = `
 }
 .hwf-root canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; max-width: none; }
 .hwf-top {
-  position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr)); /* SONDR: two link columns */
+  position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); /* SONDR: one link column */
   gap: 24px; padding: clamp(22px, 3.4vw, 40px) clamp(20px, 3.4vw, 44px) 0;
   font-family: var(--hwf-mono); font-size: var(--hwf-size, 10.5px); letter-spacing: var(--hwf-track, .18em); text-transform: uppercase; line-height: 1.75;
 }
@@ -204,6 +208,10 @@ const HWF_CSS = `
 }
 .hwf-iconlink { display: inline-flex; align-items: center; gap: .45em; vertical-align: top; } /* SONDR */
 .hwf-iconlink svg { width: 1em; height: 1em; flex: none; }
+.hwf-li-icon { display: inline-block; margin: .35em .9em 0 0; } /* SONDR */
+.hwf-li-icon svg { width: 1.45em; height: 1.45em; }
+.hwf-li-icon a { background-image: none; transition: transform .2s cubic-bezier(.3,1.6,.5,1); display: inline-flex; }
+.hwf-li-icon a:hover { transform: translateY(-3px) rotate(-4deg); }
 .hwf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 720px) {
   .hwf-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: 18px; }
@@ -488,15 +496,15 @@ export default function HalftoneWordmarkFooter({
         </div>
         {columns.map((col) => (
           <nav className="hwf-col" key={col.title} aria-label={col.title}>
-            <h3>{col.title}</h3>
+            <h3>{col.onTitleClick ? <button type="button" className="hwf-up" onClick={col.onTitleClick}>{col.title}</button> : col.title}</h3>
             <ul>
               {col.links.map((l, i) => (
-                <li key={i}>
+                <li key={i} className={l.iconOnly ? "hwf-li-icon" : undefined}>
                   {l.href && l.href.startsWith("/") && !l.target ? (
                     <Link href={l.href} onClick={l.onClick}>{l.label}</Link>
                   ) : (
-                    <a href={l.href || "#"} target={l.target} rel={l.target === "_blank" ? "noopener noreferrer" : undefined} onClick={l.onClick} className={l.icon ? "hwf-iconlink" : undefined}>
-                      {l.icon}{l.label}
+                    <a href={l.href || "#"} target={l.target} rel={l.target === "_blank" ? "noopener noreferrer" : undefined} onClick={l.onClick} className={l.icon ? "hwf-iconlink" : undefined} aria-label={l.iconOnly ? l.label : undefined} title={l.iconOnly ? l.label : undefined}>
+                      {l.icon}{l.iconOnly ? null : l.label}
                     </a>
                   )}
                 </li>
