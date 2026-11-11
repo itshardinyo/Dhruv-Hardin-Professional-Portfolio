@@ -39,9 +39,9 @@ export default function Page() {
             <div className="about-stars" role="img" aria-label="Six crowns out of five">
               {Array.from({ length: 6 }, (_, i) => (
                 <svg key={i} viewBox="0 0 120 92" aria-hidden="true">
-                  {/* Dhruv's crown (original): loose black ink, five points, three horizontal lines across it */}
+                  {/* Dhruv's crown: red, three even points, black outline, three horizontal lines across it */}
                   <g fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" filter="url(#ms-brush-crown)">
-                    <path d="M14 84 L10 22 L32 48 L46 14 L60 42 L74 14 L88 48 L110 22 L106 84 Z" fill="#fff" strokeWidth="7" />
+                    <path d="M14 84 L12 20 L37 46 L60 18 L83 46 L108 20 L106 84 Z" fill="#F80A02" strokeWidth="7" />
                     <path d="M14 58 L106 58 M13 68 L107 68 M13 77 L107 77" strokeWidth="4.5" />
                   </g>
                 </svg>

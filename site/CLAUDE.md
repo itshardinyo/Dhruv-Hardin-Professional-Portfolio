@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3k: crowns now red with three even points; the three horizontal lines kept.
 - Step 3j: rating crowns redrawn as Dhruv's crown, original: loose black ink outline, white fill, five points, three horizontal lines across. (Basquiat's crown, even with lines added, is not used: it's his estate's trademark.)
 - Step 3i: site-wide music player (components/site/music-player.tsx, lib/music.ts), waiting for tracks.
 - Step 3h: rating stars → six original SONDR crowns (red, five points, three white jewels, black brush outline; not Basquiat's crown, which is his estate's trademark); disciplines in a centred 3-over-2 formation.
