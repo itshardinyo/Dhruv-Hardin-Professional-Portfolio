@@ -113,6 +113,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3h: rating stars → six original SONDR crowns (red, five points, three white jewels, black brush outline; not Basquiat's crown, which is his estate's trademark); disciplines in a centred 3-over-2 formation.
 - Step 3g: headphones redrawn flat (one thick black band, chunky black cups, white SONDR on the cups). No Marshall branding (their trademark).
 - Step 3f: /about title centred in its column; six 3D poster-style stars (hard black drop, tilted, pop in one by one); disciplines shown as quoted poster review blurbs (Bebas); "creative ambitions".
 - Step 3e: MrSondrArt `vibing` prop (/about): black on-ear headphones drawn in his brush style (no brand logo), head cut at the neck (clipPaths at y=1600) so the head + cigarette + headphones nod (.ms-head-vibe, 0.92s) while the body stays still. /about now plays the Zippo lighting on arrival (.9–3.7s); loop from 3.9s.

@@ -30,8 +30,19 @@ export default function Page() {
             <footer>— Robin Hardin</footer>
           </blockquote>
           <figure className="about-rating">
-            <div className="about-stars" role="img" aria-label="Six stars out of five">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <div className="about-stars" role="img" aria-label="Six crowns out of five">
+              {Array.from({ length: 6 }, (_, i) => (
+                <svg key={i} viewBox="0 0 120 92" aria-hidden="true">
+                  {/* an original SONDR crown in Mr. Sondr's brush style: red, five points, three white jewels */}
+                  <g>
+                    <path d="M10 82 L6 26 L32 50 L46 12 L60 44 L74 12 L88 50 L114 26 L110 82 Z" fill="#F80A02" stroke="#000" strokeWidth="7" strokeLinejoin="round" />
+                    <path d="M10 66 L110 66" stroke="#000" strokeWidth="6" />
+                    <circle cx="34" cy="74" r="4.5" fill="#fff" stroke="#000" strokeWidth="2.5" />
+                    <circle cx="60" cy="74" r="4.5" fill="#fff" stroke="#000" strokeWidth="2.5" />
+                    <circle cx="86" cy="74" r="4.5" fill="#fff" stroke="#000" strokeWidth="2.5" />
+                  </g>
+                </svg>
+              ))}
             </div>
             <div className="about-reviews">
               <blockquote>Physical discipline.</blockquote>
