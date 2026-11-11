@@ -49,7 +49,7 @@ export function Hero() {
         </h1>
       </div>
       {/* Mr. Sondr (black outline of DESIGN/MR_SONDR.png), opposite the signature. Comes last in the entrance: pops up with
-          a cigarette, blows a puff of smoke, smiles, then keeps smoking slowly. */}
+          a cigarette, smiles, then keeps smoking slowly; the smoke always rises straight up. */}
       <motion.div className="mr-sondr" style={{ opacity: fade }} aria-hidden="true">
         <svg viewBox="0 380 1640 1980" preserveAspectRatio="xMidYMax meet">
           <defs>
@@ -57,12 +57,16 @@ export function Hero() {
               <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="7" result="n" />
               <feDisplacementMap in="SourceGraphic" in2="n" scale="6" />
             </filter>
-            {/* one puff of smoke, drawn like his clouds: bumpy white blob, thick black outline, a curl or two */}
-            <symbol id="ms-cloud" viewBox="-110 -80 220 160" overflow="visible">
+            {/* a rising plume of smoke (from Dhruv's reference): billowing grey puffs, darker grey shading, black outline,
+                curl at the top, a few loose droplets. Base at (100, 360). */}
+            <symbol id="ms-plume" viewBox="0 0 200 360" overflow="visible">
               <g filter="url(#ms-brush)">
-                <g fill="none" stroke="#000" strokeWidth="16"><circle cx="-55" cy="12" r="42" /><circle cx="-8" cy="-18" r="52" /><circle cx="48" cy="6" r="44" /><circle cx="-20" cy="36" r="36" /><circle cx="28" cy="38" r="36" /><circle cx="80" cy="30" r="26" /></g>
-                <g fill="#fff"><circle cx="-55" cy="12" r="42" /><circle cx="-8" cy="-18" r="52" /><circle cx="48" cy="6" r="44" /><circle cx="-20" cy="36" r="36" /><circle cx="28" cy="38" r="36" /><circle cx="80" cy="30" r="26" /></g>
-                <path d="M-40 10 c10 -16 32 -16 40 0 M14 -26 c8 -12 26 -10 30 4 M30 30 c6 -8 18 -8 22 2" fill="none" stroke="#000" strokeWidth="7" strokeLinecap="round" />
+                <g fill="none" stroke="#000" strokeWidth="12"><circle cx="100" cy="345" r="10" /><circle cx="96" cy="325" r="12" /><circle cx="104" cy="305" r="14" /><circle cx="98" cy="282" r="17" /><circle cx="88" cy="255" r="22" /><circle cx="112" cy="245" r="20" /><circle cx="100" cy="222" r="26" /><circle cx="78" cy="205" r="24" /><circle cx="122" cy="200" r="26" /><circle cx="95" cy="170" r="32" /><circle cx="60" cy="160" r="26" /><circle cx="135" cy="155" r="30" /><circle cx="80" cy="125" r="34" /><circle cx="125" cy="115" r="32" /><circle cx="100" cy="90" r="30" /><circle cx="60" cy="95" r="22" /><circle cx="150" cy="85" r="20" /><circle cx="95" cy="55" r="24" /><circle cx="128" cy="50" r="18" /></g>
+                <path d="M74 40 C40 30 45 -5 80 -5 C102 -4 104 18 86 20" fill="none" stroke="#000" strokeWidth="22" strokeLinecap="round" />
+                <g fill="#8C8C8C"><circle cx="100" cy="345" r="10" /><circle cx="96" cy="325" r="12" /><circle cx="104" cy="305" r="14" /><circle cx="98" cy="282" r="17" /><circle cx="88" cy="255" r="22" /><circle cx="112" cy="245" r="20" /><circle cx="100" cy="222" r="26" /><circle cx="78" cy="205" r="24" /><circle cx="122" cy="200" r="26" /><circle cx="95" cy="170" r="32" /><circle cx="60" cy="160" r="26" /><circle cx="135" cy="155" r="30" /><circle cx="80" cy="125" r="34" /><circle cx="125" cy="115" r="32" /><circle cx="100" cy="90" r="30" /><circle cx="60" cy="95" r="22" /><circle cx="150" cy="85" r="20" /><circle cx="95" cy="55" r="24" /><circle cx="128" cy="50" r="18" /></g>
+                <path d="M74 40 C40 30 45 -5 80 -5 C102 -4 104 18 86 20" fill="none" stroke="#8C8C8C" strokeWidth="11" strokeLinecap="round" />
+                <g fill="#5E5E5E"><circle cx="106" cy="250" r="10" /><circle cx="110" cy="208" r="12" /><circle cx="104" cy="178" r="14" /><circle cx="142" cy="162" r="12" /><circle cx="132" cy="122" r="14" /><circle cx="106" cy="97" r="12" /><circle cx="100" cy="62" r="10" /><circle cx="72" cy="132" r="10" /><circle cx="66" cy="166" r="8" /></g>
+                <g fill="#5E5E5E" stroke="#000" strokeWidth="3"><circle cx="40" cy="200" r="6" /><circle cx="165" cy="190" r="5" /><circle cx="30" cy="120" r="5" /><circle cx="175" cy="120" r="4" /><circle cx="45" cy="40" r="4" /><circle cx="160" cy="30" r="5" /><circle cx="150" cy="240" r="3" /></g>
               </g>
             </symbol>
           </defs>
@@ -96,33 +100,19 @@ export function Hero() {
                 <path d="M-100 -2 L46 -26 L49 -8 L-97 14 Z" fill="#fff" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
                 <path className="ms-ember" d="M46 -26 L72 -30 L75 -12 L49 -8 Z" fill="#F80A02" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
               </g>
-              {/* little puffs drifting off the tip */}
+              {/* smoke rising off the tip */}
               <g className="ms-smoke">
-                <g><use href="#ms-cloud" x="44" y="-100" width="70" height="51" /></g>
-                <g><use href="#ms-cloud" x="40" y="-104" width="78" height="57" /></g>
-                <g><use href="#ms-cloud" x="46" y="-98" width="64" height="47" /></g>
+                <g><use href="#ms-plume" x="38" y="-176" width="80" height="144" /></g>
+                <g><use href="#ms-plume" x="34" y="-190" width="88" height="158" /></g>
               </g>
             </g>
           </g>
-          {/* the slow exhale in the loop: clouds rolling out of his mouth */}
+          {/* the slow exhale: a plume out of the corner of his mouth, rising up and drifting off his face */}
           <g className="ms-exhale">
-            <g><use href="#ms-cloud" x="760" y="1150" width="420" height="305" /></g>
-            <g><use href="#ms-cloud" x="820" y="1040" width="520" height="378" /></g>
-            <g><use href="#ms-cloud" x="740" y="1220" width="320" height="233" /></g>
+            <g className="ms-exhale-lean"><use href="#ms-plume" x="700" y="944" width="230" height="414" /></g>
           </g>
         </svg>
       </motion.div>
-      {/* his first puff: clouds rolling out of his mouth into the gap by the headline, then drifting off */}
-      <div className="ms-puff" aria-hidden="true">
-        <svg viewBox="0 0 1150 600">
-          <g><use href="#ms-cloud" x="0" y="250" width="150" height="109" /></g>
-          <g><use href="#ms-cloud" x="60" y="200" width="190" height="138" /></g>
-          <g><use href="#ms-cloud" x="150" y="150" width="230" height="167" /></g>
-          <g><use href="#ms-cloud" x="260" y="110" width="260" height="189" /></g>
-          <g><use href="#ms-cloud" x="120" y="260" width="170" height="124" /></g>
-          <g><use href="#ms-cloud" x="330" y="40" width="220" height="160" /></g>
-        </svg>
-      </div>
       <motion.div className="sig" style={{ opacity: fade }}>
         <Image src="/signature.png" alt="Dhruv Hardin’s signature" width={1005} height={345} priority sizes="(max-width: 639px) 160px, 21vw" />
       </motion.div>

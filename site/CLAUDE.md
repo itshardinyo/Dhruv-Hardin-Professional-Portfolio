@@ -40,7 +40,7 @@ public/              artsy/comics/, projects/hustler-jerseys/, projects/school/ 
 | `--color-white` | #FFFFFF | page background |
 | `--color-landing` | #1E1E1E | landing background |
 Tailwind's default palette is switched off (`--color-*: initial`). No other colours, tints, gradients or transparency,
-except the TV look (static, scanlines, vignette, glow/fringes on TV text, the hero entrance's brief RGB glitch). Values are colour-profile corrected: use as written.
+except Mr. Sondr's smoke (greys #8C8C8C/#5E5E5E, fades; Dhruv's reference) and the TV look (static, scanlines, vignette, glow/fringes on TV text, the hero entrance's brief RGB glitch). Values are colour-profile corrected: use as written.
 
 ## Font tokens
 - `--font-display` Bebas Neue (`--font-bebas`): headline/display, uppercase, roughened with `filter:url(#rough)` + a thin same-colour text stroke
@@ -75,12 +75,12 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 ## Landing states (components/intro/intro-controller.tsx)
 `landing → leaving → hero → returning → landing`
 - Full load of `/` → landing. Back/forward to `/` → hero. `/?skip=1` → hero. Other routes → never.
-- html classes: `intro-on` (landing up, scroll locked), `pre` (hero/header hidden), `go` (hero entrance playing, removed after 4.8s).
+- html classes: `intro-on` (landing up, scroll locked), `pre` (hero/header hidden), `go` (hero entrance playing, removed after 3.8s).
 - `#site` is `inert` while the landing is up; the footer isn't rendered; Lenis is off.
 - Flow: 0.3s blank → tube warm-up → static → patch forms (HBO style) → glint → at rest ~3.8s with
   "CLICK TO TUNE IN" ("TAP TO TUNE IN" on touch) blinking; hovering the patch glitches it → click, tap or Enter →
   static burst + quiet static sound (≤10% volume), CRT collapses to a line (0.3s), line opens into the white hero
-  (0.4s) → hero entrance: dots pop, lines wipe in with RGB glitch, signature wipes, header drops (≤1.6s); then Mr. Sondr pops up with his cigarette (1.5s), blows a puff of smoke over the headline (2.3s), smiles (3s). The smoking loop starts at 4.7s.
+  (0.4s) → hero entrance: dots pop, lines wipe in with RGB glitch, signature wipes, header drops (≤1.6s); then Mr. Sondr pops up with his cigarette (1.5s) and smiles (3s). The smoking loop starts at 2.4s.
 - Header logo ("Replay the SONDR intro"): on `/` the hero collapses like a CRT (0.3s) then the short opener (~1.2s);
   from another page it goes to `/` and plays the short opener. Then it waits for the click again.
 - Keyboard: Enter (or Space) tunes in. Esc skips to the hero.
@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2v: smoke redone from Dhruv's Pinterest reference: one `#ms-plume` symbol (billowing grey puffs, darker grey shading, black outline, curl on top, loose droplets) that only rises straight up — off the tip (2 staggered) and one big plume on the exhale. Opening puff over the headline removed. Loop starts at 2.4s; `go` lasts 3.8s.
 - Step 2u: headline nudged back toward Mr. Sondr (spare room split 22% left / 78% right instead of centred).
 - Step 2t: smoke is now puff clouds, not scribbles: one `#ms-cloud` symbol (bumpy white blob, thick black brush outline, small curls) reused for the little puffs off the tip, the exhale clouds in the loop and the opening puff (clouds billow out of his mouth, then drift up and fade).
 - Step 2s: headline (with its dots) centred in the space right of Mr. Sondr so his face and hand show (`--ms-r` = his right edge), font 190u → 176u so it keeps a margin on the right. Phones keep their own rule.
