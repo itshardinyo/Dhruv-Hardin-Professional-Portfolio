@@ -80,7 +80,7 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 - Flow: 0.3s blank → tube warm-up → static → patch forms (HBO style) → glint → at rest ~3.8s with
   "CLICK TO TUNE IN" ("TAP TO TUNE IN" on touch) blinking; hovering the patch glitches it → click, tap or Enter →
   static burst + quiet static sound (≤10% volume), CRT collapses to a line (0.3s), line opens into the white hero
-  (0.4s) → hero entrance (dots pop, lines wipe in with RGB glitch, signature wipes, header drops; then Mr. Sondr pops up bottom-left at 1.5s and smiles at 2.45s; ends 3.1s).
+  (0.4s) → hero entrance (dots pop, lines wipe in with RGB glitch, signature wipes, header drops; then Mr. Sondr pops up bottom-left at 1.5s and his drawn smile opens at 2.4s; ends 2.95s).
 - Header logo ("Replay the SONDR intro"): on `/` the hero collapses like a CRT (0.3s) then the short opener (~1.2s);
   from another page it goes to `/` and plays the short opener. Then it waits for the click again.
 - Keyboard: Enter (or Space) tunes in. Esc skips to the hero.
@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2o: Mr. Sondr much bigger (min(72vh, 700u) tall, ~a quarter of the screen, flush bottom-left, behind the headline), masked to fade out at the top (toward the logo) and on the right (into the headline). Smile is now his own drawn mouth opening up from a closed line (scale/rotate on public/mr-sondr-mouth.webp), not a drawn curve.
 - Step 2n: Mr. Sondr on the hero, bottom-left opposite the signature: black outline traced from DESIGN/MR_SONDR.png (grid removed; public/mr-sondr-outline.webp, his drawn mouth split out as public/mr-sondr-mouth.webp). Last in the entrance: pops up from the bottom edge, then the mouth shrinks away and a drawn smile strokes in. Resting state = smiling. Fades on scroll with the signature. `go` now lasts 3.3s.
 - Step 2m: set orders (Dhruv's, not alphabetical): MR. SONDR = Detective Sondr, Mr Sondr Ponders, Mr. Sondr; SONDR UNIVERSE = Sondr Sunset, Sondr Universe, Sondr Smiles (title was "Sondr Miles").
 - Step 2l: orbital gallery momentum: a flick (horizontal scroll, drag, swipe) keeps the ring gliding, easing to a steady cruise (0.15°/frame) in the spun direction; it never stops by itself. Hovering a card with the mouse stops it; moving off resumes. Arrow keys don't add momentum. Constants MAX_VEL/FRICTION/CRUISE in circular-gallery.tsx.
