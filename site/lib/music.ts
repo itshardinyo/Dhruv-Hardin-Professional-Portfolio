@@ -3,7 +3,13 @@
   list them here. The player starts when a visitor clicks "Tune in" (or on their first click/tap/keypress on any
   other page), keeps playing across every page, and loops through the list. Empty list = no player.
 */
-export interface Track { src: string; title: string; artist?: string }
+export interface Track {
+  src: string;
+  title: string;
+  artist?: string;
+  /** cover art (square image in public/music/), shown in the player; the SONDR logo stands in until there is one */
+  art?: string;
+}
 
 export const PLAYLIST: Track[] = [
   { src: "/music/just-one-more-drink.mp3", title: "Just One More Drink", artist: "Jazz Noir" },
