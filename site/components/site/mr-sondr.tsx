@@ -3,7 +3,7 @@
   and (entrance only, under html.go) his hand coming up with the SONDR Zippo to light it. Used on the hero and on
   /about. Place it inside an element with class "mr-sondr"; all motion lives in app/globals.css (ms-* rules).
   The smoking loop starts after --ms-loop (5.3s on the hero, sooner on /about).
-  vibing (/about): he wears black on-ear headphones and his head (cut at the neck, with the cigarette, mouth and
+  vibing (/about): he wears flat black on-ear headphones with SONDR on the cups and his head (cut at the neck, with the cigarette, mouth and
   headphones) nods to the music; the body stays put.
 */
 export function MrSondrArt({ vibing = false }: { vibing?: boolean }) {
@@ -53,19 +53,13 @@ export function MrSondrArt({ vibing = false }: { vibing?: boolean }) {
         <image className="ms-mouth" href="/mr-sondr-mouth.webp" x="661" y="1264" width="139" height="166" />
         {vibing && (
           <g filter="url(#ms-brush)" strokeLinecap="round" strokeLinejoin="round">
-            {/* headband: black leather arc over his hair, a thin white stitch line along it */}
-            <path d="M286 980 C230 560 470 330 780 326 C1090 322 1310 560 1250 950" fill="none" stroke="#000" strokeWidth="54" />
-            <path d="M300 900 C262 570 486 368 780 364 C1074 360 1278 572 1236 880" fill="none" stroke="#fff" strokeWidth="5" strokeDasharray="22 16" />
-            {/* sliders */}
-            <rect x="262" y="930" width="44" height="80" rx="10" fill="#000" stroke="#000" strokeWidth="6" />
-            <rect x="1226" y="900" width="44" height="80" rx="10" fill="#000" stroke="#000" strokeWidth="6" />
-            {/* ear cups: black, rounded square, an inner plate and a small button */}
-            <rect x="190" y="990" width="170" height="210" rx="46" fill="#000" stroke="#000" strokeWidth="10" />
-            <rect x="214" y="1022" width="122" height="146" rx="30" fill="none" stroke="#fff" strokeWidth="6" />
-            <circle cx="275" cy="1095" r="9" fill="#fff" />
-            <rect x="1170" y="960" width="170" height="210" rx="46" fill="#000" stroke="#000" strokeWidth="10" />
-            <rect x="1194" y="992" width="122" height="146" rx="30" fill="none" stroke="#fff" strokeWidth="6" />
-            <circle cx="1255" cy="1065" r="9" fill="#fff" />
+            {/* flat, drawn like the rest of him: one thick black band, short yokes, chunky black cups with SONDR on them */}
+            <path d="M292 1000 C250 580 480 340 780 336 C1080 332 1300 570 1256 980" fill="none" stroke="#000" strokeWidth="46" />
+            <path d="M292 1000 L300 1040 M1256 980 L1252 1010" fill="none" stroke="#000" strokeWidth="30" />
+            <rect x="196" y="1010" width="196" height="214" rx="70" fill="#000" />
+            <rect x="1160" y="990" width="196" height="214" rx="70" fill="#000" />
+            <text x="294" y="1132" textAnchor="middle" fill="#fff" fontFamily="var(--font-hand)" fontSize="58" textLength="140" lengthAdjust="spacingAndGlyphs">SONDR</text>
+            <text x="1258" y="1112" textAnchor="middle" fill="#fff" fontFamily="var(--font-hand)" fontSize="58" textLength="140" lengthAdjust="spacingAndGlyphs">SONDR</text>
           </g>
         )}
         <g transform="translate(975 1345) scale(1.8)">
