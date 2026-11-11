@@ -75,12 +75,12 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 ## Landing states (components/intro/intro-controller.tsx)
 `landing → leaving → hero → returning → landing`
 - Full load of `/` → landing. Back/forward to `/` → hero. `/?skip=1` → hero. Other routes → never.
-- html classes: `intro-on` (landing up, scroll locked), `pre` (hero/header hidden), `go` (hero entrance playing, removed after 3.3s).
+- html classes: `intro-on` (landing up, scroll locked), `pre` (hero/header hidden), `go` (hero entrance playing, removed after 4.3s).
 - `#site` is `inert` while the landing is up; the footer isn't rendered; Lenis is off.
 - Flow: 0.3s blank → tube warm-up → static → patch forms (HBO style) → glint → at rest ~3.8s with
   "CLICK TO TUNE IN" ("TAP TO TUNE IN" on touch) blinking; hovering the patch glitches it → click, tap or Enter →
   static burst + quiet static sound (≤10% volume), CRT collapses to a line (0.3s), line opens into the white hero
-  (0.4s) → hero entrance (dots pop, lines wipe in with RGB glitch, signature wipes, header drops; then Mr. Sondr pops up bottom-left at 1.5s and his drawn smile opens at 2.4s; ends 2.95s).
+  (0.4s) → hero entrance (4.2s): Mr. Sondr pops up with the joint (0.1s), blows a puff of smoke across the headline (1.05s), both lines come out of the smoke (blur → sharp, 1.45s/1.7s), dots pop (2.5s), signature wipes (2.8s), header drops (2.9s), he smiles (3.3s). The smoking loop starts at 4.2s.
 - Header logo ("Replay the SONDR intro"): on `/` the hero collapses like a CRT (0.3s) then the short opener (~1.2s);
   from another page it goes to `/` and plays the short opener. Then it waits for the click again.
 - Keyboard: Enter (or Space) tunes in. Esc skips to the hero.
@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2q: drawing finished past its canvas (right shoulder + sleeve), cigarette now a joint (cone, roach, twisted burning end). Entrance reordered around him: he opens it, his puff (.ms-puff, above the headline) reveals "You've reached, Dhruv Hardin." (replaces the wipe/RGB glitch on the lines). Smoking loop slowed to 12s with eased hand moves, slow drawn-out exhale and lazier tip smoke. `go` lasts 4.3s.
 - Step 2p: Mr. Sondr fades removed (plain black outline). Added a smoking hand drawn in SVG in his brush style (thick round black strokes, #ms-brush turbulence, red ember): cigarette at the corner of his mouth; loop every 7s from 3.2s: hand lowers while 3 puffs drift out of his mouth, then back up; 3 thin wisps always curl off the tip. Reduced motion: still.
 - Step 2o: Mr. Sondr much bigger (min(72vh, 700u) tall, ~a quarter of the screen, flush bottom-left, behind the headline), masked to fade out at the top (toward the logo) and on the right (into the headline). Smile is now his own drawn mouth opening up from a closed line (scale/rotate on public/mr-sondr-mouth.webp), not a drawn curve.
 - Step 2n: Mr. Sondr on the hero, bottom-left opposite the signature: black outline traced from DESIGN/MR_SONDR.png (grid removed; public/mr-sondr-outline.webp, his drawn mouth split out as public/mr-sondr-mouth.webp). Last in the entrance: pops up from the bottom edge, then the mouth shrinks away and a drawn smile strokes in. Resting state = smiling. Fades on scroll with the signature. `go` now lasts 3.3s.
