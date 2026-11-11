@@ -48,6 +48,8 @@ export interface FooterColumn {
   links: FooterLink[]
   /** SONDR: make the title a button (e.g. "Say hi" opens the contact form). */
   onTitleClick?: () => void
+  /** SONDR: don't show the title (it stays as the nav's accessible name). */
+  hideTitle?: boolean
 }
 
 export interface HalftoneWordmarkFooterProps {
@@ -184,7 +186,7 @@ const HWF_CSS = `
 }
 .hwf-root canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; max-width: none; }
 .hwf-top {
-  position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); /* SONDR: one link column */
+  position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr)); /* SONDR: two link columns */
   gap: 24px; padding: clamp(22px, 3.4vw, 40px) clamp(20px, 3.4vw, 44px) 0;
   font-family: var(--hwf-mono); font-size: var(--hwf-size, 10.5px); letter-spacing: var(--hwf-track, .18em); text-transform: uppercase; line-height: 1.75;
 }
@@ -208,7 +210,7 @@ const HWF_CSS = `
 }
 .hwf-iconlink { display: inline-flex; align-items: center; gap: .45em; vertical-align: top; } /* SONDR */
 .hwf-iconlink svg { width: 1em; height: 1em; flex: none; }
-.hwf-li-icon { display: inline-block; margin: .35em .9em 0 0; } /* SONDR */
+.hwf-li-icon { display: block; margin: .35em 0 0; } /* SONDR: logos stacked */
 .hwf-li-icon svg { width: 1.45em; height: 1.45em; }
 .hwf-li-icon a { background-image: none; transition: transform .2s cubic-bezier(.3,1.6,.5,1); display: inline-flex; }
 .hwf-li-icon a:hover { transform: translateY(-3px) rotate(-4deg); }
@@ -496,7 +498,7 @@ export default function HalftoneWordmarkFooter({
         </div>
         {columns.map((col) => (
           <nav className="hwf-col" key={col.title} aria-label={col.title}>
-            <h3>{col.onTitleClick ? <button type="button" className="hwf-up" onClick={col.onTitleClick}>{col.title}</button> : col.title}</h3>
+            {col.hideTitle ? null : <h3>{col.onTitleClick ? <button type="button" className="hwf-up" onClick={col.onTitleClick}>{col.title}</button> : col.title}</h3>}
             <ul>
               {col.links.map((l, i) => (
                 <li key={i} className={l.iconOnly ? "hwf-li-icon" : undefined}>

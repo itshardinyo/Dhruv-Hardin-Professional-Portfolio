@@ -48,6 +48,7 @@ export function SiteFooter() {
         ...(INSTAGRAM ? [{ label: "Instagram", href: INSTAGRAM, target: "_blank", icon: InstagramIcon, iconOnly: true }] : []),
       ],
     },
+    { title: "Pages", hideTitle: true, links: [{ label: "Artsy", href: "/artsy" }, { label: "Projects", href: "/projects" }, { label: "About me", href: "/about" }] },
   ];
 
   if (pathname === "/" && state !== "hero") return null;

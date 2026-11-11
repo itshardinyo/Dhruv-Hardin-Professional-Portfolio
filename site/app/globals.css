@@ -131,7 +131,12 @@ html.lenis, html.lenis body { height: auto; }
   position: absolute; left: 16px; top: max(12px, calc(24 * var(--u))); width: max(72px, calc(270 * var(--u)));
   margin: 0; padding: 0; border: 0; background: none; cursor: pointer; line-height: 0;
 }
-.mark img { display: block; width: 100%; height: auto; }
+.mark { perspective: 800px; }
+/* the SONDR logo turns slowly on its vertical axis, like a coin on a string */
+.mark img { display: block; width: 100%; height: auto; animation: mark-spin 9s linear infinite; }
+.mark:hover img { animation-play-state: paused; }
+@keyframes mark-spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+@media (prefers-reduced-motion: reduce) { .mark img { animation: none; } }
 .mark:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
 .nav {
   position: absolute; top: max(12px, calc(28 * var(--u))); right: max(16px, calc(72 * var(--u)));

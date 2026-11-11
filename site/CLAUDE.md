@@ -106,13 +106,14 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Details
 - LinkedIn https://www.linkedin.com/in/dhruv-hardin-b01390176/ · Instagram https://www.instagram.com/itsd.hardin_/ · Email dhruv.d.hardin@gmail.com · Resume `/resume.pdf` (Dhruv’s real resume, from DESIGN/Dhruv_Hardin_Resume.pdf)
-- Footer: brand + one column. "Say hi" (the title) and "Email" open the contact form; LinkedIn and Instagram are logo-only links side by side (labels kept for screen readers). No Pages or Files columns. Back to top uses Lenis.
+- Footer: brand + two columns. "Say hi" (the title) and "Email" open the contact form; LinkedIn and Instagram are logo-only links, Instagram under LinkedIn (labels kept for screen readers). Second column: Artsy, Projects, About me with no visible "Pages" heading. No Files column. Back to top uses Lenis.
 - Contact form (components/site/contact-form.tsx): name, your email, subject, message → POST to FormSubmit (formsubmit.co/ajax/dhruv.d.hardin@gmail.com, free, no account). The first message from the live site sends Dhruv a one-time "Activate form" email; he clicks it once, then messages arrive in his inbox (reply goes to the sender). On failure it offers a prefilled mailto. The one exception to "no transparency": its black veil behind the card.
 - Hero scroll on `/`: line 1 rises 8vh, line 2 14vh, dots + signature fade, over the first screen of scrolling (or the whole distance to the footer when that's shorter, which it is: the footer is 560px).
 - Set `NEXT_PUBLIC_SITE_URL` when deploying so Open Graph image URLs are absolute.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3c: footer page links (Artsy, Projects, About me) back, without the "Pages" heading; Instagram logo under LinkedIn. Header SONDR logo spins slowly on its vertical axis (9s, pauses on hover, off with reduced motion).
 - Step 3b: /about rebuilt: Mr. Sondr (shared MrSondrArt) smoking bottom-left (fades up, loop starts after 1.2s via `--ms-loop`), title top-right, draft bio (from what Dhruv has shared; he'll edit). Signature removed from /about.
 - Step 3a: footer: Pages column removed, LinkedIn/Instagram shown as logos only, "Say hi" opens a contact form (name, email, subject, message) sent to Dhruv's inbox via FormSubmit.
 - Step 2z: cigarette now sits in his mouth (no smoking hand); in the entrance his hand comes up holding a Zippo with the SONDR logo (public/logo-mark-black.png) on the case, lights it, drops away. Loop = drags (tip glows, cigarette lifts) + slow exhale. `go` lasts 5.8s.
