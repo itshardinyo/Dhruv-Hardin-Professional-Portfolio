@@ -60,6 +60,8 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 | /projects | HUSTLER JERSEYS (#hustler-jerseys) | Hustler Jerseys | projects/hustler-jerseys |
 | /projects | CASE STUDIES (#school) | Case Studies (PDF slide decks) | projects/school (one WebP per slide + the PDF) |
 | /artsy | COMICS (#comics) | Comics | artsy/comics |
+| /artsy | MR. SONDR (#mr-sondr) | Comics (Mr Sondr Ponders) + Dhruv's uploads | artsy/mr-sondr |
+| /artsy | SONDR UNIVERSE (#sondr-universe) | Comics (Sondr Sunset) + Dhruv's uploads | artsy/sondr-universe |
 - Content lives in `lib/galleries.ts`. A new category = one entry in `PROJECTS` or `ARTSY` (+ its images in public/).
 - Images: WebP, longest side ≤2400px, quality 82, alpha flattened on white; originals untouched in DESIGN/. Order alphabetical (case-insensitive).
 - Every category uses the one `components/ui/circular-gallery.tsx`. Rings with fewer than 6 cards repeat their cards (repeats are hidden from Tab and screen readers). Radius grows with the card count.
@@ -68,7 +70,7 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 - Layout per category: `layout` in lib/galleries.ts. Comics uses "sheet" (components/site/contact-sheet.tsx: a white
   contact sheet with binder holes, numbered prints "01…", square photos, "—" below; 3 columns, 2 on phones), from
   Dhruv's reference. The others use the orbital gallery ("orbit", the default).
-- Titles to check: all 13 "Hustler Jerseys · NN" (files were IMG_xxxx), Comics "SONDR" (IMG_0523 2) and "Mr. Sondr" (Illustration_sans_titre).
+- Titles to check: all 13 "Hustler Jerseys · NN" (files were IMG_xxxx), Mr. Sondr / Sondr Universe titles came from Dhruv's file names.
 
 ## Landing states (components/intro/intro-controller.tsx)
 `landing → leaving → hero → returning → landing`
@@ -110,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2k: /artsy gets two more contact sheets under the comics: MR. SONDR (Detective Sondr, Mr. Sondr, Mr Sondr Ponders) and SONDR UNIVERSE (Sondr Miles, Sondr Sunset, Sondr Universe). Ponders and Sunset moved out of Comics (now 6 pieces).
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
 - Step 2j: About me shows the signature bottom-right, same size and place as on the hero (`signature` prop on PlaceholderPage, reuses `.sig`).
 - Step 2i: "•EST•" left and "•2024•" right of the Hustler logo, level with its centre, same black lettering (`logoSides` in lib/galleries.ts).

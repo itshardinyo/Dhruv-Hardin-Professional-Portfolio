@@ -1,6 +1,6 @@
 /*
   Gallery content for /artsy and /projects. Generated from the folders in Downloads/DESIGN:
-  DESIGN/Comics → public/artsy/comics, DESIGN/Hustler Jerseys → public/projects/hustler-jerseys,
+  DESIGN/Comics → public/artsy/comics (+ artsy/mr-sondr, artsy/sondr-universe), DESIGN/Hustler Jerseys → public/projects/hustler-jerseys,
   DESIGN/School (PDFs) → public/projects/school (the PDF plus one image per slide).
   To add a category, add one entry to ARTSY or PROJECTS. Edit titles and descriptions here.
 */
@@ -98,8 +98,28 @@ export const ARTSY: GalleryCategory[] = [
       { id: "comic-04", title: "EduKtion", image: img("/artsy/comics/eduktion.webp", 2400, 1004) },
       { id: "comic-05", title: "MentAL", image: img("/artsy/comics/mental.webp", 2400, 1004) },
       { id: "comic-06", title: "Eskapades", image: img("/artsy/comics/eskapades.webp", 2400, 1004) },
-      { id: "comic-07", title: "Mr Sondr Ponders", image: img("/artsy/comics/illustration-sans-titre.webp", 1697, 2400) },
-      { id: "comic-08", title: "Sondr Sunset", image: img("/artsy/comics/img-0523-2.webp", 640, 800) },
+    ],
+  },
+  {
+    id: "mr-sondr",
+    title: "Mr. Sondr",
+    kind: "Mr. Sondr piece",
+    layout: "sheet",
+    items: [
+      { id: "mr-sondr-01", title: "Detective Sondr", image: img("/artsy/mr-sondr/detective-sondr.webp", 1640, 2360), pos: "50% 35%" },
+      { id: "mr-sondr-02", title: "Mr. Sondr", image: img("/artsy/mr-sondr/mr-sondr.webp", 1640, 2360), pos: "50% 35%" },
+      { id: "mr-sondr-03", title: "Mr Sondr Ponders", image: img("/artsy/mr-sondr/mr-sondr-ponders.webp", 1697, 2400) },
+    ],
+  },
+  {
+    id: "sondr-universe",
+    title: "Sondr Universe",
+    kind: "Sondr Universe piece",
+    layout: "sheet",
+    items: [
+      { id: "universe-01", title: "Sondr Miles", image: img("/artsy/sondr-universe/sondr-miles.webp", 600, 956) },
+      { id: "universe-02", title: "Sondr Sunset", image: img("/artsy/sondr-universe/sondr-sunset.webp", 640, 800) },
+      { id: "universe-03", title: "Sondr Universe", image: img("/artsy/sondr-universe/sondr-universe.webp", 1200, 1234) },
     ],
   },
 ];
