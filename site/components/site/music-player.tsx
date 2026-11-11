@@ -93,7 +93,7 @@ export function MusicPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src={track.src} preload="auto" onEnded={next} />
+      <audio ref={audioRef} src={track.src} preload="none" loop={PLAYLIST.length === 1} onEnded={next} />
       <div className={`mp ${hidden ? "mp-hidden" : ""}`}>
         <button type="button" className="mp-btn" onClick={toggle} aria-pressed={!muted}
           aria-label={muted || !playing ? `Play music: ${track.title}` : `Mute music: ${track.title}`}>
