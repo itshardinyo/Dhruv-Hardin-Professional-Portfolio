@@ -282,19 +282,35 @@ html.lenis, html.lenis body { height: auto; }
   width: min(100%, calc(100vw - var(--ms-h) * .601 + 120 * var(--u) - 40px), 900px);
   padding: calc(40 * var(--u)) max(16px, calc(56 * var(--u))) calc(120 * var(--u)) 24px;
 }
-.about-title { text-align: right; }
+.about-title { text-align: center; }
 .about-text { font-family: var(--font-hand); color: var(--color-black); font-size: max(22px, calc(34 * var(--u))); line-height: 1.15; }
 .about-text p { margin: .7em 0 0; }
 .about-quote { margin: 1.1em 0 0; padding: 0 0 0 .8em; border-left: 4px solid var(--color-red); }
 .about-quote p { margin: 0; font-style: italic; }
 .about-quote footer { margin-top: .3em; color: var(--color-red); }
-.about-rating { margin: 1.3em 0 0; }
-.about-stars { color: var(--color-red); font-size: 1.35em; letter-spacing: .12em; line-height: 1; filter: url(#rough); }
-.about-rating blockquote { margin: .35em 0 0; }
-.about-rating ol { margin: 0; padding: 0 0 0 1.6em; display: grid; gap: .15em; list-style: decimal; }
-.about-rating li:first-child::before { content: "“"; } .about-rating li:last-child::after { content: "”"; }
-.about-rating li:first-child::before, .about-rating li:last-child::after { color: var(--color-red); }
-.about-rating li::marker { color: var(--color-red); }
+.about-rating { margin: 1.4em 0 0; }
+/* six chunky red stars with a hard black drop, like a poster rating; they pop in one by one */
+.about-stars { display: flex; gap: .18em; font-size: 1.9em; line-height: 1; }
+.about-stars span {
+  display: inline-block; color: var(--color-red);
+  text-shadow: 0 .04em 0 #000, .03em .07em 0 #000, .05em .1em 0 #000;
+  -webkit-text-stroke: .02em #000; transform: rotate(-6deg);
+  animation: star-pop .5s cubic-bezier(.3,1.8,.5,1) backwards;
+}
+.about-stars span:nth-child(even) { transform: rotate(5deg) translateY(-.04em); }
+.about-stars span:nth-child(1) { animation-delay: .3s; } .about-stars span:nth-child(2) { animation-delay: .4s; }
+.about-stars span:nth-child(3) { animation-delay: .5s; } .about-stars span:nth-child(4) { animation-delay: .6s; }
+.about-stars span:nth-child(5) { animation-delay: .7s; } .about-stars span:nth-child(6) { animation-delay: .8s; }
+@keyframes star-pop { from { opacity: 0; transform: scale(.2) rotate(-40deg); } }
+/* the disciplines as poster review quotes */
+.about-reviews { display: flex; flex-wrap: wrap; gap: .25em .9em; margin-top: .55em; }
+.about-reviews blockquote {
+  margin: 0; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .02em;
+  font-size: 1.15em; line-height: 1.05; color: var(--color-black);
+}
+.about-reviews blockquote::before { content: "“"; color: var(--color-red); }
+.about-reviews blockquote::after { content: "”"; color: var(--color-red); }
+@media (prefers-reduced-motion: reduce) { .about-stars span { animation: none; } }
 .about-sondr { margin-top: 1.3em !important; }
 .about-sondr strong { color: var(--color-red); font-weight: 400; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .02em; filter: url(#rough); }
 /* /about: he lights up on arrival (hand + Zippo .9s, flame 1.6s, tip 1.9s, smoke 2.15s), then nods to the music */

@@ -113,6 +113,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3f: /about title centred in its column; six 3D poster-style stars (hard black drop, tilted, pop in one by one); disciplines shown as quoted poster review blurbs (Bebas); "creative ambitions".
 - Step 3e: MrSondrArt `vibing` prop (/about): black on-ear headphones drawn in his brush style (no brand logo), head cut at the neck (clipPaths at y=1600) so the head + cigarette + headphones nod (.ms-head-vibe, 0.92s) while the body stays still. /about now plays the Zippo lighting on arrival (.9–3.7s); loop from 3.9s.
 - Step 3d: /about copy replaced with Dhruv's own words: intro line, Robin Hardin quote (red rule), six red stars over the five disciplines in quotes (movie-rating style), the SONDR definition.
 - Step 3c: footer page links (Artsy, Projects, About me) back, without the "Pages" heading; Instagram logo under LinkedIn. Header SONDR logo spins slowly on its vertical axis (9s, pauses on hover, off with reduced motion).

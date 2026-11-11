@@ -3,7 +3,7 @@ import { MrSondrArt } from "@/components/site/mr-sondr";
 
 export const metadata: Metadata = {
   title: "About me · Dhruv Hardin",
-  description: "Dhruv Hardin is a simple Human Being. He has big dreams, ambition, and above all, he tries.",
+  description: "Dhruv Hardin is a simple Human Being. He has big dreams, creative ambitions, and above all, he tries.",
 };
 
 /*
@@ -20,7 +20,7 @@ export default function Page() {
         <h1 className="display-rough about-title">About me</h1>
         <div className="about-text">
           <p>
-            Dhruv Hardin is a simple Human Being. He has big dreams, ambition, and above all, he tries.
+            Dhruv Hardin is a simple Human Being. He has big dreams, creative ambitions, and above all, he tries.
           </p>
           <blockquote className="about-quote">
             <p>
@@ -30,16 +30,16 @@ export default function Page() {
             <footer>— Robin Hardin</footer>
           </blockquote>
           <figure className="about-rating">
-            <div className="about-stars" role="img" aria-label="Six stars">★★★★★★</div>
-            <blockquote>
-              <ol>
-                <li>Physical discipline</li>
-                <li>Emotional discipline</li>
-                <li>Financial discipline</li>
-                <li>Mental discipline</li>
-                <li>Professional discipline</li>
-              </ol>
-            </blockquote>
+            <div className="about-stars" role="img" aria-label="Six stars out of five">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div className="about-reviews">
+              <blockquote>Physical discipline.</blockquote>
+              <blockquote>Emotional discipline.</blockquote>
+              <blockquote>Financial discipline.</blockquote>
+              <blockquote>Mental discipline.</blockquote>
+              <blockquote>Professional discipline.</blockquote>
+            </div>
           </figure>
           <p className="about-sondr">
             <strong>Sondr</strong> is the deep realization that each person has a life as complex, ambitious, and rich in
