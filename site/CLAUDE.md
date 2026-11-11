@@ -65,7 +65,7 @@ except the TV look (static, scanlines, vignette, glow/fringes on TV text, the he
 - Content lives in `lib/galleries.ts`. A new category = one entry in `PROJECTS` or `ARTSY` (+ its images in public/).
 - Images: WebP, longest side ≤2400px, quality 82, alpha flattened on white; originals untouched in DESIGN/. Order alphabetical (case-insensitive).
 - Every category uses the one `components/ui/circular-gallery.tsx`. Rings with fewer than 6 cards repeat their cards (repeats are hidden from Tab and screen readers). Radius grows with the card count.
-- Ring turns with horizontal scroll (trackpad / Shift + wheel), drag, swipe and ← →; vertical scroll still moves the page. Paused off screen and with reduced motion.
+- Ring turns with horizontal scroll (trackpad / Shift + wheel), drag, swipe and ← →; vertical scroll still moves the page. Flicks carry momentum and the ring keeps cruising; mouse hover on a card stops it. Paused off screen and with reduced motion.
 - Clicking a card opens the viewer: white screen, full image (slide decks: every slide in a scrolling column + "Open the PDF"), ← → or swipe between pieces, Esc/Close returns focus to the card.
 - Layout per category: `layout` in lib/galleries.ts. Comics uses "sheet" (components/site/contact-sheet.tsx: a white
   contact sheet with binder holes, numbered prints "01…", square photos, "—" below; 3 columns, 2 on phones), from
@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2l: orbital gallery momentum: a flick (horizontal scroll, drag, swipe) keeps the ring gliding, easing to a steady cruise (0.15°/frame) in the spun direction; it never stops by itself. Hovering a card with the mouse stops it; moving off resumes. Arrow keys don't add momentum. Constants MAX_VEL/FRICTION/CRUISE in circular-gallery.tsx.
 - Step 2k: /artsy gets two more contact sheets under the comics: MR. SONDR (Detective Sondr, Mr. Sondr, Mr Sondr Ponders) and SONDR UNIVERSE (Sondr Miles, Sondr Sunset, Sondr Universe). Ponders and Sunset moved out of Comics (now 6 pieces).
 - Step 1: landing (TV opener + Slot A), hero, header (Slot B), footer (Slot C), Lenis, placeholder pages, favicon, OG image.
 - Step 2j: About me shows the signature bottom-right, same size and place as on the hero (`signature` prop on PlaceholderPage, reuses `.sig`).

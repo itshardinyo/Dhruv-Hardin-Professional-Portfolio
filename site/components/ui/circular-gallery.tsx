@@ -11,6 +11,8 @@
   - each card is a button that opens the full image (onOpen); a drag never counts as a click
   - sizes scale down with the container width so the ring fits phones
   - only animates while on screen; with reduced motion it stands still
+  - momentum: a flick (scroll, drag, swipe) keeps the ring gliding, easing down to a steady cruise in the
+    direction you spun it, so it never stops by itself; hovering a card (mouse) stops it until you move off
   - Next.js <Image>, site fonts, the "Photo by" demo line removed
 */
 
@@ -54,11 +56,17 @@ interface CircularGalleryProps extends Omit<HTMLAttributes<HTMLDivElement>, "onS
 }
 
 const DEG_PER_PX = 0.18; // SONDR: how far a horizontal scroll or drag turns the ring
+const MAX_VEL = 6; // SONDR: fastest glide after a flick, °/frame
+const FRICTION = 0.975; // SONDR: how quickly a flick eases down to the cruise (per frame)
+const CRUISE = 0.15; // SONDR: steady speed once the ring has been spun, °/frame
 
 const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
   ({ items, className, radius = 600, autoRotateSpeed = 0.02, onOpen, label = "Circular 3D Gallery", style, ...props }, ref) => {
     const [rotation, setRotation] = useState(0);
-    const [isScrolling, setIsScrolling] = useState(false);
+    const isScrolling = useRef(false); // SONDR: a ref, so the frame loop doesn't restart
+    const vel = useRef(0); // SONDR: current glide, °/frame
+    const dir = useRef(0); // SONDR: direction of the last spin (0 = never spun: original slow auto-rotate)
+    const hovering = useRef(false); // SONDR: mouse over a card stops the ring
     const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const animationFrameRef = useRef<number | null>(null);
     const rootRef = useRef<HTMLDivElement | null>(null);
@@ -74,11 +82,15 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
     };
 
     // SONDR: "scrolling" now means a horizontal scroll, drag or key press on this gallery
-    const nudge = (deg: number) => {
-      setIsScrolling(true);
+    const nudge = (deg: number, momentum = true) => {
+      isScrolling.current = true;
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
       setRotation((r) => r + deg);
-      scrollTimeoutRef.current = setTimeout(() => setIsScrolling(false), 150);
+      if (momentum && deg !== 0) {
+        vel.current = Math.max(-MAX_VEL, Math.min(MAX_VEL, vel.current * 0.5 + deg * 0.5));
+        dir.current = Math.sign(deg);
+      }
+      scrollTimeoutRef.current = setTimeout(() => { isScrolling.current = false; }, 150);
     };
 
     // SONDR: horizontal wheel turns the ring; vertical wheel is left to the page (Lenis)
@@ -119,8 +131,13 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
     useEffect(() => {
       if (!visible || reduced) return; // SONDR
       const autoRotate = () => {
-        if (!isScrolling) {
-          setRotation((prev) => prev + autoRotateSpeed);
+        // SONDR: glide after a flick, easing to the cruise; hovering a card holds it still
+        if (hovering.current) vel.current = 0;
+        else if (!isScrolling.current) {
+          const cruise = dir.current === 0 ? autoRotateSpeed : dir.current * Math.max(CRUISE, autoRotateSpeed);
+          vel.current = cruise + (vel.current - cruise) * FRICTION;
+          const v = vel.current;
+          setRotation((prev) => prev + v);
         }
         animationFrameRef.current = requestAnimationFrame(autoRotate);
       };
@@ -132,7 +149,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
           cancelAnimationFrame(animationFrameRef.current);
         }
       };
-    }, [isScrolling, autoRotateSpeed, visible, reduced]);
+    }, [autoRotateSpeed, visible, reduced]);
 
     const anglePerItem = 360 / items.length;
     const r = radius * scale; // SONDR
@@ -180,8 +197,8 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
         onKeyDown={(e) => {
-          if (e.key === "ArrowLeft") { e.preventDefault(); nudge(anglePerItem); }
-          if (e.key === "ArrowRight") { e.preventDefault(); nudge(-anglePerItem); }
+          if (e.key === "ArrowLeft") { e.preventDefault(); nudge(anglePerItem, false); }
+          if (e.key === "ArrowRight") { e.preventDefault(); nudge(-anglePerItem, false); }
         }}
         {...props}
       >
@@ -206,6 +223,8 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                 aria-label={item.common}
                 aria-hidden={item.repeat || undefined}
                 className="absolute"
+                onPointerEnter={(e) => { if (e.pointerType === "mouse") hovering.current = true; }}
+                onPointerLeave={(e) => { if (e.pointerType === "mouse") hovering.current = false; }}
                 style={{
                   width: cw,
                   height: ch,
