@@ -211,8 +211,9 @@ function LandingLayer() {
         <div className="tv-roll" aria-hidden="true" />
         <div className="tv-scan" aria-hidden="true" />
         <div className="tv-vig" aria-hidden="true" />
-        <div ref={chRef} className="osd osd-ch" aria-hidden="true">
-          CH 22
+        <div ref={chRef} className="osd osd-top" aria-hidden="true">
+          <TvDate />
+          <div className="osd-ch">CH 22<TvClock /></div>
         </div>
         <button ref={enterRef} type="button" className="tv-enter" onClick={leave} aria-label="SONDR Rules The World. Enter the site (Escape skips)">
           <span ref={cueRef} className="osd osd-cue">{touch ? "TAP TO TUNE IN" : "CLICK TO TUNE IN"}</span>
@@ -223,4 +224,26 @@ function LandingLayer() {
       <img ref={imgRef} src="/logo-patch.webp" alt="" hidden />
     </div>
   );
+}
+
+/* VCR-style live readouts for the top corners: the date (left) and the time under CH 22 (right).
+   Rendered after mount so the server and browser never disagree about the time. */
+function useNow() {
+  const [now, setNow] = React.useState<Date | null>(null);
+  React.useEffect(() => {
+    setNow(new Date());
+    const id = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  return now;
+}
+const pad = (n: number) => String(n).padStart(2, "0");
+function TvClock() {
+  const now = useNow();
+  return <div className="osd-time">{now ? `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}` : "\u00a0"}</div>;
+}
+function TvDate() {
+  const now = useNow();
+  const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  return <div className="osd-date">{now ? `${pad(now.getDate())} ${months[now.getMonth()]} ${now.getFullYear()}` : "\u00a0"}</div>;
 }

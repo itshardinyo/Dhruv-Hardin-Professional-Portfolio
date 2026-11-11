@@ -105,7 +105,13 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 0; transition: opacity .2s steps(2, end);
 }
 .osd.on { opacity: 1; }
-.osd-ch { top: clamp(14px, 3.2vh, 34px); right: clamp(18px, 3.4vw, 48px); font-size: clamp(28px, 4vw, 60px); }
+.osd-top {
+  left: clamp(18px, 3.4vw, 48px); right: clamp(18px, 3.4vw, 48px); top: clamp(14px, 3.2vh, 34px);
+  display: flex; justify-content: space-between; align-items: flex-start; font-size: clamp(28px, 4vw, 60px);
+}
+.osd-ch { text-align: right; }
+.osd-time { font-size: .62em; margin-top: .25em; font-variant-numeric: tabular-nums; }
+.osd-date { font-size: .62em; padding-top: .1em; }
 .tv-enter {
   position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; margin: 0; padding: 0; border: 0;
   background: none; color: inherit; font: inherit; cursor: pointer; appearance: none;
