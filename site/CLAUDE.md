@@ -105,8 +105,8 @@ All changes inside pasted files are marked `SONDR:`.
 If a slot says "(empty)", build that slot's default and mark it "pending" here.
 
 ## Details
-- LinkedIn https://www.linkedin.com/in/dhruv-hardin-b01390176/ · Email dhruv.d.hardin@gmail.com · Resume `/resume.pdf` (Dhruv’s real resume, from DESIGN/Dhruv_Hardin_Resume.pdf)
-- Footer: Say hi = Email (copies the address, shows "Copied"), LinkedIn (logo, new tab), Instagram (logo, new tab; shown once `INSTAGRAM` in site-footer.tsx is set). Pages column. No Files column. Back to top uses Lenis.
+- LinkedIn https://www.linkedin.com/in/dhruv-hardin-b01390176/ · Instagram https://www.instagram.com/itsd.hardin_/ · Email dhruv.d.hardin@gmail.com · Resume `/resume.pdf` (Dhruv’s real resume, from DESIGN/Dhruv_Hardin_Resume.pdf)
+- Footer: Say hi = Email (copies the address, shows "Copied"), LinkedIn (logo, new tab), Instagram (logo, new tab, @itsd.hardin_). Pages column. No Files column. Back to top uses Lenis.
 - Hero scroll on `/`: line 1 rises 8vh, line 2 14vh, dots + signature fade, over the first screen of scrolling (or the whole distance to the footer when that's shorter, which it is: the footer is 560px).
 - Set `NEXT_PUBLIC_SITE_URL` when deploying so Open Graph image URLs are absolute.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).

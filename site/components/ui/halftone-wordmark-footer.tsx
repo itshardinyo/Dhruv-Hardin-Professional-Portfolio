@@ -202,7 +202,7 @@ const HWF_CSS = `
   border-top: 1px solid var(--hwf-ink);
   font-family: var(--hwf-mono); font-size: var(--hwf-size, 10.5px); letter-spacing: var(--hwf-track, .18em); text-transform: uppercase;
 }
-.hwf-iconlink { display: inline-flex; align-items: center; gap: .45em; } /* SONDR */
+.hwf-iconlink { display: inline-flex; align-items: center; gap: .45em; vertical-align: top; } /* SONDR */
 .hwf-iconlink svg { width: 1em; height: 1em; flex: none; }
 .hwf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 720px) {

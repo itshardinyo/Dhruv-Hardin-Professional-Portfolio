@@ -9,7 +9,7 @@ import { scrollToTop } from "@/lib/lenis-store";
 const EMAIL = "dhruv.d.hardin@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/dhruv-hardin-b01390176/";
 /** Dhruv's Instagram profile URL. The Instagram link appears in the footer once this is set. */
-const INSTAGRAM = "";
+const INSTAGRAM = "https://www.instagram.com/itsd.hardin_/";
 
 const LinkedInIcon = (
   <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
