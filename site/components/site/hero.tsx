@@ -49,7 +49,7 @@ export function Hero() {
         </h1>
       </div>
       {/* Mr. Sondr (black outline of DESIGN/MR_SONDR.png), opposite the signature. Comes last in the entrance: pops up with
-          a cigarette, smiles, then keeps smoking slowly; the smoke always rises straight up. */}
+          a cigarette, lights it, smiles, then keeps smoking slowly; the smoke always rises. */}
       <motion.div className="mr-sondr" style={{ opacity: fade }} aria-hidden="true">
         <svg viewBox="0 380 1640 1980" preserveAspectRatio="xMidYMax meet">
           <defs>
@@ -57,18 +57,31 @@ export function Hero() {
               <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="7" result="n" />
               <feDisplacementMap in="SourceGraphic" in2="n" scale="6" />
             </filter>
-            {/* a rising plume of smoke (from Dhruv's reference): billowing grey puffs, darker grey shading, black outline,
-                curl at the top, a few loose droplets. Base at (100, 360). */}
-            <symbol id="ms-plume" viewBox="0 0 200 360" overflow="visible">
-              <g filter="url(#ms-brush)">
-                <g fill="none" stroke="#000" strokeWidth="12"><circle cx="100" cy="345" r="10" /><circle cx="96" cy="325" r="12" /><circle cx="104" cy="305" r="14" /><circle cx="98" cy="282" r="17" /><circle cx="88" cy="255" r="22" /><circle cx="112" cy="245" r="20" /><circle cx="100" cy="222" r="26" /><circle cx="78" cy="205" r="24" /><circle cx="122" cy="200" r="26" /><circle cx="95" cy="170" r="32" /><circle cx="60" cy="160" r="26" /><circle cx="135" cy="155" r="30" /><circle cx="80" cy="125" r="34" /><circle cx="125" cy="115" r="32" /><circle cx="100" cy="90" r="30" /><circle cx="60" cy="95" r="22" /><circle cx="150" cy="85" r="20" /><circle cx="95" cy="55" r="24" /><circle cx="128" cy="50" r="18" /></g>
-                <path d="M74 40 C40 30 45 -5 80 -5 C102 -4 104 18 86 20" fill="none" stroke="#000" strokeWidth="22" strokeLinecap="round" />
-                <g fill="#8C8C8C"><circle cx="100" cy="345" r="10" /><circle cx="96" cy="325" r="12" /><circle cx="104" cy="305" r="14" /><circle cx="98" cy="282" r="17" /><circle cx="88" cy="255" r="22" /><circle cx="112" cy="245" r="20" /><circle cx="100" cy="222" r="26" /><circle cx="78" cy="205" r="24" /><circle cx="122" cy="200" r="26" /><circle cx="95" cy="170" r="32" /><circle cx="60" cy="160" r="26" /><circle cx="135" cy="155" r="30" /><circle cx="80" cy="125" r="34" /><circle cx="125" cy="115" r="32" /><circle cx="100" cy="90" r="30" /><circle cx="60" cy="95" r="22" /><circle cx="150" cy="85" r="20" /><circle cx="95" cy="55" r="24" /><circle cx="128" cy="50" r="18" /></g>
-                <path d="M74 40 C40 30 45 -5 80 -5 C102 -4 104 18 86 20" fill="none" stroke="#8C8C8C" strokeWidth="11" strokeLinecap="round" />
-                <g fill="#5E5E5E"><circle cx="106" cy="250" r="10" /><circle cx="110" cy="208" r="12" /><circle cx="104" cy="178" r="14" /><circle cx="142" cy="162" r="12" /><circle cx="132" cy="122" r="14" /><circle cx="106" cy="97" r="12" /><circle cx="100" cy="62" r="10" /><circle cx="72" cy="132" r="10" /><circle cx="66" cy="166" r="8" /></g>
-                <g fill="#5E5E5E" stroke="#000" strokeWidth="3"><circle cx="40" cy="200" r="6" /><circle cx="165" cy="190" r="5" /><circle cx="30" cy="120" r="5" /><circle cx="175" cy="120" r="4" /><circle cx="45" cy="40" r="4" /><circle cx="160" cy="30" r="5" /><circle cx="150" cy="240" r="3" /></g>
-              </g>
-            </symbol>
+            {/* realistic smoke: soft grey ribbons pushed around by slowly shifting noise, then blurred */}
+            <filter id="ms-smokefx" x="-80%" y="-30%" width="260%" height="160%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.018 0.045" numOctaves="3" seed="3" result="t">
+                <animate attributeName="baseFrequency" dur="11s" values="0.018 0.045;0.024 0.055;0.018 0.045" repeatCount="indefinite" />
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="t" scale="26" xChannelSelector="R" yChannelSelector="G" />
+              <feGaussianBlur stdDeviation="2.2" />
+            </filter>
+            <filter id="ms-smokefx-big" x="-80%" y="-40%" width="260%" height="180%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="3" seed="9" result="t">
+                <animate attributeName="baseFrequency" dur="13s" values="0.008 0.02;0.012 0.026;0.008 0.02" repeatCount="indefinite" />
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="t" scale="90" xChannelSelector="R" yChannelSelector="G" />
+              <feGaussianBlur stdDeviation="15" />
+            </filter>
+            {/* smoke thins out as it rises */}
+            <linearGradient id="ms-fade" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stopColor="#fff" />
+              <stop offset=".45" stopColor="#fff" />
+              <stop offset="1" stopColor="#000" />
+            </linearGradient>
+            <mask id="ms-fade-mask" maskContentUnits="objectBoundingBox">
+              <rect width="1" height="1" fill="url(#ms-fade)" />
+            </mask>
+            <filter id="ms-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="14" /></filter>
           </defs>
           <image href="/mr-sondr-outline.webp" x="0" y="380" width="1640" height="1980" />
           {/* the drawing ran off its canvas on the right: finish the shoulder and sleeve */}
@@ -98,18 +111,44 @@ export function Hero() {
               {/* cigarette: from the corner of his mouth, out between the fingers */}
               <g filter="url(#ms-brush)">
                 <path d="M-100 -2 L46 -26 L49 -8 L-97 14 Z" fill="#fff" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
+                <path d="M46 -26 L72 -30 L75 -12 L49 -8 Z" fill="#fff" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
                 <path className="ms-ember" d="M46 -26 L72 -30 L75 -12 L49 -8 Z" fill="#F80A02" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
               </g>
-              {/* smoke rising off the tip */}
-              <g className="ms-smoke">
-                <g><use href="#ms-plume" x="38" y="-176" width="80" height="144" /></g>
-                <g><use href="#ms-plume" x="34" y="-190" width="88" height="158" /></g>
+              {/* a thin stream of smoke rising off the tip, curling and thinning out */}
+              <g className="ms-smoke" mask="url(#ms-fade-mask)">
+                <g filter="url(#ms-smokefx)" fill="none" stroke="#7D7D7D" strokeLinecap="round">
+                  <path pathLength={100} strokeWidth="7" d="M76 -28 C60 -70 96 -110 80 -160 C64 -210 104 -250 86 -300 C70 -350 100 -390 84 -440" />
+                  <path pathLength={100} strokeWidth="6" d="M78 -28 C96 -80 66 -120 88 -170 C110 -220 74 -270 96 -320 C116 -370 86 -400 104 -450" />
+                  <path pathLength={100} strokeWidth="4" d="M74 -30 C56 -60 74 -100 60 -140 C46 -180 70 -220 54 -270" />
+                </g>
               </g>
             </g>
+            {/* the lighter (entrance only): comes up in his other hand, flicks a flame under the tip, then drops away */}
+            <g className="ms-lighter">
+             <g transform="translate(70 0) scale(1.45) translate(-70 0)">
+              <circle className="ms-flame-glow" cx="68" cy="-4" r="26" fill="#F80A02" opacity=".35" filter="url(#ms-glow)" />
+              <g filter="url(#ms-brush)" stroke="#000" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M92 26 L104 -34 L120 -30 L108 28" fill="#fff" strokeWidth="9" />
+                <rect x="52" y="4" width="36" height="24" fill="#fff" strokeWidth="9" />
+                <circle cx="62" cy="16" r="2.5" fill="#000" strokeWidth="0" />
+                <circle cx="76" cy="16" r="2.5" fill="#000" strokeWidth="0" />
+                <circle cx="47" cy="14" r="7" fill="#fff" strokeWidth="8" />
+                <rect x="46" y="28" width="52" height="70" rx="6" fill="#fff" strokeWidth="11" />
+                <path d="M46 52 C30 50 26 66 40 70 M44 72 C28 72 26 88 42 90 M46 92 C34 96 36 108 50 106" fill="none" strokeWidth="11" />
+                <path d="M40 34 C30 20 36 6 48 8" fill="none" strokeWidth="11" />
+              </g>
+              <g className="ms-flame">
+                <path d="M70 4 C56 -6 60 -20 68 -34 C74 -22 86 -8 70 4 Z" fill="#F80A02" stroke="#000" strokeWidth="4" strokeLinejoin="round" />
+                <path d="M70 0 C64 -6 66 -14 69 -20 C72 -13 77 -6 70 0 Z" fill="#fff" />
+              </g>
+             </g>
+            </g>
           </g>
-          {/* the slow exhale: a plume out of the corner of his mouth, rising up and drifting off his face */}
-          <g className="ms-exhale">
-            <g className="ms-exhale-lean"><use href="#ms-plume" x="700" y="944" width="230" height="414" /></g>
+          {/* the slow exhale: soft smoke rolling out of the corner of his mouth, away from his face, rising */}
+          <g className="ms-exhale" filter="url(#ms-smokefx-big)" fill="none" stroke="#B4B4B4" strokeLinecap="round">
+            <path pathLength={1} strokeWidth="34" d="M800 1330 C880 1300 900 1240 980 1210 C1060 1180 1060 1110 1130 1070" />
+            <path pathLength={1} strokeWidth="26" d="M800 1325 C860 1270 940 1260 990 1190 C1040 1120 1110 1110 1150 1030" />
+            <path pathLength={1} strokeWidth="22" d="M795 1335 C870 1340 930 1300 1000 1290 C1080 1280 1110 1220 1180 1200" />
           </g>
         </svg>
       </motion.div>
