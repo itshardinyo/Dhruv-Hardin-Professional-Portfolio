@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3t: cover art fills the frame at the image's own shape (no black bars).
 - Step 3s: cover art for "Just One More Drink": Dhruv's image (public/music/art/making-a-playlist.webp, shown whole, not cropped). Tracks without `art` show the white SONDR logo.
 - Step 3r: music drop-down redesigned after Dhruv's Spotify reference: dark rounded card, square cover art (SONDR logo placeholder; `art` field per track), bold title + grey artist, thin progress bar with elapsed and −remaining, big white ⏪ ❚❚ ⏩, volume slider. Hint text removed.
 - Step 3q: "Just One More Drink · Jazz Noir" back in the playlist (public/music/just-one-more-drink.mp3).
