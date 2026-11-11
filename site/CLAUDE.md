@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3q: "Just One More Drink · Jazz Noir" back in the playlist (public/music/just-one-more-drink.mp3).
 - Step 3p: Resume back in the footer, first in the page links.
 - Step 3o: the spinning header logo is the music player (one click: Spotify-like drop-down; double click: back to the TV landing). Floating music chip removed. Ready for more MP3s.
 - Step 3n: "Just One More Drink" removed at Dhruv's request; playlist empty again, so the player is hidden.
