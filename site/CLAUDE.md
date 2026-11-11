@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3n: "Just One More Drink" removed at Dhruv's request; playlist empty again, so the player is hidden.
 - Step 3m: first track: "Just One More Drink · Jazz Noir" (82-min mix, re-encoded 64 kbps MP3 ≈39 MB, public/music/just-one-more-drink.mp3). Audio preload="none" (streams once it starts); a single track loops.
 - Step 3l: five crowns, one per discipline.
 - Step 3k: crowns now red with three even points; the three horizontal lines kept.

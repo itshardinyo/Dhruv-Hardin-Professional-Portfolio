@@ -5,9 +5,7 @@
 */
 export interface Track { src: string; title: string; artist?: string }
 
-export const PLAYLIST: Track[] = [
-  { src: "/music/just-one-more-drink.mp3", title: "Just One More Drink", artist: "Jazz Noir" },
-];
+export const PLAYLIST: Track[] = [];
 
 /** Fired by the landing's "Tune in" click so the music starts on that exact gesture. */
 export const MUSIC_START_EVENT = "sondr:music-start";
