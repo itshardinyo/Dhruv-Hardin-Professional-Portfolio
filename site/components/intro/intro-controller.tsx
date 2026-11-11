@@ -92,7 +92,7 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
       html().remove("intro-on", "pre");
       if (entrance && !reduced) {
         html().add("go");
-        window.setTimeout(() => html().remove("go"), 4300); // so the hero doesn't replay it after in-app navigation
+        window.setTimeout(() => html().remove("go"), 4800); // so the hero doesn't replay it after in-app navigation
       }
       setState("hero");
       requestAnimationFrame(() => {

@@ -188,29 +188,29 @@ html.lenis, html.lenis body { height: auto; }
 .ms-puff svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .ms-puff path { stroke-dasharray: 1; stroke-dashoffset: 1; }
 
-/* hero entrance (4.2s): Mr. Sondr pops up with the joint, blows a puff of smoke, the headline comes out of the smoke,
-   then dots pop, signature wipes in, header drops in and he smiles */
+/* hero entrance: dots pop, lines wipe in with an RGB glitch, signature wipes in, header drops in; then Mr. Sondr
+   pops up with his cigarette (1.5s), blows a puff of smoke (2.3s) and smiles (3s) */
 .pre .site-header .mark, .pre .site-header .dock-chip, .pre .dots i, .pre .txt, .pre .sig, .pre .mr-sondr { visibility: hidden; }
-.go .mr-sondr svg { animation: ms-up .8s cubic-bezier(.3,1.4,.55,1) .1s backwards; transform-origin: 50% 100%; }
-.go .ms-puff { animation: ms-puff 2.4s ease-out 1.05s; }
-.go .ms-puff path { animation: ms-puff-draw 1s cubic-bezier(.3,0,.2,1) 1.05s forwards; }
-.go .ms-puff path:nth-child(2) { animation-delay: 1.12s; }
-.go .ms-puff path:nth-child(3) { animation-delay: 1.2s; }
-.go .ms-puff path:nth-child(4) { animation-delay: 1.26s; }
-.go .ms-puff path:nth-child(n+5) { animation-delay: 1.45s; animation-duration: .7s; }
-.go .l1 { animation: smoke-in 1.1s cubic-bezier(.2,.6,.3,1) 1.45s backwards; }
-.go .l2 { animation: smoke-in 1.1s cubic-bezier(.2,.6,.3,1) 1.7s backwards; }
 .go .dots i { animation: pop .4s cubic-bezier(.3,1.7,.5,1) backwards; }
-.go .dots i:nth-child(1) { animation-delay: 2.5s; }
-.go .dots i:nth-child(2) { animation-delay: 2.59s; }
-.go .dots i:nth-child(3) { animation-delay: 2.68s; }
-.go .sig img { animation: sign .6s cubic-bezier(.6,0,.3,1) 2.8s backwards; }
-.go .site-header .mark { animation: drop .45s cubic-bezier(.25,1.4,.5,1) 2.9s backwards; }
+.go .dots i:nth-child(1) { animation-delay: .05s; }
+.go .dots i:nth-child(2) { animation-delay: .14s; }
+.go .dots i:nth-child(3) { animation-delay: .23s; }
+.go .l1 .txt { animation: wipe .6s cubic-bezier(.75,0,.2,1) .32s backwards, rgb .7s steps(4,end) .32s backwards; }
+.go .l2 .txt { animation: wipe .6s cubic-bezier(.75,0,.2,1) .55s backwards, rgb .7s steps(4,end) .55s backwards; }
+.go .sig img { animation: sign .6s cubic-bezier(.6,0,.3,1) .9s backwards; }
+.go .site-header .mark { animation: drop .45s cubic-bezier(.25,1.4,.5,1) 1s backwards; }
 .go .site-header .dock-chip { animation: drop .45s cubic-bezier(.25,1.4,.5,1) backwards; }
-.go .site-header .dock-chip:nth-child(1) { animation-delay: 2.96s; }
-.go .site-header .dock-chip:nth-child(2) { animation-delay: 3.02s; }
-.go .site-header .dock-chip:nth-child(3) { animation-delay: 3.08s; }
-.go .ms-mouth { animation: ms-smile .55s cubic-bezier(.3,1.6,.5,1) 3.3s backwards; transform-box: fill-box; transform-origin: 40% 15%; }
+.go .site-header .dock-chip:nth-child(1) { animation-delay: 1.06s; }
+.go .site-header .dock-chip:nth-child(2) { animation-delay: 1.12s; }
+.go .site-header .dock-chip:nth-child(3) { animation-delay: 1.18s; }
+.go .mr-sondr svg { animation: ms-up .8s cubic-bezier(.3,1.4,.55,1) 1.5s backwards; transform-origin: 50% 100%; }
+.go .ms-puff { animation: ms-puff 2.4s ease-out 2.3s; }
+.go .ms-puff path { animation: ms-puff-draw 1s cubic-bezier(.3,0,.2,1) 2.3s forwards; }
+.go .ms-puff path:nth-child(2) { animation-delay: 2.37s; }
+.go .ms-puff path:nth-child(3) { animation-delay: 2.45s; }
+.go .ms-puff path:nth-child(4) { animation-delay: 2.51s; }
+.go .ms-puff path:nth-child(n+5) { animation-delay: 2.7s; animation-duration: .7s; }
+.go .ms-mouth { animation: ms-smile .55s cubic-bezier(.3,1.6,.5,1) 3s backwards; transform-box: fill-box; transform-origin: 40% 15%; }
 @keyframes ms-up { from { transform: translateY(105%) scaleY(.85); } to { transform: none; } }
 @keyframes ms-smile { from { transform: rotate(8deg) scale(.85, .14); } to { transform: none; } }
 @keyframes ms-puff-draw { to { stroke-dashoffset: 0; } }
@@ -219,22 +219,17 @@ html.lenis, html.lenis body { height: auto; }
   45% { opacity: 1; transform: none; filter: none; }
   100% { opacity: 0; transform: translate(calc(40 * var(--u)), calc(-90 * var(--u))) scale(1.08); filter: blur(3px); }
 }
-@keyframes smoke-in {
-  0% { opacity: 0; filter: blur(.12em); letter-spacing: .08em; }
-  60% { opacity: 1; }
-  100% { opacity: 1; filter: blur(0); letter-spacing: 0; }
-}
 
-/* the smoking loop (12s, from 4.2s), slow and unhurried: drag at his mouth with the tip glowing, lower the hand,
+/* the smoking loop (12s, from 4.7s), slow and unhurried: drag at his mouth with the tip glowing, lower the hand,
    hold, a long slow exhale drifting up, rest, bring it back up. Smoke always drifts off the tip. */
-.ms-hand-move { transform-box: fill-box; transform-origin: 40% 100%; animation: ms-hand 12s 4.2s infinite; }
-.ms-ember { animation: ms-ember 12s ease-in-out 4.2s infinite; }
+.ms-hand-move { transform-box: fill-box; transform-origin: 40% 100%; animation: ms-hand 12s 4.7s infinite; }
+.ms-ember { animation: ms-ember 12s ease-in-out 4.7s infinite; }
 .ms-smoke path { transform-box: fill-box; transform-origin: 50% 100%; opacity: 0; animation: ms-wisp 5.4s ease-in-out infinite; }
 .ms-smoke path:nth-child(2) { animation-delay: 1.8s; }
 .ms-smoke path:nth-child(3) { animation-delay: 3.6s; }
-.ms-exhale path { transform-box: fill-box; transform-origin: 50% 100%; opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ms-exhale 12s 4.2s infinite; }
-.ms-exhale path:nth-child(2) { animation-delay: 4.5s; }
-.ms-exhale path:nth-child(3) { animation-delay: 4.8s; }
+.ms-exhale path { transform-box: fill-box; transform-origin: 50% 100%; opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ms-exhale 12s 4.7s infinite; }
+.ms-exhale path:nth-child(2) { animation-delay: 5s; }
+.ms-exhale path:nth-child(3) { animation-delay: 5.3s; }
 @keyframes ms-hand {
   0% { transform: none; animation-timing-function: cubic-bezier(.45,0,.3,1); }
   8% { transform: none; animation-timing-function: cubic-bezier(.45,0,.3,1); }

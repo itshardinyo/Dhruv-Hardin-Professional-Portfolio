@@ -48,8 +48,8 @@ export function Hero() {
           </motion.span>
         </h1>
       </div>
-      {/* Mr. Sondr (black outline of DESIGN/MR_SONDR.png), opposite the signature. Opens the entrance: pops up with
-          a joint, blows the smoke the headline comes out of, smiles, then keeps smoking slowly. */}
+      {/* Mr. Sondr (black outline of DESIGN/MR_SONDR.png), opposite the signature. Comes last in the entrance: pops up with
+          a cigarette, blows a puff of smoke, smiles, then keeps smoking slowly. */}
       <motion.div className="mr-sondr" style={{ opacity: fade }} aria-hidden="true">
         <svg viewBox="0 380 1640 1980" preserveAspectRatio="xMidYMax meet">
           <defs>
@@ -83,13 +83,10 @@ export function Hero() {
                 <path d="M-14 112 L-2 96" strokeWidth="10" />
                 <path d="M30 120 L44 108" strokeWidth="10" />
               </g>
-              {/* the joint: thin roach at his mouth, cone widening out between the fingers, twisted burning end */}
-              <g filter="url(#ms-brush)" stroke="#000" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M-100 1 L50 -38 L58 -2 L-98 12 Z" fill="#fff" strokeWidth="9" />
-                <path d="M-86 -1 L-84 10 M-74 -4 L-72 8" fill="none" strokeWidth="5" />
-                <path d="M-34 -8 L-24 4 M8 -20 L18 -6 M30 -26 L40 -10" fill="none" strokeWidth="4" />
-                <path className="ms-ember" d="M50 -38 C62 -44 76 -34 74 -20 C74 -8 66 0 58 -2 Z" fill="#F80A02" strokeWidth="9" />
-                <path d="M72 -34 L84 -40 M76 -20 L90 -22 M70 -6 L82 -2" fill="none" strokeWidth="5" />
+              {/* cigarette: from the corner of his mouth, out between the fingers */}
+              <g filter="url(#ms-brush)">
+                <path d="M-100 -2 L46 -26 L49 -8 L-97 14 Z" fill="#fff" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
+                <path className="ms-ember" d="M46 -26 L72 -30 L75 -12 L49 -8 Z" fill="#F80A02" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
               </g>
               {/* smoke drifting off the tip */}
               <g className="ms-smoke" fill="none" stroke="#000" strokeWidth="5" strokeLinecap="round">
@@ -107,7 +104,7 @@ export function Hero() {
           </g>
         </svg>
       </motion.div>
-      {/* the opening puff: smoke from his mouth across the headline, which comes out of it */}
+      {/* his first puff: smoke from his mouth drifting out over the headline */}
       <div className="ms-puff" aria-hidden="true">
         <svg viewBox="0 0 1150 600" fill="none" stroke="#000" strokeWidth="4" strokeLinecap="round">
           <path pathLength={1} d="M0 300 C80 260 140 330 230 280 S380 200 470 250 S640 330 760 240 S960 160 1100 220" />
