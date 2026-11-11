@@ -114,7 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
-- Step 3w: SONDR logo stamped in the centre of the cover (white oval badge, black outline).
+- Step 3w: SONDR logo stamped in the centre of the cover, no badge (black logo with a thin white edge).
 - Step 3v: cover art replaced with Dhruv's black-and-white four-photo image (public/music/art/cover.webp); GIF removed.
 - Step 3u: cover art is now Dhruv's animated GIF ("Making a playlist is a delicate art."), converted to animated WebP (same file name, public/music/art/making-a-playlist.webp).
 - Step 3t: cover art fills the frame at the image's own shape (no black bars).
