@@ -169,16 +169,12 @@ html.lenis, html.lenis body { height: auto; }
   width: max(140px, calc(314 * var(--u)));
 }
 .sig img { display: block; width: 100%; height: auto; }
-/* Mr. Sondr: big, bottom-left, about a quarter of the screen, behind the headline; his top fades out toward
-   the logo and his right side fades into the headline */
+/* Mr. Sondr: big, bottom-left, about a quarter of the screen, plain black outline behind the headline */
 .hero-body { z-index: 1; }
 .mr-sondr {
   position: absolute; left: calc(-120 * var(--u)); bottom: 0; z-index: 0;
   height: min(72vh, calc(700 * var(--u))); aspect-ratio: 1640 / 1980;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to top, #000 74%, transparent 100%), linear-gradient(to right, #000 62%, transparent 92%);
-  mask-image: linear-gradient(to top, #000 74%, transparent 100%), linear-gradient(to right, #000 62%, transparent 92%);
-  -webkit-mask-composite: source-in; mask-composite: intersect;
 }
 .mr-sondr svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
@@ -199,6 +195,32 @@ html.lenis, html.lenis body { height: auto; }
 /* Mr. Sondr comes last: pops up from the bottom edge (1.5s), then his drawn smile opens from a closed mouth (2.4s) */
 .go .mr-sondr svg { animation: ms-up .7s cubic-bezier(.3,1.5,.55,1) 1.5s backwards; transform-origin: 50% 100%; }
 .go .ms-mouth { animation: ms-smile .55s cubic-bezier(.3,1.6,.5,1) 2.4s backwards; transform-box: fill-box; transform-origin: 40% 15%; }
+/* the smoking loop: hand at his mouth, lowers while he exhales, back up; smoke always curls off the tip */
+.ms-hand-move { transform-box: fill-box; transform-origin: 40% 100%; animation: ms-hand 7s ease-in-out 3.2s infinite; }
+.ms-ember { animation: ms-ember 7s linear 3.2s infinite; }
+.ms-smoke path { transform-box: fill-box; transform-origin: 50% 100%; animation: ms-wisp 2.6s ease-out infinite; opacity: 0; }
+.ms-smoke path:nth-child(2) { animation-delay: .9s; }
+.ms-smoke path:nth-child(3) { animation-delay: 1.7s; }
+.ms-exhale path { transform-box: fill-box; transform-origin: 80% 100%; opacity: 0; animation: ms-exhale 7s ease-out 3.2s infinite; }
+.ms-exhale path:nth-child(2) { animation-delay: 3.35s; }
+.ms-exhale path:nth-child(3) { animation-delay: 3.5s; }
+@keyframes ms-hand {
+  0%, 28% { transform: none; }
+  40%, 74% { transform: translate(26px, 120px) rotate(9deg); }
+  86%, 100% { transform: none; }
+}
+@keyframes ms-ember { 0%, 8% { opacity: .7; } 14%, 26% { opacity: 1; } 34%, 100% { opacity: .7; } }
+@keyframes ms-wisp {
+  0% { opacity: 0; transform: translateY(10px) scaleY(.6); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-90px) scaleY(1.1) skewX(-8deg); }
+}
+@keyframes ms-exhale {
+  0%, 40% { opacity: 0; transform: translate(0, 10px) scale(.5); }
+  50% { opacity: 1; }
+  72%, 100% { opacity: 0; transform: translate(-40px, -120px) scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) { .ms-hand-move, .ms-ember, .ms-smoke path, .ms-exhale path { animation: none; } .ms-smoke path:first-child { opacity: 1; } }
 @keyframes ms-up { from { transform: translateY(105%) scaleY(.85); } to { transform: none; } }
 @keyframes ms-smile { from { transform: rotate(8deg) scale(.85, .14); } to { transform: none; } }
 @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }

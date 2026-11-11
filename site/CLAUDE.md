@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2p: Mr. Sondr fades removed (plain black outline). Added a smoking hand drawn in SVG in his brush style (thick round black strokes, #ms-brush turbulence, red ember): cigarette at the corner of his mouth; loop every 7s from 3.2s: hand lowers while 3 puffs drift out of his mouth, then back up; 3 thin wisps always curl off the tip. Reduced motion: still.
 - Step 2o: Mr. Sondr much bigger (min(72vh, 700u) tall, ~a quarter of the screen, flush bottom-left, behind the headline), masked to fade out at the top (toward the logo) and on the right (into the headline). Smile is now his own drawn mouth opening up from a closed line (scale/rotate on public/mr-sondr-mouth.webp), not a drawn curve.
 - Step 2n: Mr. Sondr on the hero, bottom-left opposite the signature: black outline traced from DESIGN/MR_SONDR.png (grid removed; public/mr-sondr-outline.webp, his drawn mouth split out as public/mr-sondr-mouth.webp). Last in the entrance: pops up from the bottom edge, then the mouth shrinks away and a drawn smile strokes in. Resting state = smiling. Fades on scroll with the signature. `go` now lasts 3.3s.
 - Step 2m: set orders (Dhruv's, not alphabetical): MR. SONDR = Detective Sondr, Mr Sondr Ponders, Mr. Sondr; SONDR UNIVERSE = Sondr Sunset, Sondr Universe, Sondr Smiles (title was "Sondr Miles").
