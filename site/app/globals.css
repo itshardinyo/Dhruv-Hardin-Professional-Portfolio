@@ -273,7 +273,7 @@ html.lenis, html.lenis body { height: auto; }
 .about {
   position: relative; overflow: hidden; background: var(--color-white);
   min-height: max(640px, calc(100vh - (max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 16px)));
-  --ms-h: min(76vh, calc(720 * var(--u))); --ms-loop: 1.2s;
+  --ms-h: min(76vh, calc(720 * var(--u))); --ms-loop: 3.9s;
 }
 .about .mr-sondr { position: absolute; left: calc(-120 * var(--u)); bottom: 0; height: var(--ms-h); aspect-ratio: 1640 / 1980; pointer-events: none; animation: ms-fadein .8s ease-out both; }
 .about .mr-sondr svg { display: block; width: 100%; height: 100%; overflow: visible; }
@@ -297,6 +297,18 @@ html.lenis, html.lenis body { height: auto; }
 .about-rating li::marker { color: var(--color-red); }
 .about-sondr { margin-top: 1.3em !important; }
 .about-sondr strong { color: var(--color-red); font-weight: 400; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .02em; filter: url(#rough); }
+/* /about: he lights up on arrival (hand + Zippo .9s, flame 1.6s, tip 1.9s, smoke 2.15s), then nods to the music */
+.about .ms-lighter { animation: ms-lighter 2.8s .9s; }
+.about .ms-flame, .about .ms-flame-glow { animation: ms-flame-on .12s ease-out 1.6s backwards, ms-flicker .14s ease-in-out 1.72s infinite alternate; }
+.about .ms-ember { animation: ms-light .5s ease-out 1.9s backwards, ms-ember 12s ease-in-out var(--ms-loop) infinite; }
+.about .ms-smoke { animation: ms-show 1.2s ease-out 2.15s backwards; }
+.ms-head-vibe { transform-box: view-box; transform-origin: 720px 1220px; animation: ms-bob .92s ease-in-out 3.7s infinite; }
+@keyframes ms-bob {
+  0%, 100% { transform: none; }
+  32% { transform: translateY(16px) rotate(2.2deg); }
+  62% { transform: translateY(3px) rotate(-.8deg); }
+}
+@media (prefers-reduced-motion: reduce) { .ms-head-vibe, .about .ms-lighter { animation: none; } }
 @keyframes ms-fadein { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 
 /* ==========================================================================

@@ -52,7 +52,7 @@ except Mr. Sondr's smoke (grey #8A8A8A, blur/turbulence, fades) and the lighter'
 `--u` = one pixel of the 1512×982 mockup = `min(100vw/1512, 100vh/982)`. Phones (<640px) have their own rules at the end of globals.css.
 
 ## Routes
-`/` landing + hero · `/artsy` · `/projects` · `/about` (Mr. Sondr smoking bottom-left, "ABOUT ME" top-right with Dhruv's bio under it; copy in app/about/page.tsx). Only `/` ever shows the landing.
+`/` landing + hero · `/artsy` · `/projects` · `/about` (Mr. Sondr bottom-left in headphones: lights up with the Zippo on arrival, smokes, nods to the music; "ABOUT ME" top-right with Dhruv's bio under it; copy in app/about/page.tsx). Only `/` ever shows the landing.
 
 ## Gallery pages (Step 2)
 | page | category (id) | source folder (Downloads/DESIGN/…) | public folder |
@@ -113,6 +113,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3e: MrSondrArt `vibing` prop (/about): black on-ear headphones drawn in his brush style (no brand logo), head cut at the neck (clipPaths at y=1600) so the head + cigarette + headphones nod (.ms-head-vibe, 0.92s) while the body stays still. /about now plays the Zippo lighting on arrival (.9–3.7s); loop from 3.9s.
 - Step 3d: /about copy replaced with Dhruv's own words: intro line, Robin Hardin quote (red rule), six red stars over the five disciplines in quotes (movie-rating style), the SONDR definition.
 - Step 3c: footer page links (Artsy, Projects, About me) back, without the "Pages" heading; Instagram logo under LinkedIn. Header SONDR logo spins slowly on its vertical axis (9s, pauses on hover, off with reduced motion).
 - Step 3b: /about rebuilt: Mr. Sondr (shared MrSondrArt) smoking bottom-left (fades up, loop starts after 1.2s via `--ms-loop`), title top-right, draft bio (from what Dhruv has shared; he'll edit). Signature removed from /about.

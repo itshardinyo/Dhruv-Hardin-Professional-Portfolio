@@ -7,14 +7,14 @@ export const metadata: Metadata = {
 };
 
 /*
-  About me: Mr. Sondr smoking bottom-left (same art as the hero, no lighting intro), the title top-right and the bio
+  About me: Mr. Sondr bottom-left (same art as the hero) in headphones: lights up, smokes, nods to the music, the title top-right and the bio
   under it. The copy is Dhruv's own words; edit it here.
 */
 export default function Page() {
   return (
     <section className="about">
       <div className="mr-sondr" aria-hidden="true">
-        <MrSondrArt />
+        <MrSondrArt vibing />
       </div>
       <div className="about-body">
         <h1 className="display-rough about-title">About me</h1>

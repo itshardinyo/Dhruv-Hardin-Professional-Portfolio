@@ -3,8 +3,10 @@
   and (entrance only, under html.go) his hand coming up with the SONDR Zippo to light it. Used on the hero and on
   /about. Place it inside an element with class "mr-sondr"; all motion lives in app/globals.css (ms-* rules).
   The smoking loop starts after --ms-loop (5.3s on the hero, sooner on /about).
+  vibing (/about): he wears black on-ear headphones and his head (cut at the neck, with the cigarette, mouth and
+  headphones) nods to the music; the body stays put.
 */
-export function MrSondrArt() {
+export function MrSondrArt({ vibing = false }: { vibing?: boolean }) {
   return (
     <svg viewBox="0 380 1640 1980" preserveAspectRatio="xMidYMax meet">
       <defs>
@@ -37,15 +39,36 @@ export function MrSondrArt() {
           <rect width="1" height="1" fill="url(#ms-fade)" />
         </mask>
         <filter id="ms-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="14" /></filter>
+        <clipPath id="ms-clip-head"><rect x="-400" y="0" width="2600" height="1600" /></clipPath>
+        <clipPath id="ms-clip-body"><rect x="-400" y="1600" width="2600" height="1200" /></clipPath>
       </defs>
-      <image href="/mr-sondr-outline.webp" x="0" y="380" width="1640" height="1980" />
+      <image href="/mr-sondr-outline.webp" x="0" y="380" width="1640" height="1980" clipPath="url(#ms-clip-body)" />
       {/* the drawing ran off its canvas on the right: finish the shoulder and sleeve */}
       <g filter="url(#ms-brush)" fill="none" stroke="#000" strokeWidth="28" strokeLinecap="round">
         <path d="M1626 1980 C1700 2030 1762 2120 1798 2250 C1810 2300 1816 2340 1820 2420" />
         <path d="M1572 2092 C1610 2112 1640 2134 1668 2172" />
       </g>
-      <image className="ms-mouth" href="/mr-sondr-mouth.webp" x="661" y="1264" width="139" height="166" />
-      <g transform="translate(975 1345) scale(1.8)">
+      <g className={vibing ? "ms-head ms-head-vibe" : "ms-head"}>
+        <image href="/mr-sondr-outline.webp" x="0" y="380" width="1640" height="1980" clipPath="url(#ms-clip-head)" />
+        <image className="ms-mouth" href="/mr-sondr-mouth.webp" x="661" y="1264" width="139" height="166" />
+        {vibing && (
+          <g filter="url(#ms-brush)" strokeLinecap="round" strokeLinejoin="round">
+            {/* headband: black leather arc over his hair, a thin white stitch line along it */}
+            <path d="M286 980 C230 560 470 330 780 326 C1090 322 1310 560 1250 950" fill="none" stroke="#000" strokeWidth="54" />
+            <path d="M300 900 C262 570 486 368 780 364 C1074 360 1278 572 1236 880" fill="none" stroke="#fff" strokeWidth="5" strokeDasharray="22 16" />
+            {/* sliders */}
+            <rect x="262" y="930" width="44" height="80" rx="10" fill="#000" stroke="#000" strokeWidth="6" />
+            <rect x="1226" y="900" width="44" height="80" rx="10" fill="#000" stroke="#000" strokeWidth="6" />
+            {/* ear cups: black, rounded square, an inner plate and a small button */}
+            <rect x="190" y="990" width="170" height="210" rx="46" fill="#000" stroke="#000" strokeWidth="10" />
+            <rect x="214" y="1022" width="122" height="146" rx="30" fill="none" stroke="#fff" strokeWidth="6" />
+            <circle cx="275" cy="1095" r="9" fill="#fff" />
+            <rect x="1170" y="960" width="170" height="210" rx="46" fill="#000" stroke="#000" strokeWidth="10" />
+            <rect x="1194" y="992" width="122" height="146" rx="30" fill="none" stroke="#fff" strokeWidth="6" />
+            <circle cx="1255" cy="1065" r="9" fill="#fff" />
+          </g>
+        )}
+        <g transform="translate(975 1345) scale(1.8)">
         {/* the cigarette, in the corner of his mouth the whole time */}
         <g className="ms-cig">
           <g filter="url(#ms-brush)">
@@ -62,6 +85,9 @@ export function MrSondrArt() {
             </g>
           </g>
         </g>
+        </g>
+      </g>
+      <g transform="translate(975 1345) scale(1.8)">
         {/* entrance only: his hand comes up with a SONDR Zippo, flicks it open, lights the tip, then drops away */}
         <g className="ms-lighter">
           <g transform="translate(70 0) scale(1.5) translate(-70 0)">
