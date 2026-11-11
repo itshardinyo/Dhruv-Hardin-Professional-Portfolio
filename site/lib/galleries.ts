@@ -107,8 +107,8 @@ export const ARTSY: GalleryCategory[] = [
     layout: "sheet",
     items: [
       { id: "mr-sondr-01", title: "Detective Sondr", image: img("/artsy/mr-sondr/detective-sondr.webp", 1640, 2360), pos: "50% 35%" },
-      { id: "mr-sondr-02", title: "Mr. Sondr", image: img("/artsy/mr-sondr/mr-sondr.webp", 1640, 2360), pos: "50% 35%" },
-      { id: "mr-sondr-03", title: "Mr Sondr Ponders", image: img("/artsy/mr-sondr/mr-sondr-ponders.webp", 1697, 2400) },
+      { id: "mr-sondr-02", title: "Mr Sondr Ponders", image: img("/artsy/mr-sondr/mr-sondr-ponders.webp", 1697, 2400) },
+      { id: "mr-sondr-03", title: "Mr. Sondr", image: img("/artsy/mr-sondr/mr-sondr.webp", 1640, 2360), pos: "50% 35%" },
     ],
   },
   {
@@ -117,9 +117,9 @@ export const ARTSY: GalleryCategory[] = [
     kind: "Sondr Universe piece",
     layout: "sheet",
     items: [
-      { id: "universe-01", title: "Sondr Miles", image: img("/artsy/sondr-universe/sondr-miles.webp", 600, 956) },
-      { id: "universe-02", title: "Sondr Sunset", image: img("/artsy/sondr-universe/sondr-sunset.webp", 640, 800) },
-      { id: "universe-03", title: "Sondr Universe", image: img("/artsy/sondr-universe/sondr-universe.webp", 1200, 1234) },
+      { id: "universe-01", title: "Sondr Sunset", image: img("/artsy/sondr-universe/sondr-sunset.webp", 640, 800) },
+      { id: "universe-02", title: "Sondr Universe", image: img("/artsy/sondr-universe/sondr-universe.webp", 1200, 1234) },
+      { id: "universe-03", title: "Sondr Smiles", image: img("/artsy/sondr-universe/sondr-miles.webp", 600, 956) },
     ],
   },
 ];
