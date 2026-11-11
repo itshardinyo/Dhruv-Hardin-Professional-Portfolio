@@ -113,6 +113,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3d: /about copy replaced with Dhruv's own words: intro line, Robin Hardin quote (red rule), six red stars over the five disciplines in quotes (movie-rating style), the SONDR definition.
 - Step 3c: footer page links (Artsy, Projects, About me) back, without the "Pages" heading; Instagram logo under LinkedIn. Header SONDR logo spins slowly on its vertical axis (9s, pauses on hover, off with reduced motion).
 - Step 3b: /about rebuilt: Mr. Sondr (shared MrSondrArt) smoking bottom-left (fades up, loop starts after 1.2s via `--ms-loop`), title top-right, draft bio (from what Dhruv has shared; he'll edit). Signature removed from /about.
 - Step 3a: footer: Pages column removed, LinkedIn/Instagram shown as logos only, "Say hi" opens a contact form (name, email, subject, message) sent to Dhruv's inbox via FormSubmit.

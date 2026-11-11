@@ -3,12 +3,12 @@ import { MrSondrArt } from "@/components/site/mr-sondr";
 
 export const metadata: Metadata = {
   title: "About me · Dhruv Hardin",
-  description: "Dhruv Hardin: Mauritian-Canadian, UBC grad, football, streetwear, drawing and SONDR.",
+  description: "Dhruv Hardin is a simple Human Being. He has big dreams, ambition, and above all, he tries.",
 };
 
 /*
   About me: Mr. Sondr smoking bottom-left (same art as the hero, no lighting intro), the title top-right and the bio
-  under it. Draft bio written from what Dhruv has shared; edit the copy here.
+  under it. The copy is Dhruv's own words; edit it here.
 */
 export default function Page() {
   return (
@@ -20,22 +20,31 @@ export default function Page() {
         <h1 className="display-rough about-title">About me</h1>
         <div className="about-text">
           <p>
-            I’m Dhruv. Mauritian-Canadian, UBC grad in Economics, Commerce and Languages, and I switch between English,
-            French and Spanish without thinking about it.
+            Dhruv Hardin is a simple Human Being. He has big dreams, ambition, and above all, he tries.
           </p>
-          <p>
-            SONDR is the feeling that every stranger has a life as vivid as your own. It’s the name on everything I make:
-            the clothes, the comics, and the guy smoking over there.
+          <blockquote className="about-quote">
+            <p>
+              “Change is always apprehensive. But everything falls in place. Quicker than you think. All will be good.
+              Trust yourself and all the good in you.”
+            </p>
+            <footer>— Robin Hardin</footer>
+          </blockquote>
+          <figure className="about-rating">
+            <div className="about-stars" role="img" aria-label="Six stars">★★★★★★</div>
+            <blockquote>
+              <ol>
+                <li>Physical discipline</li>
+                <li>Emotional discipline</li>
+                <li>Financial discipline</li>
+                <li>Mental discipline</li>
+                <li>Professional discipline</li>
+              </ol>
+            </blockquote>
+          </figure>
+          <p className="about-sondr">
+            <strong>Sondr</strong> is the deep realization that each person has a life as complex, ambitious, and rich in
+            depth as you do.
           </p>
-          <p className="about-kicker">What makes me, me</p>
-          <ul>
-            <li>Football, always. One day: Sporting Director.</li>
-            <li>Streetwear and brand culture. I co-founded Hustler Jerseys.</li>
-            <li>Drawing. Mr. Sondr started as a sketch.</li>
-            <li>Fantasy books. ACOTAR, Fourth Wing.</li>
-            <li>New cities, new cultures.</li>
-          </ul>
-          <p className="about-last">Also, a very good looking human being.</p>
         </div>
       </div>
     </section>
