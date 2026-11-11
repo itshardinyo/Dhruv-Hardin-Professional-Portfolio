@@ -175,8 +175,8 @@ export function MusicPanel({ open, onClose, anchorId }: { open: boolean; onClose
 
   return (
     <div ref={ref} className="mp-panel" role="dialog" aria-label="Music player" data-lenis-prevent>
-      <div className={`mp-art ${track?.art ? "" : "mp-art-empty"}`}>
-        {track?.art ? <img src={track.art} alt="" /> : <img src="/logo-mark-black.png" alt="" className="mp-art-logo" />}
+      <div className={`mp-art ${track?.art ? "has-art" : "mp-art-empty"}`}>
+        {track?.art ? <img key={track.art} src={track.art} alt="" /> : <img src="/logo-mark-black.png" alt="" className="mp-art-logo" />}
       </div>
       {track ? (
         <>

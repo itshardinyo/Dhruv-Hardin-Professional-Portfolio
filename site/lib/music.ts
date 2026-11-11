@@ -12,7 +12,7 @@ export interface Track {
 }
 
 export const PLAYLIST: Track[] = [
-  { src: "/music/just-one-more-drink.mp3", title: "Just One More Drink", artist: "Jazz Noir" },
+  { src: "/music/just-one-more-drink.mp3", title: "Just One More Drink", artist: "Jazz Noir", art: "/music/art/making-a-playlist.webp" },
 ];
 
 /** Fired by the landing's "Tune in" click so the music starts on that exact gesture. */
