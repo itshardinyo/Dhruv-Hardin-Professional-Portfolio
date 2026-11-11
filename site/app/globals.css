@@ -169,9 +169,18 @@ html.lenis, html.lenis body { height: auto; }
   width: max(140px, calc(314 * var(--u)));
 }
 .sig img { display: block; width: 100%; height: auto; }
+/* Mr. Sondr: bottom-left, in the margin left of the headline, standing on the bottom edge */
+.mr-sondr {
+  position: absolute; left: max(8px, calc(14 * var(--u))); bottom: 0;
+  width: min(calc(224 / 1512 * 100vw - 24px), calc(250 * var(--u))); min-width: 110px; aspect-ratio: 1640 / 1980;
+  pointer-events: none;
+}
+.mr-sondr svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.ms-mouth { opacity: 0; }
+.ms-smile path { stroke-dasharray: 1; stroke-dashoffset: 0; }
 
-/* hero entrance: dots pop, lines wipe in with an RGB glitch, signature wipes in, header drops in (1.6s max) */
-.pre .site-header .mark, .pre .site-header .dock-chip, .pre .dots i, .pre .txt, .pre .sig { visibility: hidden; }
+/* hero entrance: dots pop, lines wipe in with an RGB glitch, signature wipes in, header drops in, Mr. Sondr pops up and smiles (3.1s) */
+.pre .site-header .mark, .pre .site-header .dock-chip, .pre .dots i, .pre .txt, .pre .sig, .pre .mr-sondr { visibility: hidden; }
 .go .dots i { animation: pop .4s cubic-bezier(.3,1.7,.5,1) backwards; }
 .go .dots i:nth-child(1) { animation-delay: .05s; }
 .go .dots i:nth-child(2) { animation-delay: .14s; }
@@ -184,6 +193,15 @@ html.lenis, html.lenis body { height: auto; }
 .go .site-header .dock-chip:nth-child(1) { animation-delay: 1.06s; }
 .go .site-header .dock-chip:nth-child(2) { animation-delay: 1.12s; }
 .go .site-header .dock-chip:nth-child(3) { animation-delay: 1.18s; }
+/* Mr. Sondr comes last: pops up from the bottom edge (1.5s), then his mouth turns into a smile (2.45s) */
+.go .mr-sondr svg { animation: ms-up .7s cubic-bezier(.3,1.5,.55,1) 1.5s backwards; transform-origin: 50% 100%; }
+.go .ms-mouth { animation: ms-mouth .2s ease-in 2.45s backwards; transform-box: fill-box; transform-origin: 50% 40%; }
+.go .ms-smile path { animation: ms-draw .45s cubic-bezier(.5,0,.2,1) 2.55s backwards; }
+.go .ms-smile path:nth-child(2) { animation-delay: 2.9s; animation-duration: .15s; }
+.go .ms-smile path:nth-child(3) { animation-delay: 2.95s; animation-duration: .15s; }
+@keyframes ms-up { from { transform: translateY(105%) scaleY(.85); } to { transform: none; } }
+@keyframes ms-mouth { from { opacity: 1; transform: none; } to { opacity: 0; transform: scaleY(.2); } }
+@keyframes ms-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
 @keyframes wipe { from { clip-path: inset(-20% 100% -20% -3%); } to { clip-path: inset(-20% -4% -20% -3%); } }
 @keyframes rgb {
@@ -222,6 +240,7 @@ html.lenis, html.lenis body { height: auto; }
   .dock-link { padding: 0 .55em .04em; }
   .hero-body { left: 16px; top: calc(50% - 1.3158em); font-size: min(calc((100vw - 32px) / 5.53), 19.3vh); }
   .sig { width: 160px; right: 16px; bottom: 24px; }
+  .mr-sondr { left: 8px; width: 120px; min-width: 0; }
   .placeholder { min-height: calc(100vh - 79px); padding: 32px 16px 64px; }
   .display-rough { font-size: min(calc((100vw - 32px) / 4.2), 96px); white-space: normal; }
   .footer-slot .hwf-root { --hwf-size: 18px; }

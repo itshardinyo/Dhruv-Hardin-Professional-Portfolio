@@ -7,7 +7,7 @@ import { useIntro } from "@/components/intro/intro-controller";
 
 /*
   The hero (hero-mockup.png), drawn in mockup pixels: 1u = one pixel of the 1512×982 frame.
-  Dots, each headline line and the signature are separate elements so each can be animated on its own.
+  Dots, each headline line, the signature and Mr. Sondr are separate elements so each can be animated on its own.
   Scrolling toward the footer: line 1 rises 8vh, line 2 14vh, the dots and signature fade out, all over the
   first screen of scrolling (or the whole scroll distance to the footer when that is shorter).
 */
@@ -48,6 +48,18 @@ export function Hero() {
           </motion.span>
         </h1>
       </div>
+      {/* Mr. Sondr (black outline of DESIGN/MR_SONDR.png), opposite the signature: pops up last, then smiles */}
+      <motion.div className="mr-sondr" style={{ opacity: fade }} aria-hidden="true">
+        <svg viewBox="0 380 1640 1980" preserveAspectRatio="xMidYMax meet">
+          <image href="/mr-sondr-outline.webp" x="0" y="380" width="1640" height="1980" />
+          <image className="ms-mouth" href="/mr-sondr-mouth.webp" x="661" y="1264" width="139" height="166" />
+          <g className="ms-smile" fill="none" stroke="#000" strokeWidth="30" strokeLinecap="round">
+            <path pathLength={1} d="M668 1318 Q737 1402 806 1308" />
+            <path pathLength={1} d="M652 1298 L672 1322" />
+            <path pathLength={1} d="M822 1288 L804 1314" />
+          </g>
+        </svg>
+      </motion.div>
       <motion.div className="sig" style={{ opacity: fade }}>
         <Image src="/signature.png" alt="Dhruv Hardin’s signature" width={1005} height={345} priority sizes="(max-width: 639px) 160px, 21vw" />
       </motion.div>
