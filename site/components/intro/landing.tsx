@@ -213,7 +213,7 @@ function LandingLayer() {
         <div className="tv-vig" aria-hidden="true" />
         <div ref={chRef} className="osd osd-top" aria-hidden="true">
           <TvDate />
-          <div className="osd-ch">CH 22<TvClock /></div>
+          <div className="osd-ch"><TvClock /></div>
         </div>
         <button ref={enterRef} type="button" className="tv-enter" onClick={leave} aria-label="SONDR Rules The World. Enter the site (Escape skips)">
           <span ref={cueRef} className="osd osd-cue">{touch ? "TAP TO TUNE IN" : "CLICK TO TUNE IN"}</span>
@@ -226,7 +226,7 @@ function LandingLayer() {
   );
 }
 
-/* VCR-style live readouts for the top corners: the date (left) and the time under CH 22 (right).
+/* VCR-style live readouts for the top corners: the date (left) and the time (right).
    Rendered after mount so the server and browser never disagree about the time. */
 function useNow() {
   const [now, setNow] = React.useState<Date | null>(null);

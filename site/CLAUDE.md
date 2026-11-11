@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3y: "CH 22" removed from the TV; the clock takes its place top-right, level with the date.
 - Step 3x: landing TV gets live VCR readouts: date top-left ("11 NOV 2026"), clock under CH 22 top-right (HH:MM:SS, visitor's local time). Both in VT323, shown with CH 22.
 - Step 3w: SONDR logo stamped in the centre of the cover, no badge (black logo with a thin white edge, 43% of the image wide).
 - Step 3v: cover art replaced with Dhruv's black-and-white four-photo image (public/music/art/cover.webp); GIF removed.
