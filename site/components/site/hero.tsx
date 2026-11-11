@@ -49,7 +49,7 @@ export function Hero() {
         </h1>
       </div>
       {/* Mr. Sondr (black outline of DESIGN/MR_SONDR.png), opposite the signature. Comes last in the entrance: pops up with
-          a cigarette, lights it, smiles, then keeps smoking slowly; the smoke always rises. */}
+          a cigarette in his mouth, brings his hand up with a SONDR Zippo and lights it, smiles, then keeps smoking. */}
       <motion.div className="mr-sondr" style={{ opacity: fade }} aria-hidden="true">
         <svg viewBox="0 380 1640 1980" preserveAspectRatio="xMidYMax meet">
           <defs>
@@ -90,25 +90,9 @@ export function Hero() {
             <path d="M1572 2092 C1610 2112 1640 2134 1668 2172" />
           </g>
           <image className="ms-mouth" href="/mr-sondr-mouth.webp" x="661" y="1264" width="139" height="166" />
-          <g className="ms-hand" transform="translate(975 1345) scale(1.8)">
-            <g className="ms-hand-move">
-              {/* arm + hand silhouette (white, hides the face lines behind it) */}
-              <path fill="#fff" d="M-40 70 C-50 20 -45 -40 -30 -75 C-20 -92 0 -88 10 -66 C22 -96 46 -96 50 -70 C56 -40 54 -10 54 0 C78 -12 98 6 92 30 C112 32 122 52 110 78 C112 120 98 152 74 172 L180 700 L-60 700 L14 166 C-20 150 -42 120 -42 92 C-72 74 -80 40 -60 24 C-50 20 -42 40 -40 70 Z" />
-              <g filter="url(#ms-brush)" fill="none" stroke="#000" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M-40 70 C-50 20 -45 -40 -30 -75 C-20 -92 0 -88 4 -66" />
-                <path d="M6 -40 C8 -10 6 15 8 42" />
-                <path d="M12 -64 C22 -96 46 -96 50 -70 C55 -38 53 -8 52 22" />
-                <path d="M58 -2 C80 -12 98 6 92 30" />
-                <path d="M96 34 C114 34 122 54 110 78" />
-                <path d="M110 84 C112 122 98 150 72 170" />
-                <path d="M-40 84 C-72 74 -80 40 -60 24 C-50 18 -40 32 -36 44" />
-                <path d="M-38 100 C-36 130 -14 152 14 166" />
-                <path d="M14 172 C0 260 -24 400 -40 600" />
-                <path d="M74 178 C100 260 140 400 170 600" />
-                <path d="M-14 112 L-2 96" strokeWidth="10" />
-                <path d="M30 120 L44 108" strokeWidth="10" />
-              </g>
-              {/* cigarette: from the corner of his mouth, out between the fingers */}
+          <g transform="translate(975 1345) scale(1.8)">
+            {/* the cigarette, in the corner of his mouth the whole time */}
+            <g className="ms-cig">
               <g filter="url(#ms-brush)">
                 <path d="M-100 -2 L46 -26 L49 -8 L-97 14 Z" fill="#fff" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
                 <path d="M46 -26 L72 -30 L75 -12 L49 -8 Z" fill="#fff" stroke="#000" strokeWidth="9" strokeLinejoin="round" />
@@ -123,25 +107,41 @@ export function Hero() {
                 </g>
               </g>
             </g>
-            {/* the lighter (entrance only): comes up in his other hand, flicks a flame under the tip, then drops away */}
+            {/* entrance only: his hand comes up with a SONDR Zippo, flicks it open, lights the tip, then drops away */}
             <g className="ms-lighter">
-             <g transform="translate(70 0) scale(1.45) translate(-70 0)">
-              <circle className="ms-flame-glow" cx="68" cy="-4" r="26" fill="#F80A02" opacity=".35" filter="url(#ms-glow)" />
-              <g filter="url(#ms-brush)" stroke="#000" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M92 26 L104 -34 L120 -30 L108 28" fill="#fff" strokeWidth="9" />
-                <rect x="52" y="4" width="36" height="24" fill="#fff" strokeWidth="9" />
-                <circle cx="62" cy="16" r="2.5" fill="#000" strokeWidth="0" />
-                <circle cx="76" cy="16" r="2.5" fill="#000" strokeWidth="0" />
-                <circle cx="47" cy="14" r="7" fill="#fff" strokeWidth="8" />
-                <rect x="46" y="28" width="52" height="70" rx="6" fill="#fff" strokeWidth="11" />
-                <path d="M46 52 C30 50 26 66 40 70 M44 72 C28 72 26 88 42 90 M46 92 C34 96 36 108 50 106" fill="none" strokeWidth="11" />
-                <path d="M40 34 C30 20 36 6 48 8" fill="none" strokeWidth="11" />
+              <g transform="translate(70 0) scale(1.5) translate(-70 0)">
+                <circle className="ms-flame-glow" cx="68" cy="-4" r="26" fill="#F80A02" opacity=".35" filter="url(#ms-glow)" />
+                {/* wrist (white, hides what's behind it) */}
+                <path fill="#fff" d="M24 420 L40 112 L120 112 L140 420 Z" />
+                <g filter="url(#ms-brush)" stroke="#000" strokeLinecap="round" strokeLinejoin="round">
+                  {/* open lid, standing up on the hinge side */}
+                  <rect x="98" y="-38" width="26" height="66" rx="4" fill="#fff" strokeWidth="9" />
+                  {/* chimney with its holes, and the wheel */}
+                  <rect x="52" y="4" width="40" height="24" fill="#fff" strokeWidth="9" />
+                  <circle cx="62" cy="12" r="2.4" fill="#000" strokeWidth="0" />
+                  <circle cx="72" cy="12" r="2.4" fill="#000" strokeWidth="0" />
+                  <circle cx="82" cy="12" r="2.4" fill="#000" strokeWidth="0" />
+                  <circle cx="67" cy="21" r="2.4" fill="#000" strokeWidth="0" />
+                  <circle cx="77" cy="21" r="2.4" fill="#000" strokeWidth="0" />
+                  <circle cx="46" cy="14" r="8" fill="#fff" strokeWidth="8" />
+                  {/* the case */}
+                  <rect x="42" y="28" width="82" height="92" rx="9" fill="#fff" strokeWidth="11" />
+                  <path d="M44 44 L122 44" fill="none" strokeWidth="5" />
+                </g>
+                {/* the SONDR logo engraved on the case */}
+                <image href="/logo-mark-black.png" x="52" y="54" width="64" height="41.5" />
+                <g filter="url(#ms-brush)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round">
+                  {/* fingers wrapped round the case, thumb on the wheel */}
+                  <path d="M44 64 C26 62 22 80 40 84 M42 86 C24 86 22 104 40 106 M44 108 C30 112 32 126 48 122" strokeWidth="11" />
+                  <path d="M36 40 C24 26 30 8 42 8" strokeWidth="11" />
+                  {/* wrist going down out of frame */}
+                  <path d="M46 122 C40 200 32 300 24 420 M122 120 C128 200 134 300 140 420" strokeWidth="14" />
+                </g>
+                <g className="ms-flame">
+                  <path d="M70 4 C56 -6 60 -20 68 -34 C74 -22 86 -8 70 4 Z" fill="#F80A02" stroke="#000" strokeWidth="4" strokeLinejoin="round" />
+                  <path d="M70 0 C64 -6 66 -14 69 -20 C72 -13 77 -6 70 0 Z" fill="#fff" />
+                </g>
               </g>
-              <g className="ms-flame">
-                <path d="M70 4 C56 -6 60 -20 68 -34 C74 -22 86 -8 70 4 Z" fill="#F80A02" stroke="#000" strokeWidth="4" strokeLinejoin="round" />
-                <path d="M70 0 C64 -6 66 -14 69 -20 C72 -13 77 -6 70 0 Z" fill="#fff" />
-              </g>
-             </g>
             </g>
           </g>
           {/* the slow exhale: soft smoke rolling out of the corner of his mouth, away from his face, rising */}

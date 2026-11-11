@@ -75,12 +75,12 @@ except Mr. Sondr's smoke (grey #8A8A8A, blur/turbulence, fades) and the lighter'
 ## Landing states (components/intro/intro-controller.tsx)
 `landing → leaving → hero → returning → landing`
 - Full load of `/` → landing. Back/forward to `/` → hero. `/?skip=1` → hero. Other routes → never.
-- html classes: `intro-on` (landing up, scroll locked), `pre` (hero/header hidden), `go` (hero entrance playing, removed after 5s).
+- html classes: `intro-on` (landing up, scroll locked), `pre` (hero/header hidden), `go` (hero entrance playing, removed after 5.8s).
 - `#site` is `inert` while the landing is up; the footer isn't rendered; Lenis is off.
 - Flow: 0.3s blank → tube warm-up → static → patch forms (HBO style) → glint → at rest ~3.8s with
   "CLICK TO TUNE IN" ("TAP TO TUNE IN" on touch) blinking; hovering the patch glitches it → click, tap or Enter →
   static burst + quiet static sound (≤10% volume), CRT collapses to a line (0.3s), line opens into the white hero
-  (0.4s) → hero entrance: dots pop, lines wipe in with RGB glitch, signature wipes, header drops (≤1.6s); then Mr. Sondr pops up with his cigarette (1.5s), a lighter comes up in his other hand and lights it (flame 2.75s, tip catches 3.05s, smoke 3.3s, lighter gone 4.3s), he smiles (4.1s). The smoking loop starts at 4.6s.
+  (0.4s) → hero entrance: dots pop, lines wipe in with RGB glitch, signature wipes, header drops (≤1.6s); then Mr. Sondr pops up with the cigarette already in his mouth (1.5s), his hand comes up with a Zippo engraved with the SONDR logo (2.4s), flame (3s), tip catches (3.3s), smoke (3.55s), hand drops away (≈5.1s), he smiles (5s). The smoking loop (drags + exhales, cigarette stays in his mouth) starts at 5.3s.
 - Header logo ("Replay the SONDR intro"): on `/` the hero collapses like a CRT (0.3s) then the short opener (~1.2s);
   from another page it goes to `/` and plays the short opener. Then it waits for the click again.
 - Keyboard: Enter (or Space) tunes in. Esc skips to the hero.
@@ -112,6 +112,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 2z: cigarette now sits in his mouth (no smoking hand); in the entrance his hand comes up holding a Zippo with the SONDR logo (public/logo-mark-black.png) on the case, lights it, drops away. Loop = drags (tip glows, cigarette lifts) + slow exhale. `go` lasts 5.8s.
 - Step 2y: footer: duplicate email line removed, LinkedIn + Instagram logos (simple currentColor SVGs, `icon` on FooterLink), Files column (Resume) removed, grid now brand + 2 columns.
 - Step 2x: lighting animation in the entrance (lighter in his other hand, flickering red flame + glow, tip catches, smoke starts). Smoke made realistic: soft grey ribbons through animated turbulence + blur (#ms-smokefx), a thin stream flowing up off the tip and thinning out (mask), a soft exhale rolling up from his mouth. Cartoon plume symbol removed. Loop starts at 4.6s; `go` lasts 5s.
 - Step 2w: viewer shows a single piece as big as the screen allows (fills the stage with object-fit: contain, small originals scale up); bars a little slimmer.

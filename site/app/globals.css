@@ -182,7 +182,7 @@ html.lenis, html.lenis body { height: auto; }
 .mr-sondr svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
 /* hero entrance: dots pop, lines wipe in with an RGB glitch, signature wipes in, header drops in; then Mr. Sondr
-   pops up with his cigarette (1.5s), lights it (2.3–4.3s) and smiles (4.1s) */
+   pops up with the cigarette in his mouth (1.5s), lights it with his Zippo (2.3–5.1s) and smiles (5s) */
 .pre .site-header .mark, .pre .site-header .dock-chip, .pre .dots i, .pre .txt, .pre .sig, .pre .mr-sondr { visibility: hidden; }
 .go .dots i { animation: pop .4s cubic-bezier(.3,1.7,.5,1) backwards; }
 .go .dots i:nth-child(1) { animation-delay: .05s; }
@@ -197,24 +197,25 @@ html.lenis, html.lenis body { height: auto; }
 .go .site-header .dock-chip:nth-child(2) { animation-delay: 1.12s; }
 .go .site-header .dock-chip:nth-child(3) { animation-delay: 1.18s; }
 .go .mr-sondr svg { animation: ms-up .8s cubic-bezier(.3,1.4,.55,1) 1.5s backwards; transform-origin: 50% 100%; }
-.go .ms-mouth { animation: ms-smile .55s cubic-bezier(.3,1.6,.5,1) 4.1s backwards; transform-box: fill-box; transform-origin: 40% 15%; }
+.go .ms-mouth { animation: ms-smile .55s cubic-bezier(.3,1.6,.5,1) 5s backwards; transform-box: fill-box; transform-origin: 40% 15%; }
 @keyframes ms-up { from { transform: translateY(105%) scaleY(.85); } to { transform: none; } }
 @keyframes ms-smile { from { transform: rotate(8deg) scale(.85, .14); } to { transform: none; } }
 
-/* lighting it (entrance only): lighter comes up (2.3s), flame (2.75s), tip catches (3.05s), smoke starts (3.3s),
-   lighter drops away (4s); the smoking loop starts at 4.6s */
+/* lighting it (entrance only): the cigarette is already in his mouth; his hand comes up with the Zippo (2.4s),
+   flame (3s), the tip catches (3.3s), smoke starts (3.55s), the hand drops away (4.6–5.1s) */
 .ms-lighter { opacity: 0; }
 .ms-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: ms-flicker .14s ease-in-out infinite alternate; }
 .ms-flame-glow { animation: ms-glow .2s ease-in-out infinite alternate; }
-.go .ms-lighter { animation: ms-lighter 2s cubic-bezier(.3,.7,.3,1) 2.3s; }
-.go .ms-flame, .go .ms-flame-glow { animation: ms-flame-on .12s ease-out 2.75s backwards, ms-flicker .14s ease-in-out 2.87s infinite alternate; }
-.go .ms-ember { animation: ms-light .5s ease-out 3.05s backwards, ms-ember 12s ease-in-out 4.6s infinite; }
-.go .ms-smoke { animation: ms-show 1.2s ease-out 3.3s backwards; }
+.go .ms-lighter { animation: ms-lighter 2.8s 2.3s; }
+.go .ms-flame, .go .ms-flame-glow { animation: ms-flame-on .12s ease-out 3s backwards, ms-flicker .14s ease-in-out 3.12s infinite alternate; }
+.go .ms-ember { animation: ms-light .5s ease-out 3.3s backwards, ms-ember 12s ease-in-out 5.3s infinite; }
+.go .ms-smoke { animation: ms-show 1.2s ease-out 3.55s backwards; }
 @keyframes ms-lighter {
-  0% { opacity: 0; transform: translateY(160px); }
-  14% { opacity: 1; transform: none; }
-  85% { opacity: 1; transform: none; }
-  100% { opacity: 0; transform: translateY(180px); }
+  0% { opacity: 0; transform: translateY(380px); animation-timing-function: cubic-bezier(.2,.7,.3,1); }
+  4% { opacity: 1; }
+  22% { transform: none; }
+  82% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.5,0,.8,.4); }
+  100% { opacity: 1; transform: translateY(420px); }
 }
 @keyframes ms-flame-on { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: none; } }
 @keyframes ms-flicker { from { transform: scale(.94, 1) skewX(2deg); } to { transform: scale(1.04, 1.1) skewX(-3deg); } }
@@ -222,28 +223,24 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes ms-light { from { opacity: 0; } to { opacity: 1; } }
 @keyframes ms-show { from { opacity: 0; } to { opacity: 1; } }
 
-/* the smoking loop (12s, from 4.6s), slow and unhurried: drag with the tip glowing, lower the hand, hold, a long
-   slow exhale rising away, rest, bring it back up. Smoke is soft grey (turbulence + blur), a thin stream always
-   rises off the tip. */
-.ms-hand-move { transform-box: fill-box; transform-origin: 40% 100%; animation: ms-hand 12s 4.6s infinite; }
-.ms-ember { animation: ms-ember 12s ease-in-out 4.6s infinite; }
+/* the smoking loop (12s, from 5.3s), slow and unhurried, cigarette in his mouth: a long drag (the tip glows, the
+   cigarette lifts a touch), a pause, a long slow exhale rising away. A thin stream always rises off the tip. */
+.ms-cig { transform-box: fill-box; transform-origin: 0% 60%; animation: ms-drag 12s ease-in-out 5.3s infinite; }
+.ms-ember { animation: ms-ember 12s ease-in-out 5.3s infinite; }
 .ms-smoke { opacity: .8; }
 .ms-smoke path { stroke-dasharray: 34 66; animation: ms-stream 4.2s linear infinite; }
 .ms-smoke path:nth-child(2) { animation-duration: 5.1s; animation-delay: -2s; }
 .ms-smoke path:nth-child(3) { animation-duration: 3.6s; animation-delay: -1s; stroke-dasharray: 22 78; }
 .ms-exhale { opacity: .85; }
-.ms-exhale path { transform-box: fill-box; transform-origin: 30% 100%; opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ms-exhale 12s 4.6s infinite; }
-.ms-exhale path:nth-child(2) { animation-delay: 4.9s; }
-.ms-exhale path:nth-child(3) { animation-delay: 5.2s; }
-@keyframes ms-hand {
-  0% { transform: none; animation-timing-function: cubic-bezier(.45,0,.3,1); }
-  8% { transform: none; animation-timing-function: cubic-bezier(.45,0,.3,1); }
-  22% { transform: translate(26px, 120px) rotate(9deg); animation-timing-function: ease-in-out; }
-  50% { transform: translate(32px, 114px) rotate(7deg); animation-timing-function: ease-in-out; }
-  76% { transform: translate(26px, 120px) rotate(9deg); animation-timing-function: cubic-bezier(.45,0,.3,1); }
-  90%, 100% { transform: none; }
+.ms-exhale path { transform-box: fill-box; transform-origin: 30% 100%; opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ms-exhale 12s 5.3s infinite; }
+.ms-exhale path:nth-child(2) { animation-delay: 5.6s; }
+.ms-exhale path:nth-child(3) { animation-delay: 5.9s; }
+@keyframes ms-drag {
+  0%, 2% { transform: none; }
+  10%, 16% { transform: rotate(-4deg); }
+  24%, 100% { transform: none; }
 }
-@keyframes ms-ember { 0%, 6% { opacity: 1; } 16%, 86% { opacity: .65; } 94%, 100% { opacity: 1; } }
+@keyframes ms-ember { 0%, 3% { opacity: .65; } 10%, 16% { opacity: 1; } 26%, 100% { opacity: .65; } }
 @keyframes ms-stream { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
 @keyframes ms-exhale {
   0%, 22% { opacity: 0; stroke-dashoffset: 1; transform: none; animation-timing-function: cubic-bezier(.25,.6,.3,1); }
@@ -252,7 +249,7 @@ html.lenis, html.lenis body { height: auto; }
   70%, 100% { opacity: 0; stroke-dashoffset: 0; transform: translate(120px, -240px) scale(1.25); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ms-hand-move, .ms-ember, .ms-smoke path, .ms-exhale path, .ms-flame, .ms-flame-glow { animation: none; }
+  .ms-cig, .ms-ember, .ms-smoke path, .ms-exhale path, .ms-flame, .ms-flame-glow { animation: none; }
   .ms-smoke path { stroke-dasharray: none; }
 }
 @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
