@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3z4: footer "Back to top" moved above the white line, and the footer now grows on wide screens (min 560px; room reserved under the links for the visible part of the width-fitted HARDIN word) so the wordmark never covers the links or Back to top.
 - Step 3z3: Instagram logo back under LinkedIn (Dhruv preferred it stacked).
 - Step 3z2: Fam Dan Zil removed (six tracks). Every track uses the one cover (public/music/art/cover.webp, `COVER` in lib/music.ts). It Ain't Easy credited to 2Pac.
 - Step 3z: playlist replaced: "Just One More Drink" (and its cover art) removed; seven tracks added (Brazil, Waiting in Vain, Learning to Fly, It Ain't Easy, Family Business, Fashion Killa, Fam Dan Zil; 128 kbps MP3s, no cover art yet, so the SONDR logo shows). Order shuffled on every visit. Footer: Instagram logo now beside LinkedIn instead of under it. "Say hi" title and "Email" both still open the contact form (Dhruv: leave as is for now). It Ain't Easy has no artist yet.

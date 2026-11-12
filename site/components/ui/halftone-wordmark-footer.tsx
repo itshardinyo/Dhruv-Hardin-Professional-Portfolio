@@ -204,8 +204,8 @@ const HWF_CSS = `
 .hwf-col a:focus-visible, .hwf-up:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; opacity: 1; }
 .hwf-rule {
   position: relative; z-index: 1; display: flex; justify-content: flex-end; align-items: center; gap: 16px;
-  margin: clamp(18px, 2.6vw, 30px) clamp(20px, 3.4vw, 44px) 0; padding-top: 12px;
-  border-top: 1px solid var(--hwf-ink);
+  margin: clamp(18px, 2.6vw, 30px) clamp(20px, 3.4vw, 44px) 0; padding-bottom: 12px;
+  border-bottom: 1px solid var(--hwf-ink); /* SONDR: "Back to top" sits above the line, clear of the wordmark */
   font-family: var(--hwf-mono); font-size: var(--hwf-size, 10.5px); letter-spacing: var(--hwf-track, .18em); text-transform: uppercase;
 }
 .hwf-iconlink { display: inline-flex; align-items: center; gap: .45em; vertical-align: top; } /* SONDR */
@@ -248,6 +248,7 @@ export default function HalftoneWordmarkFooter({
   const colors = { ...(PRESETS[preset] || PRESETS.sondr), ...(palette || {}) }
   const rootRef = React.useRef(null as HTMLElement | null)
   const canvasRef = React.useRef(null as HTMLCanvasElement | null)
+  const [wordSpace, setWordSpace] = React.useState(0) // SONDR
   const opts = React.useRef({ colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark, rough })
   opts.current = { colors, dotGap, radius, crop, grain, interactive, fontFamily, fontWeight, wordmark, rough }
   const key = [wordmark, dotGap, crop, grain, fontFamily, fontWeight, colors.background, colors.ink, colors.warm, rough].join("|")
@@ -293,6 +294,9 @@ export default function HalftoneWordmarkFooter({
       const box = m.measureText(word)
       const cap = box.actualBoundingBoxAscent || fit * 0.72
       const c = Math.max(0, Math.min(0.6, o.crop))
+      // SONDR: reserve room for the visible part of the word under the links, so on wide screens the
+      // (width-fitted, so taller) word never climbs into the links or "Back to top"; the footer grows instead.
+      setWordSpace(Math.ceil(cap * (1 - c)) + 40)
       m.fillStyle = "#000"
       m.textBaseline = "alphabetic"
       m.fillText(word, (w - box.width) / 2, h + cap * c)
@@ -481,7 +485,7 @@ export default function HalftoneWordmarkFooter({
       className={"hwf-root " + className}
       style={
         {
-          height,
+          minHeight: height, // SONDR: at least this tall; grows to keep the word clear of the links
           "--hwf-bg": colors.background,
           "--hwf-ink": colors.ink,
           "--hwf-mono": monoFamily,
@@ -522,6 +526,7 @@ export default function HalftoneWordmarkFooter({
           </button>
         ) : null}
       </div>
+      <div aria-hidden="true" style={{ height: wordSpace }} /* SONDR: room for the word */ />
     </footer>
   )
 }
