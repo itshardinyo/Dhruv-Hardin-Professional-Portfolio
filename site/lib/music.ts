@@ -18,7 +18,6 @@ export const PLAYLIST: Track[] = [
   { src: "/music/brazil.mp3", title: "Brazil", artist: "Antonio Carlos Jobim", art: COVER },
   { src: "/music/waiting-in-vain.mp3", title: "Waiting in Vain", artist: "Bob Marley & The Wailers", art: COVER },
   { src: "/music/learning-to-fly.mp3", title: "Learning to Fly", artist: "Tom Petty and the Heartbreakers", art: COVER },
-  { src: "/music/it-aint-easy.mp3", title: "It Ain't Easy", artist: "2Pac", art: COVER },
   { src: "/music/family-business.mp3", title: "Family Business", artist: "Kanye West", art: COVER },
   { src: "/music/fashion-killa.mp3", title: "Fashion Killa", artist: "A$AP Rocky", art: COVER },
 ];

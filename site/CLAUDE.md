@@ -68,7 +68,7 @@ except the music card (#1E1E1E landing black, greys #2c2c2c/#4a4a4a/#a7a7a7/#d6d
 - Ring turns with horizontal scroll (trackpad / Shift + wheel), drag, swipe and ← →; vertical scroll still moves the page. Flicks carry momentum and the ring keeps cruising; mouse hover on a card stops it. Paused off screen and with reduced motion.
 - Clicking a card opens the viewer: white screen, full image (slide decks: every slide in a scrolling column + "Open the PDF"), ← → or swipe between pieces, Esc/Close returns focus to the card.
 - Layout per category: `layout` in lib/galleries.ts. Comics uses "sheet" (components/site/contact-sheet.tsx: a white
-  contact sheet with binder holes, numbered prints "01…", square photos, "—" below; 3 columns, 2 on phones), from
+  contact sheet (binder holes removed), numbered prints "01…", square photos, "—" below; 3 columns, 2 on phones), from
   Dhruv's reference. The others use the orbital gallery ("orbit", the default).
 - Titles to check: all 13 "Hustler Jerseys · NN" (files were IMG_xxxx), Mr. Sondr / Sondr Universe titles came from Dhruv's file names.
 
@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3z5: black binder-hole dots removed from the Artsy contact sheets (sheet now evenly padded). "It Ain't Easy" (2Pac) removed from the playlist (five tracks).
 - Step 3z4: footer "Back to top" moved above the white line, and the footer now grows on wide screens (min 560px; room reserved under the links for the visible part of the width-fitted HARDIN word) so the wordmark never covers the links or Back to top.
 - Step 3z3: Instagram logo back under LinkedIn (Dhruv preferred it stacked).
 - Step 3z2: Fam Dan Zil removed (six tracks). Every track uses the one cover (public/music/art/cover.webp, `COVER` in lib/music.ts). It Ain't Easy credited to 2Pac.
