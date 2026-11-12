@@ -210,7 +210,7 @@ const HWF_CSS = `
 }
 .hwf-iconlink { display: inline-flex; align-items: center; gap: .45em; vertical-align: top; } /* SONDR */
 .hwf-iconlink svg { width: 1em; height: 1em; flex: none; }
-.hwf-li-icon { display: block; margin: .35em 0 0; } /* SONDR: logos stacked */
+.hwf-li-icon { display: inline-block; margin: .35em .7em 0 0; } /* SONDR: logos side by side (LinkedIn, Instagram) */
 .hwf-li-icon svg { width: 1.45em; height: 1.45em; }
 .hwf-li-icon a { background-image: none; transition: transform .2s cubic-bezier(.3,1.6,.5,1); display: inline-flex; }
 .hwf-li-icon a:hover { transform: translateY(-3px) rotate(-4deg); }

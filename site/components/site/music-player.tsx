@@ -2,6 +2,7 @@
 
 /*
   Site-wide music (tracks in lib/music.ts).
+  - The order is shuffled once per visit (lib/music.ts shuffled()).
   - MusicProvider lives in the root layout, outside the pages, so the <audio> keeps playing between pages.
     Browsers only allow sound after a gesture: it starts on the landing's "Tune in" click, or on the first
     click/tap/key on any page you land on directly (unless the visitor paused it before; remembered on the device).
@@ -11,7 +12,7 @@
 */
 
 import * as React from "react";
-import { PLAYLIST, MUSIC_START_EVENT, type Track } from "@/lib/music";
+import { PLAYLIST, MUSIC_START_EVENT, shuffled, type Track } from "@/lib/music";
 
 const KEY = "sondr-music-paused";
 const VOL_KEY = "sondr-music-volume";
@@ -36,6 +37,9 @@ export const useMusic = () => React.useContext(MusicContext);
 
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  // Shuffled once per visit (after mount, so server and client render the same first).
+  const [tracks, setTracks] = React.useState<Track[]>(PLAYLIST);
+  React.useEffect(() => { setTracks(shuffled(PLAYLIST)); }, []);
   const [index, setIndex] = React.useState(0);
   const [playing, setPlaying] = React.useState(false);
   const [time, setTime] = React.useState(0);
@@ -67,12 +71,12 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
   const play = React.useCallback(() => {
     const a = audioRef.current;
-    if (!a || !PLAYLIST.length) return;
+    if (!a || !tracks.length) return;
     wantPlay.current = true;
     try { localStorage.setItem(KEY, "0"); } catch {}
     a.volume = 0;
     a.play().then(() => fadeTo(a, volRef.current)).catch(() => {});
-  }, [fadeTo]);
+  }, [fadeTo, tracks.length]);
 
   const pause = React.useCallback(() => {
     const a = audioRef.current;
@@ -85,17 +89,17 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
   const toggle = React.useCallback(() => (playing ? pause() : play()), [playing, play, pause]);
   const pick = React.useCallback((i: number) => { wantPlay.current = true; setIndex(i); }, []);
-  const next = React.useCallback(() => pick((index + 1) % Math.max(1, PLAYLIST.length)), [index, pick]);
+  const next = React.useCallback(() => pick((index + 1) % Math.max(1, tracks.length)), [index, pick, tracks.length]);
   const prev = React.useCallback(() => {
     const a = audioRef.current;
     if (a && a.currentTime > 3) { a.currentTime = 0; return; } // like Spotify: restart first, then previous
-    pick((index - 1 + PLAYLIST.length) % Math.max(1, PLAYLIST.length));
-  }, [index, pick]);
+    pick((index - 1 + tracks.length) % Math.max(1, tracks.length));
+  }, [index, pick, tracks.length]);
   const seek = React.useCallback((t: number) => { const a = audioRef.current; if (a) a.currentTime = t; }, []);
 
   // First gesture anywhere (or the "Tune in" click) starts the music, unless the visitor paused it before.
   React.useEffect(() => {
-    if (!PLAYLIST.length) return;
+    if (!tracks.length) return;
     const onGesture = () => {
       if (autoStarted.current) return;
       autoStarted.current = true;
@@ -111,7 +115,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener("pointerdown", onGesture);
       window.removeEventListener("keydown", onGesture);
     };
-  }, [play]);
+  }, [play, tracks.length]);
 
   // New track: keep playing if we were.
   React.useEffect(() => {
@@ -120,19 +124,19 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   }, [index]);
 
   const value = React.useMemo<MusicState>(
-    () => ({ tracks: PLAYLIST, index, playing, time, duration, toggle, next, prev, pick, seek, volume, setVolume }),
-    [index, playing, time, duration, toggle, next, prev, pick, seek, volume, setVolume],
+    () => ({ tracks, index, playing, time, duration, toggle, next, prev, pick, seek, volume, setVolume }),
+    [tracks, index, playing, time, duration, toggle, next, prev, pick, seek, volume, setVolume],
   );
 
   return (
     <MusicContext.Provider value={value}>
       {children}
-      {PLAYLIST.length > 0 && (
+      {tracks.length > 0 && (
         <audio
           ref={audioRef}
-          src={PLAYLIST[index].src}
+          src={tracks[index].src}
           preload="none"
-          loop={PLAYLIST.length === 1}
+          loop={tracks.length === 1}
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
           onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
