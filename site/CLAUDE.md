@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 3z2: Fam Dan Zil removed (six tracks). Every track uses the one cover (public/music/art/cover.webp, `COVER` in lib/music.ts). It Ain't Easy credited to 2Pac.
 - Step 3z: playlist replaced: "Just One More Drink" (and its cover art) removed; seven tracks added (Brazil, Waiting in Vain, Learning to Fly, It Ain't Easy, Family Business, Fashion Killa, Fam Dan Zil; 128 kbps MP3s, no cover art yet, so the SONDR logo shows). Order shuffled on every visit. Footer: Instagram logo now beside LinkedIn instead of under it. "Say hi" title and "Email" both still open the contact form (Dhruv: leave as is for now). It Ain't Easy has no artist yet.
 - Step 3y: "CH 22" removed from the TV; the clock takes its place top-right, level with the date.
 - Step 3x: landing TV gets live VCR readouts: date top-left ("11 NOV 2026"), clock under CH 22 top-right (HH:MM:SS, visitor's local time). Both in VT323, shown with CH 22.
