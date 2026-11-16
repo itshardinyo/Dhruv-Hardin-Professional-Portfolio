@@ -144,6 +144,15 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes mark-spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 @media (prefers-reduced-motion: reduce) { .mark img { animation: none; } }
 .mark:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+/* the pinned copy (header.tsx): appears top-left once the header's logo has scrolled away; same spin, same clicks */
+.mark.mark-float {
+  position: fixed; z-index: 40; left: 14px; top: 12px; width: 84px; padding: 6px; box-sizing: content-box;
+  background: var(--color-white); border-radius: 50%;
+  opacity: 0; pointer-events: none; transform: scale(.6); transition: opacity .2s, transform .3s cubic-bezier(.25,1.5,.5,1);
+}
+.mark.mark-float.is-on { opacity: 1; pointer-events: auto; transform: none; }
+.intro-on .mark.mark-float, .cine-on .mark.mark-float { display: none; }
+@media (prefers-reduced-motion: reduce) { .mark.mark-float { transition: none; } }
 .nav {
   position: absolute; top: max(12px, calc(28 * var(--u))); right: max(16px, calc(72 * var(--u)));
   font-family: var(--font-hand); font-size: max(16px, calc(46 * var(--u)));
@@ -542,6 +551,7 @@ html.cine-on, html.cine-on body { overflow: hidden; }
   box-shadow: 0 24px 60px rgba(0,0,0,.35);
   animation: mp-drop .3s cubic-bezier(.25,1.3,.5,1); transform-origin: 15% 0;
 }
+.mp-panel.mp-panel--float { position: fixed; left: 14px; top: 84px; }
 @keyframes mp-drop { from { opacity: 0; transform: translateY(-8px) scale(.96); } }
 .mp-art { width: 100%; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #2c2c2c; display: grid; place-items: center; }
 /* a track's own artwork fills the frame edge to edge at its own shape (no crop, no bars) */

@@ -46,6 +46,19 @@ export function Header() {
   const [panel, setPanel] = React.useState(false);
   const clickTimer = React.useRef<number | null>(null);
   const closePanel = React.useCallback(() => setPanel(false), []);
+  // Once the header's logo is off screen (scrolled past, or the header hid itself), a small copy of it stays pinned
+  // top-left so the music player is always one click away.
+  const [float, setFloat] = React.useState(false);
+  React.useEffect(() => {
+    const el = document.getElementById("sondr-mark");
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      setFloat(!e.isIntersecting);
+      setPanel(false); // the player re-opens under whichever logo is showing
+    }, { threshold: 0 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [pathname]);
 
   // The logo: one click opens the music player, a double click goes back to the TV landing.
   const onMark = () => {
@@ -68,6 +81,7 @@ export function Header() {
   React.useEffect(() => setHidden(false), [pathname]);
 
   return (
+    <>
     <motion.header
       className={cn("site-header", home ? "is-home" : "is-sticky")}
       animate={{ y: !home && hidden ? "-100%" : "0%" }}
@@ -91,10 +105,20 @@ export function Header() {
           </Link>
         ))}
       </div>
-      <MusicPanel open={panel} onClose={closePanel} anchorId="sondr-mark" />
+      <MusicPanel open={panel && !float} onClose={closePanel} anchorId="sondr-mark" />
       <nav className="nav" aria-label="Pages">
         <AnimatedDock base={base} items={PAGES.map((p) => ({ ...p, active: pathname === p.link }))} />
       </nav>
     </motion.header>
+    {/* outside the header: the header moves (hide on scroll), which would break position: fixed */}
+    <button
+      type="button" id="sondr-mark-float" className={cn("mark mark-float", float && "is-on", music?.playing && "is-playing")} onClick={onMark}
+      aria-expanded={panel && float} aria-haspopup="dialog" tabIndex={float ? 0 : -1} aria-hidden={!float}
+      aria-label="SONDR music player (double-click to go back to the TV intro)" title="Music · double-click to go back to the TV"
+    >
+      <Image src="/logo-mark-black.png" alt="" width={870} height={564} sizes="90px" />
+    </button>
+    <MusicPanel open={panel && float} onClose={closePanel} anchorId="sondr-mark-float" floating />
+    </>
   );
 }

@@ -157,7 +157,7 @@ const fmt = (s: number) => {
 };
 
 /** The drop-down under the logo: now playing, progress, controls, queue. */
-export function MusicPanel({ open, onClose, anchorId }: { open: boolean; onClose: () => void; anchorId: string }) {
+export function MusicPanel({ open, onClose, anchorId, floating = false }: { open: boolean; onClose: () => void; anchorId: string; floating?: boolean }) {
   const m = useMusic();
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -179,7 +179,7 @@ export function MusicPanel({ open, onClose, anchorId }: { open: boolean; onClose
   const pct = m.duration ? (m.time / m.duration) * 100 : 0;
 
   return (
-    <div ref={ref} className="mp-panel" role="dialog" aria-label="Music player" data-lenis-prevent>
+    <div ref={ref} className={`mp-panel${floating ? " mp-panel--float" : ""}`} role="dialog" aria-label="Music player" data-lenis-prevent>
       <div className={`mp-art ${track?.art ? "has-art" : "mp-art-empty"}`}>
         {track?.art ? <img key={track.art} src={track.art} alt="" /> : <img src="/logo-mark-black.png" alt="" className="mp-art-logo" />}
       </div>
