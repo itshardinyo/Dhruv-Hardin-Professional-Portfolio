@@ -365,9 +365,9 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) { .brand-mark { transition: none; } .brand-mark:hover { transform: none; } }
 
 /* brand pages (app/sondr-cinematics/…): logo centred, the name under it in black display lettering, then the categories */
-.brand-head { display: flex; flex-direction: column; align-items: center; padding: 0 16px; }
+.brand-head { display: flex; flex-direction: column; align-items: center; padding: 0 16px; margin-bottom: max(48px, calc(120 * var(--u))); }
 .brand-logo { width: min(46vw, 640px, calc((100vh - 360px) * 1.4)); min-width: 220px; height: auto; }
-.brand-name { color: var(--color-black); font-size: max(56px, calc(150 * var(--u))); text-align: center; margin-top: calc(24 * var(--u)); }
+.brand-name { color: var(--color-red); font-size: max(56px, calc(150 * var(--u))); text-align: center; margin-top: calc(24 * var(--u)); }
 
 /* Sondr Cinematics opener (components/site/cinematics-intro.tsx), full screen like a studio intro:
    flip (Dhruv's art flashes past) → play (the vertical clip: sharp, feathered centre over a blurred, darkened copy that fills
@@ -489,7 +489,7 @@ html.cine-on, html.cine-on body { overflow: hidden; }
 .gallery-page--logo-led { padding-top: max(8px, calc(24 * var(--u))); }
 .gallery-page--logo-led > .cat:first-of-type { margin-top: 0; }
 .cat-hint { margin: .6em 0 0; font-family: var(--font-hand); font-size: max(18px, calc(26 * var(--u))); color: var(--color-black); }
-.cat-empty { margin: 1em 16px 0 max(16px, calc(244 / 1512 * 100vw)); padding: 1em; background: var(--color-cream); font-family: var(--font-hand); font-size: 22px; }
+.cat-empty { margin: 1em auto 0; max-width: min(560px, calc(100vw - 32px)); box-sizing: border-box; text-align: center; padding: 1em; background: var(--color-cream); font-family: var(--font-hand); font-size: 22px; }
 .cg-card:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
 
 /* full-image viewer */

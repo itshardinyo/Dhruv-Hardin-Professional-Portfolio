@@ -126,6 +126,16 @@ export const ARTSY: GalleryCategory[] = [
 
 /** /sondr-cinematics: FRAMES (stills) and ANIMATIONS. Empty for now: add items like the categories above (images in public/brands/sondr-cinematics/). */
 export const CINEMATICS: GalleryCategory[] = [
-  { id: "frames", title: "Frames", kind: "Sondr Cinematics frame", layout: "sheet", items: [] },
+  {
+    id: "frames",
+    title: "Frames",
+    kind: "Sondr Cinematics frame",
+    layout: "sheet",
+    items: [
+      { id: "frame-01", title: "Arguments", image: img("/brands/sondr-cinematics/frames/arguments.webp", 1340, 2400), pos: "50% 45%" },
+      { id: "frame-02", title: "Beautiful Figures", image: img("/brands/sondr-cinematics/frames/beautiful-figures.webp", 1340, 2400), pos: "50% 35%" },
+      { id: "frame-03", title: "Nighttime in Sondr City", image: img("/brands/sondr-cinematics/frames/nighttime-in-sondr-city.webp", 1340, 2400), pos: "50% 55%" },
+    ],
+  },
   { id: "animations", title: "Animations", kind: "Sondr Cinematics animation", layout: "sheet", items: [] },
 ];
