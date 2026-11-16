@@ -349,21 +349,25 @@ html.lenis, html.lenis body { height: auto; }
 .footer-slot { background: var(--color-red); }
 .footer-slot .hwf-root { --hwf-size: 22px; --hwf-track: .06em; }
 
-/* brand logos (components/site/brands-pop.tsx): one click on the header logo pops them up right beside it */
-.brands-pop {
-  position: absolute; z-index: 30; display: flex; align-items: center; gap: max(10px, calc(20 * var(--u)));
+/* Dhruv's brands, always in the header right beside the SONDR logo (header.tsx, lib/brands.ts) */
+.brand-marks {
+  position: absolute; display: flex; align-items: center; gap: max(10px, calc(20 * var(--u)));
   left: calc(16px + max(72px, 270 * var(--u)) + max(10px, 24 * var(--u)));
   top: max(12px, calc(24 * var(--u))); height: calc(max(72px, 270 * var(--u)) * 564 / 870);
 }
-.brands-pop-item {
-  display: block; line-height: 0; height: 78%; animation: brands-pop .42s cubic-bezier(.2,1.6,.4,1) both;
-  transition: transform .2s;
+.brand-mark { display: block; line-height: 0; height: 78%; transition: transform .2s; }
+.brand-mark img { height: 100%; width: auto; }
+.brand-mark:hover { transform: scale(1.06) rotate(-2deg); }
+.brand-mark:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+/* entrance on /: wipes in with the same RGB glitch as "You've reached, Dhruv Hardin." (after the header drops) */
+.pre .site-header .brand-mark { visibility: hidden; }
+.go .site-header .brand-mark img { animation: wipe .6s cubic-bezier(.75,0,.2,1) 1.25s backwards, rgb-img .7s steps(4,end) 1.25s backwards; }
+@keyframes rgb-img {
+  0% { filter: drop-shadow(-5px 0 rgba(0,170,255,.85)) drop-shadow(5px 0 rgba(255,0,90,.85)); }
+  50% { filter: drop-shadow(3px 0 rgba(0,170,255,.6)) drop-shadow(-3px 0 rgba(255,0,90,.6)); }
+  100% { filter: none; }
 }
-.brands-pop-item img { height: 100%; width: auto; }
-.brands-pop-item:hover { transform: scale(1.06) rotate(-2deg); }
-.brands-pop-item:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
-@keyframes brands-pop { from { transform: scale(0) rotate(-12deg); opacity: 0; } 60% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .brands-pop-item { animation: none; transition: none; } .brands-pop-item:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .brand-mark { transition: none; } .brand-mark:hover { transform: none; } }
 
 /* brand pages (app/sondr-cinematics/…): logo centred, the name under it in black display lettering, then the categories */
 .brand-head { display: flex; flex-direction: column; align-items: center; padding: 0 16px; }
@@ -387,8 +391,17 @@ html.cine-on, html.cine-on body { overflow: hidden; }
 @keyframes cine-flip { from { transform: scale(1.12) rotate(-1deg); } to { transform: scale(1.04); } }
 
 .cine-stage { position: absolute; inset: 0; opacity: 0; }
-.is-play .cine-stage { opacity: 1; animation: cine-push 7.6s cubic-bezier(.3,0,.4,1) both; transform-origin: 50% 58%; }
-@keyframes cine-push { from { transform: scale(1.18); } to { transform: scale(1); } }
+.is-play .cine-stage { opacity: 1; }
+/* the camera follows Mr. Sondr: framed on his head and bust as he walks toward us (positions measured from the clip:
+   bust centre 63% → 52% of the frame height). Each step puts that point at the screen centre: translateY = S × (50% − bust), then scale S. */
+.is-play .cine-video { animation: cine-follow 7.6s linear both; }
+@keyframes cine-follow {
+  0%   { transform: translateY(-27.3%) scale(2.1); }
+  26%  { transform: translateY(-18.5%) scale(1.85); }
+  53%  { transform: translateY(-9.6%) scale(1.6); }
+  79%  { transform: translateY(-5.6%) scale(1.4); }
+  100% { transform: translateY(-2.6%) scale(1.3); }
+}
 .cine-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(36px) brightness(.72) saturate(1.3); transform: scale(1.3); }
 .cine-video {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block;
@@ -431,7 +444,7 @@ html.cine-on, html.cine-on body { overflow: hidden; }
    Phones (under 640px)
    ========================================================================== */
 @media (max-width: 639px) {
-  .site-header { height: 79px; }
+  .site-header { height: 104px; } /* room for the brand logo under the SONDR logo */
   .mark { width: 72px; top: 16px; }
   .nav { top: 21px; right: 16px; font-size: 18px; }
   .dock { gap: 6px; }
@@ -440,14 +453,15 @@ html.cine-on, html.cine-on body { overflow: hidden; }
   .hero-body { left: 16px; top: calc(50% - 1.3158em); font-size: min(calc((100vw - 32px) / 5.53), 19.3vh); }
   .sig { width: 160px; right: 16px; bottom: 24px; }
   .hero { --ms-h: min(42vh, 300px); }
-  .placeholder { min-height: calc(100vh - 79px); padding: 32px 16px 64px; }
+  .placeholder { min-height: calc(100vh - 104px); padding: 32px 16px 64px; }
   .about { --ms-h: min(46vh, 340px); padding-bottom: calc(var(--ms-h) * .9); }
   .about .mr-sondr { left: -40px; }
   .about-body { width: 100%; padding: 24px 16px 24px; }
   .display-rough { font-size: min(calc((100vw - 32px) / 4.2), 96px); white-space: normal; }
   .footer-slot .hwf-root { --hwf-size: 18px; }
   .brand-logo { width: min(86vw, 420px); }
-  .brands-pop { left: 16px; top: 70px; height: 52px; }
+  .brand-marks { left: 16px; top: 66px; height: 40px; gap: 8px; }
+  .brand-mark { height: 100%; }
   .cine-video { object-fit: cover; -webkit-mask-image: none; mask-image: none; }
   .cine-bars { display: none; }
   .cine-skip { bottom: 20px; }

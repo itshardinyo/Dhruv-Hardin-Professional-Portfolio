@@ -6,13 +6,14 @@ import { getLenis } from "@/lib/lenis-store";
 const BASE = "/brands/sondr-cinematics";
 const SRC = `${BASE}/intro.mp4`;
 const POSTER = `${BASE}/intro-poster.webp`;
-/** Marvel-style flip: Dhruv's own comics and Mr. Sondr art, flashed one after another before the clip. */
+/** Marvel-style flip: Dhruv's own art flashed one after another before the clip, weighted to Sondr Universe (half the panels). */
+const U = "/artsy/sondr-universe/";
 const FLIP = [
-  "/artsy/comics/da-villain-da-beginnin.webp", "/artsy/mr-sondr/detective-sondr.webp", "/artsy/comics/da-monsta.webp",
-  "/artsy/sondr-universe/sondr-sunset.webp", "/artsy/comics/eskapades.webp", "/artsy/mr-sondr/mr-sondr-ponders.webp",
-  "/artsy/comics/mental.webp", "/artsy/sondr-universe/sondr-universe.webp", "/artsy/mr-sondr/mr-sondr.webp",
+  `${U}sondr-universe.webp`, "/artsy/comics/da-villain-da-beginnin.webp", `${U}sondr-sunset.webp`, "/artsy/mr-sondr/detective-sondr.webp",
+  `${U}sondr-miles.webp`, "/artsy/comics/da-monsta.webp", `${U}sondr-universe.webp`, "/artsy/mr-sondr/mr-sondr-ponders.webp",
+  `${U}sondr-sunset.webp`, "/artsy/comics/eskapades.webp", `${U}sondr-miles.webp`, `${U}sondr-universe.webp`,
 ];
-const FLIP_MS = 95; // per panel
+const FLIP_MS = 90; // per panel
 const CARD_MS = 1500; // red title card hold
 const OUT_MS = 650; // zoom-through into the page
 
@@ -20,9 +21,9 @@ type Phase = "flip" | "play" | "card" | "out" | "done";
 
 /**
  * Sondr Cinematics opener, full screen like a studio intro:
- * 1. flip: Dhruv's art flashes past (≈0.9s)
+ * 1. flip: Dhruv's art flashes past, mostly Sondr Universe (≈1.1s)
  * 2. play: Mr. Sondr walking (7.6s). The clip is vertical, so on landscape screens a blurred, darkened copy fills the
- *    screen behind a sharp centre with feathered edges; both push in slowly like a camera move.
+ *    screen behind a sharp centre with feathered edges; the camera follows Mr. Sondr's head and bust as he walks in.
  * 3. card: red title card, white camera logo + "SONDR CINEMATICS" slam in
  * 4. out: the card zooms through into the page.
  * Click, tap, Esc/Enter/Space or "Skip" ends it. Reduced motion: no opener.
