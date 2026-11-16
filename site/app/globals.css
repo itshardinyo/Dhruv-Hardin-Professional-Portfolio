@@ -349,47 +349,80 @@ html.lenis, html.lenis body { height: auto; }
 .footer-slot { background: var(--color-red); }
 .footer-slot .hwf-root { --hwf-size: 22px; --hwf-track: .06em; }
 
-/* brands side menu (components/site/brands-menu.tsx): one click on the header logo slides it in from the left */
-.brands-menu {
-  position: fixed; z-index: 70; top: 0; left: 0; bottom: 0; width: min(380px, 86vw); box-sizing: border-box;
-  padding: 24px 24px 32px; overflow-y: auto; background: var(--color-white); border-right: 3px solid var(--color-black);
-  animation: brands-in .35s cubic-bezier(.25,1.2,.5,1);
+/* brand logos (components/site/brands-pop.tsx): one click on the header logo pops them up right beside it */
+.brands-pop {
+  position: absolute; z-index: 30; display: flex; align-items: center; gap: max(10px, calc(20 * var(--u)));
+  left: calc(16px + max(72px, 270 * var(--u)) + max(10px, 24 * var(--u)));
+  top: max(12px, calc(24 * var(--u))); height: calc(max(72px, 270 * var(--u)) * 564 / 870);
 }
-@keyframes brands-in { from { transform: translateX(-100%); } }
-.brands-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.brands-title {
-  margin: 0; font: 400 56px/1 var(--font-display); text-transform: uppercase; color: var(--color-red);
-  letter-spacing: .0157em; filter: url(#rough); -webkit-text-stroke: .016em currentColor;
+.brands-pop-item {
+  display: block; line-height: 0; height: 78%; animation: brands-pop .42s cubic-bezier(.2,1.6,.4,1) both;
+  transition: transform .2s;
 }
-.brands-close {
-  border: 0; background: none; cursor: pointer; padding: 0 4px; font: 400 44px/1 var(--font-hand); color: var(--color-black);
-}
-.brands-close:focus-visible, .brands-item:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
-.brands-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.brands-item {
-  display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px;
-  background: var(--color-cream); color: var(--color-black); text-decoration: none;
-  font: 400 34px/1 var(--font-display); text-transform: uppercase; letter-spacing: .0157em; transition: transform .2s;
-}
-.brands-item:hover { transform: translateX(6px); }
-.brands-item img { width: 84px; height: auto; flex: none; }
-@media (prefers-reduced-motion: reduce) { .brands-menu { animation: none; } .brands-item { transition: none; } .brands-item:hover { transform: none; } }
+.brands-pop-item img { height: 100%; width: auto; }
+.brands-pop-item:hover { transform: scale(1.06) rotate(-2deg); }
+.brands-pop-item:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+@keyframes brands-pop { from { transform: scale(0) rotate(-12deg); opacity: 0; } 60% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .brands-pop-item { animation: none; transition: none; } .brands-pop-item:hover { transform: none; } }
 
 /* brand pages (app/sondr-cinematics/…): logo centred, the name under it in black display lettering, then the categories */
 .brand-head { display: flex; flex-direction: column; align-items: center; padding: 0 16px; }
 .brand-logo { width: min(46vw, 640px, calc((100vh - 360px) * 1.4)); min-width: 220px; height: auto; }
 .brand-name { color: var(--color-black); font-size: max(56px, calc(150 * var(--u))); text-align: center; margin-top: calc(24 * var(--u)); }
 
-/* Sondr Cinematics opener (components/site/cinematics-intro.tsx): Mr. Sondr walking, full screen, then a fade into the page */
+/* Sondr Cinematics opener (components/site/cinematics-intro.tsx), full screen like a studio intro:
+   flip (Dhruv's art flashes past) → play (the vertical clip: sharp, feathered centre over a blurred, darkened copy that fills
+   landscape screens; both push in slowly) → card (red title card slams in) → out (zooms through into the page).
+   Exceptions to the palette: the video itself, its blur/darkening, the feathered edges, the letterbox bars and the white flash. */
 html.cine-on, html.cine-on body { overflow: hidden; }
-.cine-intro {
-  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--color-landing); cursor: pointer;
-  transition: opacity .7s ease;
+.cine-intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: var(--color-black); cursor: pointer; }
+.cine-intro::after { /* white flash at each cut */
+  content: ""; position: absolute; inset: 0; z-index: 5; background: var(--color-white); opacity: 0; pointer-events: none;
 }
-.cine-intro.is-out { opacity: 0; pointer-events: none; }
-.cine-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+.cine-intro.is-play::after, .cine-intro.is-card::after { animation: cine-flash .35s ease-out; }
+@keyframes cine-flash { from { opacity: .85; } to { opacity: 0; } }
+
+.cine-flip { position: absolute; inset: 0; display: grid; place-items: center; background: var(--color-black); }
+.cine-flip img { width: 100%; height: 100%; object-fit: cover; animation: cine-flip .095s linear both; }
+@keyframes cine-flip { from { transform: scale(1.12) rotate(-1deg); } to { transform: scale(1.04); } }
+
+.cine-stage { position: absolute; inset: 0; opacity: 0; }
+.is-play .cine-stage { opacity: 1; animation: cine-push 7.6s cubic-bezier(.3,0,.4,1) both; transform-origin: 50% 58%; }
+@keyframes cine-push { from { transform: scale(1.18); } to { transform: scale(1); } }
+.cine-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(36px) brightness(.72) saturate(1.3); transform: scale(1.3); }
+.cine-video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block;
+  -webkit-mask-image: linear-gradient(to right, transparent calc(50% - 28.125vh), #000 calc(50% - 28.125vh + 14vh), #000 calc(50% + 28.125vh - 14vh), transparent calc(50% + 28.125vh));
+          mask-image: linear-gradient(to right, transparent calc(50% - 28.125vh), #000 calc(50% - 28.125vh + 14vh), #000 calc(50% + 28.125vh - 14vh), transparent calc(50% + 28.125vh));
+}
+/* cinema letterbox bars slide in over the clip */
+.cine-bars::before, .cine-bars::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 7vh; background: var(--color-black); z-index: 2;
+  transition: transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.cine-bars::before { top: 0; transform: translateY(-100%); }
+.cine-bars::after { bottom: 0; transform: translateY(100%); }
+.is-play .cine-bars::before, .is-play .cine-bars::after { transform: none; }
+
+.cine-card {
+  position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2vh;
+  background: var(--color-red); color: var(--color-white);
+}
+.is-card .cine-card > * { animation: cine-slam .55s cubic-bezier(.2,1.5,.4,1) both; }
+.is-card .cine-card-name { animation-delay: .12s; }
+@keyframes cine-slam { from { transform: scale(1.9); opacity: 0; filter: blur(10px); } 60% { opacity: 1; filter: blur(0); } }
+.cine-card-logo { width: min(42vw, 58vh); height: auto; }
+.cine-card-name {
+  font: 400 min(13vw, 15vh)/1 var(--font-display); text-transform: uppercase; letter-spacing: .0157em; white-space: nowrap;
+  filter: url(#rough); -webkit-text-stroke: .016em currentColor;
+}
+.is-out .cine-card { animation: cine-through .65s cubic-bezier(.6,0,.9,.4) both; }
+@keyframes cine-through { to { transform: scale(4); opacity: 0; } }
+.is-out { background: transparent; pointer-events: none; }
+.is-out .cine-stage, .is-out .cine-flip { display: none; }
+
 .cine-skip {
-  position: absolute; right: 20px; bottom: 20px; padding: .1em .6em .15em; border: 0; border-radius: 10px; cursor: pointer;
+  position: absolute; z-index: 6; right: 20px; bottom: calc(7vh + 14px); padding: .1em .6em .15em; border: 0; border-radius: 10px; cursor: pointer;
   background: var(--color-cream); color: var(--color-black); font: 400 24px/1 var(--font-hand);
 }
 .cine-skip:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
@@ -414,7 +447,10 @@ html.cine-on, html.cine-on body { overflow: hidden; }
   .display-rough { font-size: min(calc((100vw - 32px) / 4.2), 96px); white-space: normal; }
   .footer-slot .hwf-root { --hwf-size: 18px; }
   .brand-logo { width: min(86vw, 420px); }
-  .cine-video { object-fit: cover; }
+  .brands-pop { left: 16px; top: 70px; height: 52px; }
+  .cine-video { object-fit: cover; -webkit-mask-image: none; mask-image: none; }
+  .cine-bars { display: none; }
+  .cine-skip { bottom: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

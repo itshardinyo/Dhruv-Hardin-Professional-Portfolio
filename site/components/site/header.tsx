@@ -8,7 +8,7 @@ import { AnimatedDock } from "@/components/ui/animated-dock";
 import { useIntro } from "@/components/intro/intro-controller";
 import { cn } from "@/lib/utils";
 import { MusicPanel, useMusic } from "@/components/site/music-player";
-import { BrandsMenu } from "@/components/site/brands-menu";
+import { BrandsPop } from "@/components/site/brands-pop";
 
 const PAGES = [
   { link: "/artsy", label: "Artsy" },
@@ -81,13 +81,13 @@ export function Header() {
     >
       <button
         type="button" id="sondr-mark" className={cn("mark", music?.playing && "is-playing")} onClick={onMark}
-        aria-expanded={brands || panel} aria-haspopup="menu"
+        aria-expanded={brands || panel} aria-haspopup="true"
         aria-label="SONDR brands (double-click: music player, triple-click: back to the TV intro)"
         title="Brands · double-click: music · triple-click: back to the TV"
       >
         <Image src="/logo-mark-black.png" alt="" width={870} height={564} priority sizes="(max-width: 639px) 72px, 18vw" />
       </button>
-      <BrandsMenu open={brands} onClose={closeBrands} anchorId="sondr-mark" />
+      <BrandsPop open={brands} onClose={closeBrands} anchorId="sondr-mark" />
       <MusicPanel open={panel} onClose={closePanel} anchorId="sondr-mark" />
       <nav className="nav" aria-label="Pages">
         <AnimatedDock base={base} items={PAGES.map((p) => ({ ...p, active: pathname === p.link }))} />
