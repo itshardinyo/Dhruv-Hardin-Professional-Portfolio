@@ -17,6 +17,8 @@ export interface GalleryEntry {
   pos?: string;
   /** extra pages (slide decks): shown one after another in the viewer */
   pages?: GalleryImage[];
+  /** an animation: plays silently on a loop on the card (image = its poster), with controls in the viewer */
+  video?: string;
   /** a file to open in a new tab from the viewer */
   file?: { href: string; label: string };
 }
@@ -134,8 +136,19 @@ export const CINEMATICS: GalleryCategory[] = [
     items: [
       { id: "frame-01", title: "Arguments", image: img("/brands/sondr-cinematics/frames/arguments.webp", 1340, 2400), pos: "50% 45%" },
       { id: "frame-02", title: "Beautiful Figures", image: img("/brands/sondr-cinematics/frames/beautiful-figures.webp", 1340, 2400), pos: "50% 35%" },
-      { id: "frame-03", title: "Nighttime in Sondr City", image: img("/brands/sondr-cinematics/frames/nighttime-in-sondr-city.webp", 1340, 2400), pos: "50% 55%" },
+      { id: "frame-03", title: "Intimate Things", image: img("/brands/sondr-cinematics/frames/intimate-things.webp", 1340, 2400), pos: "50% 35%" },
+      { id: "frame-04", title: "Nighttime in Sondr City", image: img("/brands/sondr-cinematics/frames/nighttime-in-sondr-city.webp", 1340, 2400), pos: "50% 55%" },
     ],
   },
-  { id: "animations", title: "Animations", kind: "Sondr Cinematics animation", layout: "sheet", items: [] },
+  {
+    id: "animations",
+    title: "Animations",
+    kind: "Sondr Cinematics animation",
+    layout: "sheet",
+    items: [
+      { id: "anim-01", title: "Live Arguments", video: "/brands/sondr-cinematics/animations/live-arguments.mp4", image: img("/brands/sondr-cinematics/animations/live-arguments.webp", 714, 1280), pos: "50% 45%" },
+      { id: "anim-02", title: "Live Intimate Things", video: "/brands/sondr-cinematics/animations/live-intimate-things.mp4", image: img("/brands/sondr-cinematics/animations/live-intimate-things.webp", 720, 1280), pos: "50% 35%" },
+      { id: "anim-03", title: "Live Nighttime in Sondr City", video: "/brands/sondr-cinematics/animations/live-nighttime-in-sondr-city.mp4", image: img("/brands/sondr-cinematics/animations/live-nighttime-in-sondr-city.webp", 720, 1280), pos: "50% 55%" },
+    ],
+  },
 ];

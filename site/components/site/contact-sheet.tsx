@@ -24,14 +24,22 @@ export function ContactSheet({
             <button type="button" className="sheet-print" style={{ display: "flex", flexDirection: "column", width: "100%" }} onClick={(e) => onOpen(i, e.currentTarget)} aria-label={`Open ${it.title}, ${category.kind}`}>
               <span className="sheet-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <span className="sheet-photo" style={{ position: "relative", display: "block", width: "100%", aspectRatio: "336 / 392", overflow: "hidden" }}>
-                <Image
-                  src={it.image.src}
-                  alt=""
-                  fill
-                  sizes="(max-width: 639px) 45vw, 26vw"
-                  className="object-cover"
-                  style={{ objectPosition: it.pos || "center" }}
-                />
+                {it.video ? (
+                  // animations loop silently on the sheet; the music keeps playing
+                  <video
+                    src={it.video} poster={it.image.src} muted loop autoPlay playsInline preload="metadata" aria-hidden="true"
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: it.pos || "center" }}
+                  />
+                ) : (
+                  <Image
+                    src={it.image.src}
+                    alt=""
+                    fill
+                    sizes="(max-width: 639px) 45vw, 26vw"
+                    className="object-cover"
+                    style={{ objectPosition: it.pos || "center" }}
+                  />
+                )}
               </span>
               <span className="sheet-dash" aria-hidden="true">—</span>
             </button>

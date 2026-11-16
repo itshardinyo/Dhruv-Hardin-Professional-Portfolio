@@ -5,7 +5,8 @@
   - The order is shuffled once per visit (lib/music.ts shuffled()).
   - MusicProvider lives in the root layout, outside the pages, so the <audio> keeps playing between pages.
     Browsers only allow sound after a gesture: it starts on the landing's "Tune in" click, or on the first
-    click/tap/key on any page you land on directly (unless the visitor paused it before; remembered on the device).
+    click/tap/key on any page you land on directly, on EVERY visit. Pausing only lasts for that visit (nothing is remembered),
+    and if the browser interrupts playback by itself (another clip grabbing the sound, etc.) it resumes.
   - The spinning SONDR logo in the header is the player: one click opens MusicPanel (a dark now-playing card like
     Spotify/Apple Music: cover art, title, artist, seekable progress with elapsed/−remaining, ⏪ ❚❚ ⏩, volume, queue). A double click goes back to the TV
     landing ("closes" the site), as the logo did before.
@@ -14,7 +15,6 @@
 import * as React from "react";
 import { PLAYLIST, MUSIC_START_EVENT, shuffled, type Track } from "@/lib/music";
 
-const KEY = "sondr-music-paused";
 const VOL_KEY = "sondr-music-volume";
 
 interface MusicState {
@@ -73,7 +73,6 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     const a = audioRef.current;
     if (!a || !tracks.length) return;
     wantPlay.current = true;
-    try { localStorage.setItem(KEY, "0"); } catch {}
     a.volume = 0;
     a.play().then(() => fadeTo(a, volRef.current)).catch(() => {});
   }, [fadeTo, tracks.length]);
@@ -82,7 +81,6 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     const a = audioRef.current;
     if (!a) return;
     wantPlay.current = false;
-    try { localStorage.setItem(KEY, "1"); } catch {}
     fadeTo(a, 0, 250);
     window.setTimeout(() => a.pause(), 260);
   }, [fadeTo]);
@@ -97,15 +95,13 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   }, [index, pick, tracks.length]);
   const seek = React.useCallback((t: number) => { const a = audioRef.current; if (a) a.currentTime = t; }, []);
 
-  // First gesture anywhere (or the "Tune in" click) starts the music, unless the visitor paused it before.
+  // First gesture anywhere (or the "Tune in" click) starts the music, every visit.
   React.useEffect(() => {
     if (!tracks.length) return;
     const onGesture = () => {
       if (autoStarted.current) return;
       autoStarted.current = true;
-      let paused = false;
-      try { paused = localStorage.getItem(KEY) === "1"; } catch {}
-      if (!paused) play();
+      play();
     };
     window.addEventListener(MUSIC_START_EVENT, onGesture);
     window.addEventListener("pointerdown", onGesture);
@@ -138,7 +134,12 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
           preload="none"
           loop={tracks.length === 1}
           onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
+          onPause={(e) => {
+            setPlaying(false);
+            // only the visitor's pause button stops the music: anything else that paused it gets resumed
+            const a = e.currentTarget;
+            if (wantPlay.current && !a.ended) window.setTimeout(() => { if (wantPlay.current && a.paused) a.play().catch(() => {}); }, 400);
+          }}
           onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
           onLoadedMetadata={(e) => { setTime(0); setDuration(e.currentTarget.duration || 0); }}
           onDurationChange={(e) => setDuration(e.currentTarget.duration || 0)}

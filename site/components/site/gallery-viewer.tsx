@@ -113,7 +113,13 @@ export function GalleryViewer({
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.22, ease: [0.2, 0.7, 0.2, 1] }}
             >
-              {pages.map((p, k) => (
+              {item.video ? (
+                // starts muted so the site music keeps going; the controls can unmute it
+                <video
+                  key={item.video} src={item.video} poster={item.image.src} className="gv-img gv-video"
+                  autoPlay muted loop playsInline controls aria-label={`${item.title}. ${category.kind}`}
+                />
+              ) : pages.map((p, k) => (
                 <Image
                   key={p.src}
                   src={p.src}
