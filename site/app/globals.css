@@ -359,14 +359,9 @@ html.lenis, html.lenis body { height: auto; }
 .brand-mark img { height: 100%; width: auto; }
 .brand-mark:hover { transform: scale(1.06) rotate(-2deg); }
 .brand-mark:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
-/* entrance on /: wipes in with the same RGB glitch as "You've reached, Dhruv Hardin." (after the header drops) */
+/* entrance on /: drops in with the rest of the header (same drop as the SONDR logo and the nav chips) */
 .pre .site-header .brand-mark { visibility: hidden; }
-.go .site-header .brand-mark img { animation: wipe .6s cubic-bezier(.75,0,.2,1) 1.25s backwards, rgb-img .7s steps(4,end) 1.25s backwards; }
-@keyframes rgb-img {
-  0% { filter: drop-shadow(-5px 0 rgba(0,170,255,.85)) drop-shadow(5px 0 rgba(255,0,90,.85)); }
-  50% { filter: drop-shadow(3px 0 rgba(0,170,255,.6)) drop-shadow(-3px 0 rgba(255,0,90,.6)); }
-  100% { filter: none; }
-}
+.go .site-header .brand-mark { animation: drop .45s cubic-bezier(.25,1.4,.5,1) 1.03s backwards; }
 @media (prefers-reduced-motion: reduce) { .brand-mark { transition: none; } .brand-mark:hover { transform: none; } }
 
 /* brand pages (app/sondr-cinematics/…): logo centred, the name under it in black display lettering, then the categories */

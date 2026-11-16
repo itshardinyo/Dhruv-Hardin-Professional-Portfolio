@@ -36,11 +36,23 @@ export function CinematicsIntro() {
 
   const skip = React.useCallback(() => setPhase((p) => (p === "done" || p === "out" ? p : "out")), []);
 
-  React.useEffect(() => {
+  // (Re)start from the top. Runs on every arrival: React keeps visited pages alive and re-runs this effect when the page
+  // is shown again, and the header's brand logo fires "sondr:cine-replay" when clicked while already on the page.
+  const start = React.useCallback(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setPhase("done"); return; }
     window.scrollTo(0, 0);
-    FLIP.forEach((src) => { const i = new Image(); i.src = src; }); // warm the cache so the flip doesn't stutter
+    getLenis()?.scrollTo(0, { immediate: true });
+    for (const v of [fg.current, bg.current]) if (v) { v.pause(); v.currentTime = 0; }
+    setPanel(0);
+    setPhase("flip");
   }, []);
+
+  React.useEffect(() => {
+    FLIP.forEach((src) => { const i = new Image(); i.src = src; }); // warm the cache so the flip doesn't stutter
+    start();
+    window.addEventListener("sondr:cine-replay", start);
+    return () => window.removeEventListener("sondr:cine-replay", start);
+  }, [start]);
 
   // 1. flip through the panels
   React.useEffect(() => {

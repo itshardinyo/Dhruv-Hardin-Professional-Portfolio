@@ -83,7 +83,10 @@ export function Header() {
       {/* Dhruv's brands, always beside the SONDR logo (lib/brands.ts); on / they wipe in with the headline's RGB glitch */}
       <div className="brand-marks">
         {BRANDS.map((b) => (
-          <Link key={b.slug} href={`/${b.slug}`} className="brand-mark" title={b.name} aria-label={b.name}>
+          <Link
+            key={b.slug} href={`/${b.slug}`} className="brand-mark" title={b.name} aria-label={b.name}
+            onClick={() => { if (pathname === `/${b.slug}`) window.dispatchEvent(new Event("sondr:cine-replay")); }}
+          >
             <Image src={b.logo} alt="" width={b.width} height={b.height} priority sizes="(max-width: 639px) 80px, 16vw" />
           </Link>
         ))}
