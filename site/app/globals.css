@@ -349,6 +349,41 @@ html.lenis, html.lenis body { height: auto; }
 .footer-slot { background: var(--color-red); }
 .footer-slot .hwf-root { --hwf-size: 22px; --hwf-track: .06em; }
 
+/* brands side menu (components/site/brands-menu.tsx): one click on the header logo slides it in from the left */
+.brands-menu {
+  position: fixed; z-index: 70; top: 0; left: 0; bottom: 0; width: min(380px, 86vw); box-sizing: border-box;
+  padding: 24px 24px 32px; overflow-y: auto; background: var(--color-white); border-right: 3px solid var(--color-black);
+  animation: brands-in .35s cubic-bezier(.25,1.2,.5,1);
+}
+@keyframes brands-in { from { transform: translateX(-100%); } }
+.brands-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.brands-title {
+  margin: 0; font: 400 56px/1 var(--font-display); text-transform: uppercase; color: var(--color-red);
+  letter-spacing: .0157em; filter: url(#rough); -webkit-text-stroke: .016em currentColor;
+}
+.brands-close {
+  border: 0; background: none; cursor: pointer; padding: 0 4px; font: 400 44px/1 var(--font-hand); color: var(--color-black);
+}
+.brands-close:focus-visible, .brands-item:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+.brands-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.brands-item {
+  display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px;
+  background: var(--color-cream); color: var(--color-black); text-decoration: none;
+  font: 400 34px/1 var(--font-display); text-transform: uppercase; letter-spacing: .0157em; transition: transform .2s;
+}
+.brands-item:hover { transform: translateX(6px); }
+.brands-item img { width: 84px; height: auto; flex: none; }
+@media (prefers-reduced-motion: reduce) { .brands-menu { animation: none; } .brands-item { transition: none; } .brands-item:hover { transform: none; } }
+
+/* brand pages (app/sondr-cinematics/…): logo centred, the name under it in black display lettering */
+.brand-page {
+  min-height: calc(100vh - (max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 16px));
+  box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: calc(40 * var(--u)) 16px calc(120 * var(--u));
+}
+.brand-logo { width: min(46vw, 640px, calc((100vh - 360px) * 1.4)); min-width: 220px; height: auto; }
+.brand-name { color: var(--color-black); font-size: max(56px, calc(150 * var(--u))); text-align: center; margin-top: calc(24 * var(--u)); }
+
 /* ==========================================================================
    Phones (under 640px)
    ========================================================================== */
@@ -368,6 +403,8 @@ html.lenis, html.lenis body { height: auto; }
   .about-body { width: 100%; padding: 24px 16px 24px; }
   .display-rough { font-size: min(calc((100vw - 32px) / 4.2), 96px); white-space: normal; }
   .footer-slot .hwf-root { --hwf-size: 18px; }
+  .brand-page { min-height: calc(100vh - 79px); padding: 24px 16px 64px; }
+  .brand-logo { width: min(86vw, 420px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
