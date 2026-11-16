@@ -123,3 +123,9 @@ export const ARTSY: GalleryCategory[] = [
     ],
   },
 ];
+
+/** /sondr-cinematics: FRAMES (stills) and ANIMATIONS. Empty for now: add items like the categories above (images in public/brands/sondr-cinematics/). */
+export const CINEMATICS: GalleryCategory[] = [
+  { id: "frames", title: "Frames", kind: "Sondr Cinematics frame", layout: "sheet", items: [] },
+  { id: "animations", title: "Animations", kind: "Sondr Cinematics animation", layout: "sheet", items: [] },
+];

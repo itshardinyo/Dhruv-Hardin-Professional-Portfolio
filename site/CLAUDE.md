@@ -52,7 +52,7 @@ except the music card (#1E1E1E landing black, greys #2c2c2c/#4a4a4a/#a7a7a7/#d6d
 `--u` = one pixel of the 1512×982 mockup = `min(100vw/1512, 100vh/982)`. Phones (<640px) have their own rules at the end of globals.css.
 
 ## Routes
-`/` landing + hero · `/artsy` · `/projects` · `/sondr-cinematics` (brand page: camera logo centred, "SONDR CINEMATICS" under it in black display lettering; logo public/brands/sondr-cinematics.webp) · `/about` (Mr. Sondr bottom-left in headphones: lights up with the Zippo on arrival, smokes, nods to the music; "ABOUT ME" top-right with Dhruv's bio under it; copy in app/about/page.tsx). Only `/` ever shows the landing.
+`/` landing + hero · `/artsy` · `/projects` · `/sondr-cinematics` (brand page: every arrival opens on Mr. Sondr walking (components/site/cinematics-intro.tsx: public/brands/sondr-cinematics/intro.mp4, 7.6s, silent, full screen on #1E1E1E, fades into the page; click/tap/Esc/Enter/"Skip" ends it; off with reduced motion), then the camera logo centred, "SONDR CINEMATICS" under it in black display lettering, then FRAMES and ANIMATIONS laid out like /artsy (`CINEMATICS` in lib/galleries.ts, empty for now, showing "Coming soon.")) · `/about` (Mr. Sondr bottom-left in headphones: lights up with the Zippo on arrival, smokes, nods to the music; "ABOUT ME" top-right with Dhruv's bio under it; copy in app/about/page.tsx). Only `/` ever shows the landing.
 
 ## Gallery pages (Step 2)
 | page | category (id) | source folder (Downloads/DESIGN/…) | public folder |
@@ -114,6 +114,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 4b: /sondr-cinematics opens on Dhruv's Mr. Sondr walking clip (re-encoded H.264, faststart, ~2 MB, poster frame), then the page with FRAMES and ANIMATIONS sections (empty; `CINEMATICS` in lib/galleries.ts). Empty categories now say "Coming soon." Animations will need video support in the viewer when clips arrive.
 - Step 4a: header logo: 1 click = new brands side menu, 2 clicks = music player, 3 clicks = back to the TV. First brand page: /sondr-cinematics (Dhruv's camera logo, trimmed to WebP, with "SONDR CINEMATICS" under it in black Bebas + #rough). Add brands in lib/brands.ts.
 - Step 3z5: black binder-hole dots removed from the Artsy contact sheets (sheet now evenly padded). "It Ain't Easy" (2Pac) removed from the playlist (five tracks).
 - Step 3z4: footer "Back to top" moved above the white line, and the footer now grows on wide screens (min 560px; room reserved under the links for the visible part of the width-fitted HARDIN word) so the wordmark never covers the links or Back to top.

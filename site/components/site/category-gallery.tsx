@@ -52,7 +52,7 @@ export function CategoryGallery({ category, hint = true }: { category: GalleryCa
         </p>}
       </div>
       {n === 0 ? (
-        <p className="cat-empty">Placeholder: no images found for {category.title} yet.</p>
+        <p className="cat-empty">Coming soon.</p>
       ) : sheet ? (
         <ContactSheet category={category} onOpen={(i, card) => { opener.current = card; setOpen(i); }} />
       ) : (

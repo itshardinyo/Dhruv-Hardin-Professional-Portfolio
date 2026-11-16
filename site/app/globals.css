@@ -375,14 +375,24 @@ html.lenis, html.lenis body { height: auto; }
 .brands-item img { width: 84px; height: auto; flex: none; }
 @media (prefers-reduced-motion: reduce) { .brands-menu { animation: none; } .brands-item { transition: none; } .brands-item:hover { transform: none; } }
 
-/* brand pages (app/sondr-cinematics/…): logo centred, the name under it in black display lettering */
-.brand-page {
-  min-height: calc(100vh - (max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 16px));
-  box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: calc(40 * var(--u)) 16px calc(120 * var(--u));
-}
+/* brand pages (app/sondr-cinematics/…): logo centred, the name under it in black display lettering, then the categories */
+.brand-head { display: flex; flex-direction: column; align-items: center; padding: 0 16px; }
 .brand-logo { width: min(46vw, 640px, calc((100vh - 360px) * 1.4)); min-width: 220px; height: auto; }
 .brand-name { color: var(--color-black); font-size: max(56px, calc(150 * var(--u))); text-align: center; margin-top: calc(24 * var(--u)); }
+
+/* Sondr Cinematics opener (components/site/cinematics-intro.tsx): Mr. Sondr walking, full screen, then a fade into the page */
+html.cine-on, html.cine-on body { overflow: hidden; }
+.cine-intro {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--color-landing); cursor: pointer;
+  transition: opacity .7s ease;
+}
+.cine-intro.is-out { opacity: 0; pointer-events: none; }
+.cine-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+.cine-skip {
+  position: absolute; right: 20px; bottom: 20px; padding: .1em .6em .15em; border: 0; border-radius: 10px; cursor: pointer;
+  background: var(--color-cream); color: var(--color-black); font: 400 24px/1 var(--font-hand);
+}
+.cine-skip:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
 
 /* ==========================================================================
    Phones (under 640px)
@@ -403,8 +413,8 @@ html.lenis, html.lenis body { height: auto; }
   .about-body { width: 100%; padding: 24px 16px 24px; }
   .display-rough { font-size: min(calc((100vw - 32px) / 4.2), 96px); white-space: normal; }
   .footer-slot .hwf-root { --hwf-size: 18px; }
-  .brand-page { min-height: calc(100vh - 79px); padding: 24px 16px 64px; }
   .brand-logo { width: min(86vw, 420px); }
+  .cine-video { object-fit: cover; }
 }
 
 @media (prefers-reduced-motion: reduce) {
