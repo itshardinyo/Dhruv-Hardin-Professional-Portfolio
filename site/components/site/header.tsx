@@ -118,6 +118,17 @@ export function Header() {
     >
       <Image src="/logo-mark-black.png" alt="" width={870} height={564} sizes="90px" />
     </button>
+    {/* Dhruv's brand logos ride along beside the pinned SONDR logo (same size, no spin), always one click away */}
+    <div className={cn("brand-float", float && "is-on")} aria-hidden={!float}>
+      {BRANDS.map((b) => (
+        <Link
+          key={b.slug} href={`/${b.slug}`} className="brand-float-link" title={b.name} aria-label={b.name} tabIndex={float ? 0 : -1}
+          onClick={() => { if (pathname === `/${b.slug}`) window.dispatchEvent(new Event("sondr:cine-replay")); }}
+        >
+          <Image src={b.logo} alt="" width={b.width} height={b.height} sizes="100px" />
+        </Link>
+      ))}
+    </div>
     {/* one player for both logos, fixed on screen so it stays with you while scrolling */}
     <MusicPanel open={panel} onClose={closePanel} anchorIds={MARK_IDS} />
     </>

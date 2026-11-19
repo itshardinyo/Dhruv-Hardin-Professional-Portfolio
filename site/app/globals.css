@@ -152,6 +152,21 @@ html.lenis, html.lenis body { height: auto; }
 }
 .mark.mark-float.is-on { opacity: 1; pointer-events: auto; transform: none; }
 .intro-on .mark.mark-float, .cine-on .mark.mark-float { display: none; }
+/* brand logos beside the pinned SONDR logo (header.tsx .brand-float): same white disc look and height, no spin */
+.brand-float {
+  position: fixed; z-index: 40; left: 118px; top: 12px; height: 66px; display: flex; gap: 8px;
+  opacity: 0; pointer-events: none; transform: scale(.6); transition: opacity .2s, transform .3s cubic-bezier(.25,1.5,.5,1) .05s;
+}
+.brand-float.is-on { opacity: 1; pointer-events: auto; transform: none; }
+.brand-float-link {
+  display: block; height: 100%; box-sizing: border-box; padding: 6px 10px; line-height: 0;
+  background: var(--color-white); border-radius: 33px; transition: transform .2s;
+}
+.brand-float-link img { height: 100%; width: auto; }
+.brand-float-link:hover { transform: scale(1.06) rotate(-2deg); }
+.brand-float-link:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+.intro-on .brand-float, .cine-on .brand-float { display: none; }
+@media (prefers-reduced-motion: reduce) { .brand-float, .brand-float-link { transition: none; } .brand-float-link:hover { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .mark.mark-float { transition: none; } }
 .nav {
   position: absolute; top: max(12px, calc(28 * var(--u))); right: max(16px, calc(72 * var(--u)));
