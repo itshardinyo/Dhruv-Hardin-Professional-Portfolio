@@ -147,12 +147,13 @@ html.lenis, html.lenis body { height: auto; }
 /* the pinned copy (header.tsx): appears top-left once the header's logo has scrolled away; same spin, same clicks */
 .mark.mark-float {
   position: fixed; z-index: 40; left: 14px; top: 12px; width: 84px; padding: 6px; box-sizing: content-box;
-  background: var(--color-white); border-radius: 50%;
+  background: none; /* no white disc: a thin white outline keeps it readable over pictures */
   opacity: 0; pointer-events: none; transform: scale(.6); transition: opacity .2s, transform .3s cubic-bezier(.25,1.5,.5,1);
 }
+.mark.mark-float img, .brand-float-link img { filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
 .mark.mark-float.is-on { opacity: 1; pointer-events: auto; transform: none; }
 .intro-on .mark.mark-float, .cine-on .mark.mark-float { display: none; }
-/* brand logos beside the pinned SONDR logo (header.tsx .brand-float): same white disc look and height, no spin */
+/* brand logos beside the pinned SONDR logo (header.tsx .brand-float): same height, no background, no spin */
 .brand-float {
   position: fixed; z-index: 40; left: 118px; top: 12px; height: 66px; display: flex; gap: 8px;
   opacity: 0; pointer-events: none; transform: scale(.6); transition: opacity .2s, transform .3s cubic-bezier(.25,1.5,.5,1) .05s;
@@ -160,7 +161,7 @@ html.lenis, html.lenis body { height: auto; }
 .brand-float.is-on { opacity: 1; pointer-events: auto; transform: none; }
 .brand-float-link {
   display: block; height: 100%; box-sizing: border-box; padding: 6px 10px; line-height: 0;
-  background: var(--color-white); border-radius: 33px; transition: transform .2s;
+  background: none; transition: transform .2s;
 }
 .brand-float-link img { height: 100%; width: auto; }
 .brand-float-link:hover { transform: scale(1.06) rotate(-2deg); }
@@ -562,13 +563,14 @@ html.cine-on, html.cine-on body { overflow: hidden; }
 .mp-panel {
   /* fixed: follows the scroll; top/left/max-height are set every frame by MusicPanel (under the visible logo) */
   position: fixed; z-index: 60; left: 16px; top: 88px; max-height: calc(100vh - 104px);
-  display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #4a4a4a transparent;
+  display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; /* scrolls, no visible bar */
   width: min(330px, calc(100vw - 32px)); box-sizing: border-box; padding: 18px 20px 16px; border-radius: 26px;
   background: var(--color-landing); color: var(--color-white); font-family: system-ui, -apple-system, "Helvetica Neue", sans-serif;
   box-shadow: 0 24px 60px rgba(0,0,0,.35);
   animation: mp-drop .3s cubic-bezier(.25,1.3,.5,1); transform-origin: 15% 0;
 }
 .mp-panel > * { flex: none; }
+.mp-panel::-webkit-scrollbar { display: none; }
 @keyframes mp-drop { from { opacity: 0; transform: translateY(-8px) scale(.96); } }
 .mp-art { width: 100%; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #2c2c2c; display: grid; place-items: center; }
 /* a track's own artwork fills the frame edge to edge at its own shape (no crop, no bars) */
