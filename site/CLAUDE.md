@@ -116,6 +116,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 4l: music card cover back to full width (the iPhone-style look, Dhruv's preference); the card still scrolls on its own and stays open, so the songs are reached by scrolling inside it.
 - Step 4k: brand logos (Sondr Cinematics camera) pinned beside the small SONDR logo while scrolling (`.brand-float`, same 66px height on a white pill, no spin, links to the brand page).
 - Step 4j: music card cover smaller (≤150px / 17vh) and the whole card scrolls on its own (overscroll contained), so scrolling over it goes through the songs without moving the page or closing it.
 - Step 4i: music player fix: the card no longer closes or gets left behind when scrolling (one fixed panel that follows the visible SONDR logo), its height fits the screen, and the cover is smaller (≤200px / 22vh) so the whole song list shows.
