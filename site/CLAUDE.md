@@ -116,6 +116,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 4n: Sondr Cinematics camera logo now transparent (public/brands/sondr-cinematics-black.webp, made from logo-white.webp's alpha; the old one had a baked-in white background) so the pinned copy shows only the drawing.
 - Step 4m: pinned SONDR + brand logos lose their white backgrounds (thin white outline via drop-shadow instead); music card scrollbar hidden (still scrolls).
 - Step 4l: music card cover back to full width (the iPhone-style look, Dhruv's preference); the card still scrolls on its own and stays open, so the songs are reached by scrolling inside it.
 - Step 4k: brand logos (Sondr Cinematics camera) pinned beside the small SONDR logo while scrolling (`.brand-float`, same 66px height on a white pill, no spin, links to the brand page).

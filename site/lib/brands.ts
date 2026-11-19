@@ -2,5 +2,5 @@
 export type Brand = { slug: string; name: string; logo: string; width: number; height: number };
 
 export const BRANDS: Brand[] = [
-  { slug: "sondr-cinematics", name: "Sondr Cinematics", logo: "/brands/sondr-cinematics.webp", width: 982, height: 700 },
+  { slug: "sondr-cinematics", name: "Sondr Cinematics", logo: "/brands/sondr-cinematics-black.webp", width: 982, height: 700 },
 ];
