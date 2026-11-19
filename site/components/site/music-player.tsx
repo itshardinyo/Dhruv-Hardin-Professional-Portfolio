@@ -160,7 +160,8 @@ const fmt = (s: number) => {
 /*
   The card is position: fixed and follows the page: every frame while it's open it sits just under whichever SONDR
   logo is on screen (the header's, or the pinned copy once the header has scrolled away), so scrolling never
-  closes it or leaves it behind. Its height is capped to the screen; the queue scrolls inside it when space is short.
+  closes it or leaves it behind. Its height is capped to the screen and the card scrolls on its own (overscroll contained, Lenis off inside it), so
+  scrolling through the songs never moves the page or closes the player.
 */
 const FLOAT_LOGO_BOTTOM = 78; // the pinned logo's bottom edge (top 12px + 66px tall, globals.css .mark-float)
 export function MusicPanel({ open, onClose, anchorIds }: { open: boolean; onClose: () => void; anchorIds: string[] }) {
