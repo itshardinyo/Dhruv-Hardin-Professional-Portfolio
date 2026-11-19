@@ -157,29 +157,56 @@ const fmt = (s: number) => {
 };
 
 /** The drop-down under the logo: now playing, progress, controls, queue. */
-export function MusicPanel({ open, onClose, anchorId, floating = false }: { open: boolean; onClose: () => void; anchorId: string; floating?: boolean }) {
+/*
+  The card is position: fixed and follows the page: every frame while it's open it sits just under whichever SONDR
+  logo is on screen (the header's, or the pinned copy once the header has scrolled away), so scrolling never
+  closes it or leaves it behind. Its height is capped to the screen; the queue scrolls inside it when space is short.
+*/
+const FLOAT_LOGO_BOTTOM = 78; // the pinned logo's bottom edge (top 12px + 66px tall, globals.css .mark-float)
+export function MusicPanel({ open, onClose, anchorIds }: { open: boolean; onClose: () => void; anchorIds: string[] }) {
   const m = useMusic();
   const ref = React.useRef<HTMLDivElement>(null);
+
+  // Follow the logo while scrolling (rAF, no re-renders).
+  React.useEffect(() => {
+    if (!open) return;
+    let raf = 0;
+    const place = () => {
+      const el = ref.current;
+      const mark = document.getElementById("sondr-mark");
+      if (el) {
+        const r = mark?.getBoundingClientRect();
+        const left = r && r.bottom > FLOAT_LOGO_BOTTOM ? Math.max(8, r.left) : 14;
+        const top = Math.max(r ? r.bottom : 0, FLOAT_LOGO_BOTTOM) + 10;
+        el.style.top = `${Math.round(top)}px`;
+        el.style.left = `${Math.round(left)}px`;
+        el.style.maxHeight = `${Math.max(240, window.innerHeight - top - 16)}px`;
+      }
+      raf = requestAnimationFrame(place);
+    };
+    place();
+    return () => cancelAnimationFrame(raf);
+  }, [open]);
 
   React.useEffect(() => {
     if (!open) return;
     const onDown = (e: PointerEvent) => {
       const t = e.target as Node;
-      if (ref.current?.contains(t) || document.getElementById(anchorId)?.contains(t)) return;
+      if (ref.current?.contains(t) || anchorIds.some((id) => document.getElementById(id)?.contains(t))) return;
       onClose();
     };
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("pointerdown", onDown);
     document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("pointerdown", onDown); document.removeEventListener("keydown", onKey); };
-  }, [open, onClose, anchorId]);
+  }, [open, onClose, anchorIds]);
 
   if (!open || !m) return null;
   const track = m.tracks[m.index];
   const pct = m.duration ? (m.time / m.duration) * 100 : 0;
 
   return (
-    <div ref={ref} className={`mp-panel${floating ? " mp-panel--float" : ""}`} role="dialog" aria-label="Music player" data-lenis-prevent>
+    <div ref={ref} className="mp-panel" role="dialog" aria-label="Music player" data-lenis-prevent>
       <div className={`mp-art ${track?.art ? "has-art" : "mp-art-empty"}`}>
         {track?.art ? <img key={track.art} src={track.art} alt="" /> : <img src="/logo-mark-black.png" alt="" className="mp-art-logo" />}
       </div>

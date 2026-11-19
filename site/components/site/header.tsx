@@ -11,6 +11,8 @@ import { MusicPanel, useMusic } from "@/components/site/music-player";
 import Link from "next/link";
 import { BRANDS } from "@/lib/brands";
 
+const MARK_IDS = ["sondr-mark", "sondr-mark-float"];
+
 const PAGES = [
   { link: "/artsy", label: "Artsy" },
   { link: "/projects", label: "Projects" },
@@ -53,8 +55,7 @@ export function Header() {
     const el = document.getElementById("sondr-mark");
     if (!el) return;
     const io = new IntersectionObserver(([e]) => {
-      setFloat(!e.isIntersecting);
-      setPanel(false); // the player re-opens under whichever logo is showing
+      setFloat(!e.isIntersecting); // the open player just slides under whichever logo is showing (MusicPanel)
     }, { threshold: 0 });
     io.observe(el);
     return () => io.disconnect();
@@ -89,7 +90,7 @@ export function Header() {
     >
       <button
         type="button" id="sondr-mark" className={cn("mark", music?.playing && "is-playing")} onClick={onMark}
-        aria-expanded={panel} aria-haspopup="dialog"
+        aria-expanded={panel && !float} aria-haspopup="dialog"
         aria-label="SONDR music player (double-click to go back to the TV intro)" title="Music · double-click to go back to the TV"
       >
         <Image src="/logo-mark-black.png" alt="" width={870} height={564} priority sizes="(max-width: 639px) 72px, 18vw" />
@@ -105,7 +106,6 @@ export function Header() {
           </Link>
         ))}
       </div>
-      <MusicPanel open={panel && !float} onClose={closePanel} anchorId="sondr-mark" />
       <nav className="nav" aria-label="Pages">
         <AnimatedDock base={base} items={PAGES.map((p) => ({ ...p, active: pathname === p.link }))} />
       </nav>
@@ -118,7 +118,8 @@ export function Header() {
     >
       <Image src="/logo-mark-black.png" alt="" width={870} height={564} sizes="90px" />
     </button>
-    <MusicPanel open={panel && float} onClose={closePanel} anchorId="sondr-mark-float" floating />
+    {/* one player for both logos, fixed on screen so it stays with you while scrolling */}
+    <MusicPanel open={panel} onClose={closePanel} anchorIds={MARK_IDS} />
     </>
   );
 }

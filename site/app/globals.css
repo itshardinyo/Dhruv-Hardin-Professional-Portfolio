@@ -545,18 +545,20 @@ html.cine-on, html.cine-on body { overflow: hidden; }
 /* music player (components/site/music-player.tsx): the header logo opens this dark now-playing card,
    after Dhruv's Spotify reference (dark rounded card, cover art, white controls, greys for secondary text) */
 .mp-panel {
-  position: absolute; z-index: 60; left: 16px; top: calc(max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 10px);
+  /* fixed: follows the scroll; top/left/max-height are set every frame by MusicPanel (under the visible logo) */
+  position: fixed; z-index: 60; left: 16px; top: 88px; max-height: calc(100vh - 104px);
+  display: flex; flex-direction: column; overflow: hidden;
   width: min(330px, calc(100vw - 32px)); box-sizing: border-box; padding: 18px 20px 16px; border-radius: 26px;
   background: var(--color-landing); color: var(--color-white); font-family: system-ui, -apple-system, "Helvetica Neue", sans-serif;
   box-shadow: 0 24px 60px rgba(0,0,0,.35);
   animation: mp-drop .3s cubic-bezier(.25,1.3,.5,1); transform-origin: 15% 0;
 }
-.mp-panel.mp-panel--float { position: fixed; left: 14px; top: 84px; }
+.mp-panel > * { flex: none; }
 @keyframes mp-drop { from { opacity: 0; transform: translateY(-8px) scale(.96); } }
-.mp-art { width: 100%; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #2c2c2c; display: grid; place-items: center; }
+.mp-art { width: 100%; aspect-ratio: 1; max-height: min(200px, 22vh); border-radius: 10px; overflow: hidden; background: #2c2c2c; display: grid; place-items: center; }
 /* a track's own artwork fills the frame edge to edge at its own shape (no crop, no bars) */
-.mp-art.has-art { aspect-ratio: auto; display: block; background: none; }
-.mp-art.has-art img { width: 100%; height: auto; object-fit: initial; }
+.mp-art.has-art { aspect-ratio: auto; display: flex; justify-content: center; background: none; }
+.mp-art.has-art img { width: auto; max-width: 100%; height: auto; max-height: min(200px, 22vh); object-fit: contain; border-radius: 10px; }
 .mp-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .mp-art .mp-art-logo { width: 70%; height: auto; object-fit: contain; filter: invert(1); opacity: .9; }
 .mp-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
@@ -588,7 +590,8 @@ html.cine-on, html.cine-on body { overflow: hidden; }
 .mp-vol { display: flex; align-items: center; gap: 10px; color: #a7a7a7; margin-top: 10px; }
 .mp-vol svg:first-child { width: 14px; flex: none; } .mp-vol svg:last-child { width: 20px; flex: none; }
 .mp-vol .mp-bar { margin: 0; height: 5px; }
-.mp-queue { list-style: none; margin: 14px 0 0; padding: 10px 0 0; border-top: 1px solid #3a3a3a; max-height: 160px; overflow-y: auto; }
+.mp-panel > .mp-queue { flex: 1 1 auto; min-height: 96px; }
+.mp-queue { list-style: none; margin: 14px 0 0; padding: 10px 0 0; border-top: 1px solid #3a3a3a; overflow-y: auto; overscroll-behavior: contain; }
 .mp-queue button { display: block; width: 100%; text-align: left; padding: 6px 4px; border: 0; border-radius: 6px; background: none; cursor: pointer; color: var(--color-white); font: inherit; }
 .mp-queue button:hover { background: #2c2c2c; }
 .mp-queue button.on .mp-q-t { color: var(--color-red); }
