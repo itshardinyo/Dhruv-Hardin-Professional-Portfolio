@@ -13,9 +13,15 @@ import { BRANDS } from "@/lib/brands";
 
 const MARK_IDS = ["sondr-mark", "sondr-mark-float"];
 
+const PROJECTS_MENU = [
+  { link: "/projects#hustler-jerseys", label: "Hustler Jerseys", note: "•EST 2024•" },
+  { link: "/projects#school", label: "Case Studies", note: "strategy" },
+  { link: "/collabs", label: "Collabs", note: "NEW · 1/1", tag: true },
+];
+
 const PAGES = [
   { link: "/artsy", label: "Artsy" },
-  { link: "/projects", label: "Projects" },
+  { link: "/projects", label: "Projects", menu: PROJECTS_MENU, also: ["/collabs"] },
   { link: "/about", label: "About me" },
 ];
 
@@ -107,7 +113,7 @@ export function Header() {
         ))}
       </div>
       <nav className="nav" aria-label="Pages">
-        <AnimatedDock base={base} items={PAGES.map((p) => ({ ...p, active: pathname === p.link }))} />
+        <AnimatedDock base={base} items={PAGES.map(({ also, ...p }) => ({ ...p, active: pathname === p.link || !!also?.includes(pathname) }))} />
       </nav>
     </motion.header>
     {/* outside the header: the header moves (hide on scroll), which would break position: fixed */}

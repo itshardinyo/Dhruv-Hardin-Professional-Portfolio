@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SONDR × Cortez by D·Hardin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --dark: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; color: #111; }
+  body { background: #f5f5f3; }
+  #bg-dark { position: fixed; inset: 0; opacity: var(--dark); pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 40%, #3a4245 0%, #1a1f21 46%, #070909 100%); }
+  #stage { position: fixed; inset: 0; }
+  #stage canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+  .top { position: fixed; top: 28px; left: 32px; right: 32px; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; z-index: 3; }
+  #title { margin: 0; font-weight: 600; font-size: 15px; letter-spacing: .16em; line-height: 1.5; text-transform: uppercase; transition: opacity .5s; }
+  #title span { display: block; font-weight: 400; font-size: 12px; color: #6b6b6b; letter-spacing: .16em; }
+  button { font-family: inherit; cursor: pointer; pointer-events: auto; }
+  #back { background: none; border: 0; padding: 10px 0; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: .16em; color: #111; opacity: 0; transition: opacity .4s, color .5s; text-transform: uppercase; }
+  #back:hover { text-decoration: underline; text-underline-offset: 4px; }
+  #swap { position: fixed; right: 32px; bottom: 26px; z-index: 3; background: none; border: 0; color: #fff; font-size: 12px; font-weight: 500; letter-spacing: .16em; padding: 10px 0; min-height: 44px; opacity: 0; pointer-events: none; transition: opacity .5s; text-transform: uppercase; }
+  #swap:hover { text-decoration: underline; text-underline-offset: 4px; }
+  #hint { position: fixed; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 3; font-size: 11px; font-weight: 500; letter-spacing: .2em; color: #8a8a8a; transition: opacity .5s, color .5s; white-space: nowrap; text-transform: uppercase; }
+  .lbl { position: fixed; left: 0; top: 0; z-index: 2; pointer-events: none; text-align: center; opacity: 0; transition: opacity .4s; text-transform: uppercase; }
+  .lbl b { display: block; font-weight: 600; font-size: 13px; letter-spacing: .16em; }
+  .lbl span { font-size: 11px; color: #6b6b6b; letter-spacing: .14em; }
+  #osd { position: fixed; left: 0; right: 0; top: 50%; z-index: 2; display: flex; justify-content: space-between; padding: 0 7vw; pointer-events: none;
+    font-weight: 500; font-size: clamp(11px, 1vw, 13px); letter-spacing: .2em; color: rgba(255,255,255,.9); opacity: 0; transition: opacity .9s .5s; text-transform: uppercase; }
+  body[data-mode=split] .lbl { opacity: 1; }
+  body[data-mode=split] #back, body[data-mode=focus] #back { opacity: 1; }
+  body[data-mode=focus] #back { color: #fff; }
+  body[data-mode=focus] #title { opacity: 0; }
+  body[data-mode=focus] #osd { opacity: 1; }
+  body[data-mode=focus] #swap { opacity: 1; pointer-events: auto; }
+  body[data-mode=focus] #hint { color: rgba(255,255,255,.55); }
+  body.touched[data-mode=focus] #hint { opacity: 0; }
+  body[data-mode=pair] #hint::after { content: 'Drag to rotate · Click to view'; }
+  body[data-mode=split] #hint::after { content: 'Select a shoe'; }
+  body[data-mode=focus] #hint::after { content: 'Drag to rotate · Scroll to zoom'; }
+  @media (max-width: 640px) { #osd { flex-direction: column; align-items: center; gap: 8px; top: 14%; } .top { top: 20px; left: 20px; right: 20px; } }
+</style>
+</head>
+<body>
+<div id="bg-dark"></div>
+<div id="stage"></div>
+<div class="top">
+  <h1 id="title">SONDR × Cortez<span>by D·Hardin · 1 of 1</span></h1>
+  <button id="back" type="button">← Back</button>
+</div>
+<div class="lbl" id="lbl-red"><b>Left</b><span>24.12.2008</span></div>
+<div class="lbl" id="lbl-blue"><b>Right</b><span>11.02.2005</span></div>
+<div id="osd"><span>By D·Hardin</span><span>SONDR × Cortez</span><span data-k="side">Left · 24.12.2008</span></div>
+<button id="swap" type="button">Switch shoe</button>
+<div id="hint"></div>
+<script>window.SHOE_GLB_URL="cortez.glb";window.SHOE_TEX={red_pz:"art/red_pz.webp",red_nz:"art/red_nz.webp",blue_pz:"art/blue_pz.webp",blue_nz:"art/blue_nz.webp",red_heel:"art/red_heel.webp",blue_heel:"art/blue_heel.webp",red_toe:"art/red_toe.webp",blue_toe:"art/blue_toe.webp"};</script>
+<script src="viewer.js"></script>
+</body>
+</html>
