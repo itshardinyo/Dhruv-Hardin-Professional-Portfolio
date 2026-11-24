@@ -41,7 +41,7 @@ public/              artsy/comics/, projects/hustler-jerseys/, projects/school/ 
 | `--color-landing` | #1E1E1E | landing background |
 | `--color-yellow` | #E7C427 | dark pages: Sondr Cinematics camera logo, Hustler Jerseys lettering (sampled from the Hustler logo) |
 
-Dark pages: `.page-dark` on a page wrapper turns the whole page (html, body, #site) and sticky header black and the header logos white (`html:has(.page-dark)`). Used on /sondr-cinematics (yellow camera logo public/brands/sondr-cinematics-yellow.webp, red SONDR CINEMATICS, red FRAMES / ANIMATIONS) and /hustler-jerseys (yellow lettering round the logo).
+Dark pages: `.page-dark` on a page wrapper (white text, black contact sheets) plus `<DarkPage />` (components/site/dark-page.tsx), which puts `dark-page` on <html> only while that page is on screen: page, sticky header and #site black, header logos white. Not `:has()`, because visited pages stay alive hidden and the black leaked onto other pages (e.g. Case Studies). Used on /sondr-cinematics (yellow camera logo public/brands/sondr-cinematics-yellow.webp, red SONDR CINEMATICS, red FRAMES / ANIMATIONS) and /hustler-jerseys (yellow lettering round the logo).
 Tailwind's default palette is switched off (`--color-*: initial`). No other colours, tints, gradients or transparency,
 except the music card (#1E1E1E landing black, greys #2c2c2c/#4a4a4a/#a7a7a7/#d6d6d6, shadow; Dhruv's Spotify reference), Mr. Sondr's smoke (grey #8A8A8A, blur/turbulence, fades) and the lighter's soft red glow and the TV look (static, scanlines, vignette, glow/fringes on TV text, the hero entrance's brief RGB glitch). Values are colour-profile corrected: use as written.
 

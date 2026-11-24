@@ -698,10 +698,12 @@ html.cine-on, html.cine-on body { overflow: hidden; }
    Dark pages (.page-dark on the page wrapper): black page + header, logos turned white.
    /sondr-cinematics: yellow camera logo, red name and section titles. /hustler-jerseys: yellow lettering round the logo.
    ========================================================================== */
-html:has(.page-dark), html:has(.page-dark) body, #site:has(.page-dark) { background: var(--color-black); }
-html:has(.page-dark) .site-header.is-sticky { background: var(--color-black); }
-html:has(.page-dark) .mark img, html:has(.page-dark) .brand-mark img, html:has(.page-dark) .brand-float-link img { filter: invert(1); }
+html.dark-page, html.dark-page body, html.dark-page #site { background: var(--color-black); }
+html.dark-page .site-header.is-sticky { background: var(--color-black); }
+html.dark-page .mark img, html.dark-page .brand-mark img, html.dark-page .brand-float-link img { filter: invert(1); }
 .page-dark { color: var(--color-white); }
 .page-dark .cat-hint, .page-dark .coming { color: var(--color-white); }
 .page-cine .brand-name, .page-cine .cat-title { color: var(--color-red); }
+.page-dark .sheet { background: var(--color-black); }
+.page-dark .sheet-print { color: var(--color-white); }
 .page-hustler .cat-arc-text { fill: var(--color-yellow); stroke: var(--color-yellow); }

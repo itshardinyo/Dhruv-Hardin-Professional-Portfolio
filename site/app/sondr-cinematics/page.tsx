@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { DarkPage } from "@/components/site/dark-page";
 import { CategoryGallery } from "@/components/site/category-gallery";
 import { CinematicsIntro } from "@/components/site/cinematics-intro";
 import { CINEMATICS } from "@/lib/galleries";
@@ -19,6 +20,7 @@ export default function Page() {
     <>
       <CinematicsIntro />
       <div className="gallery-page gallery-page--logo-led page-dark page-cine">
+        <DarkPage />
         <header className="brand-head">
           <Image
             className="brand-logo" src="/brands/sondr-cinematics-yellow.webp" alt="Sondr Cinematics logo: a hand-drawn camera"
