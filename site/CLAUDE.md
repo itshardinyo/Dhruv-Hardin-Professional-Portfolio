@@ -122,6 +122,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 4r: Sondr Cinematics camera logo replaced with Dhruv's new drawing (rounder SONDR on the lens), with his hand-drawn CINEMATICS from the old logo set along the bottom of the lens (thickened to match). All variants regenerated from it: black (header), yellow (/sondr-cinematics), red, white (intro card), flat sondr-cinematics.webp. Old files kept outside the repo.
 - Step 4q: Collabs toes: front photo (IMG_1988) projected onto each toe from a camera fitted to it (solvePnP; TOEPROJ in the viewer), so the dates, S-O-N-D-R at the lace base and the signature sit where they are on the real pair. Full-screen view: click the shoe = back to the pair, sideways swipe (trackpad or quick drag) = switch shoe. Right shoe date 16.02.2006.
 - Step 4p: Collabs art rebuilt from Dhruv's full-res photos (Nov 2026: IMG_1984 heels, IMG_1985/1986 sides, IMG_1988 toes): each side warped onto the model with landmarks (thin-plate spline), shadows evened out, ink deepened and colour richened; heels/toes locked to the full-res shots by feature matching. Viewer uses Neutral tone mapping (ACES was washing the art out). Back button sits far left, level with SONDR × CORTEZ.
 - Step 4o: three tracks added: Soul Love (David Bowie), Mr. Jones (Counting Crows), Follow My Lead (50 Cent); 128 kbps, file tags stripped (eight tracks).
