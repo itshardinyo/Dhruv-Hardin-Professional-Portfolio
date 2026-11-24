@@ -704,6 +704,10 @@ html.dark-page .mark img, html.dark-page .brand-mark img, html.dark-page .brand-
 .page-dark { color: var(--color-white); }
 .page-dark .cat-hint, .page-dark .coming { color: var(--color-white); }
 .page-cine .brand-name, .page-cine .cat-title { color: var(--color-red); }
-.page-dark .sheet { background: var(--color-black); }
+.page-dark .sheet { background: var(--color-black) !important; } /* contact-sheet.tsx sets white inline */
 .page-dark .sheet-print { color: var(--color-white); }
+.page-cine .sheet-print { color: var(--color-red); }
+/* /case-studies: red title, lifted clear of the rotating gallery */
+.page-cases .cat-title { color: var(--color-red); }
+.page-cases .cat-head { margin-bottom: max(32px, calc(90 * var(--u))); }
 .page-hustler .cat-arc-text { fill: var(--color-yellow); stroke: var(--color-yellow); }
