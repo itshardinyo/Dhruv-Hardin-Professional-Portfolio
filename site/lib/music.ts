@@ -20,6 +20,9 @@ export const PLAYLIST: Track[] = [
   { src: "/music/learning-to-fly.mp3", title: "Learning to Fly", artist: "Tom Petty and the Heartbreakers", art: COVER },
   { src: "/music/family-business.mp3", title: "Family Business", artist: "Kanye West", art: COVER },
   { src: "/music/fashion-killa.mp3", title: "Fashion Killa", artist: "A$AP Rocky", art: COVER },
+  { src: "/music/soul-love.mp3", title: "Soul Love", artist: "David Bowie", art: COVER },
+  { src: "/music/mr-jones.mp3", title: "Mr. Jones", artist: "Counting Crows", art: COVER },
+  { src: "/music/follow-my-lead.mp3", title: "Follow My Lead", artist: "50 Cent", art: COVER },
 ];
 
 /** A fresh random order of the playlist (Fisher–Yates). The player shuffles once per visit. */

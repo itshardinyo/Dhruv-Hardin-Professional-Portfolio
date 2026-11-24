@@ -122,6 +122,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 4o: three tracks added: Soul Love (David Bowie), Mr. Jones (Counting Crows), Follow My Lead (50 Cent); 128 kbps, file tags stripped (eight tracks).
 - Step 4n: Sondr Cinematics camera logo now transparent (public/brands/sondr-cinematics-black.webp, made from logo-white.webp's alpha; the old one had a baked-in white background) so the pinned copy shows only the drawing.
 - Step 4m: pinned SONDR + brand logos lose their white backgrounds (thin white outline via drop-shadow instead); music card scrollbar hidden (still scrolls).
 - Step 4l: music card cover back to full width (the iPhone-style look, Dhruv's preference); the card still scrolls on its own and stays open, so the songs are reached by scrolling inside it.
