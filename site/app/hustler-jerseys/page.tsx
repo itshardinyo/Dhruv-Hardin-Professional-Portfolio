@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { DarkPage } from "@/components/site/dark-page";
 import { CategoryGallery } from "@/components/site/category-gallery";
 import { PROJECTS } from "@/lib/galleries";
 
@@ -14,8 +13,7 @@ const category = PROJECTS.find((c) => c.id === "hustler-jerseys")!;
 /** Hustler Jerseys on its own page (Projects → Hustler Jerseys). Content lives in lib/galleries.ts. */
 export default function Page() {
   return (
-    <div className="gallery-page gallery-page--logo-led page-dark page-hustler">
-      <DarkPage />
+    <div className="gallery-page gallery-page--logo-led page-hustler">
       {/* the Hustler Jerseys logo leads the page; the title stays for screen readers and search */}
       <h1 className="sr-only">Hustler Jerseys</h1>
       <CategoryGallery category={category} hint={false} />

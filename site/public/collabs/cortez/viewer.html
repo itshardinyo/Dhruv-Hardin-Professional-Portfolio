@@ -10,9 +10,9 @@
   :root { --dark: 0; }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; overflow: hidden; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; color: #111; }
-  body { background: #f5f5f3; }
+  body { background: #fff; }
   #bg-dark { position: fixed; inset: 0; opacity: var(--dark); pointer-events: none;
-    background: radial-gradient(120% 90% at 50% 40%, #3a4245 0%, #1a1f21 46%, #070909 100%); }
+    background: linear-gradient(#000 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 78%, #000 100%), radial-gradient(120% 90% at 50% 45%, #343c3f 0%, #15191b 50%, #000 100%); }
   #stage { position: fixed; inset: 0; }
   #stage canvas { width: 100%; height: 100%; display: block; touch-action: none; }
   .top { position: fixed; top: 28px; left: 32px; right: 32px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: flex-start; pointer-events: none; z-index: 3; }
@@ -32,17 +32,21 @@
     font-weight: 500; font-size: clamp(11px, 1vw, 13px); letter-spacing: .2em; color: #111; transition: color .9s; text-transform: uppercase; }
   body[data-mode=split] .lbl { opacity: 1; }
   body[data-mode=split] #back, body[data-mode=focus] #back { opacity: 1; }
-  body[data-mode=focus] #back { color: #fff; }
+  
   body[data-mode=focus] #title { opacity: 0; }
   #osd > span:last-child { text-align: right; }
-  body[data-mode=focus] #osd { color: rgba(255,255,255,.9); }
+  
   body[data-mode=focus] #swap { opacity: 1; pointer-events: auto; }
-  body[data-mode=focus] #hint { color: rgba(255,255,255,.55); }
+  
   body.touched[data-mode=focus] #hint { opacity: 0; }
   body[data-mode=pair] #hint::after { content: 'Drag to rotate · Click to view'; }
   body[data-mode=split] #hint::after { content: 'Select a shoe'; }
   body[data-mode=focus] #hint::after { content: 'Drag to rotate · Swipe to switch · Click to go back'; }
   @media (max-width: 640px) { #osd { grid-template-columns: 1fr; justify-items: center; gap: 8px; top: 14%; } #osd > span:last-child { text-align: center; } .top { top: 20px; left: 20px; right: 20px; } #back { top: 20px; left: 20px; } }
+  /* light pair on the page's white, dark studio for a single shoe */
+  body[data-mode=focus] #back { color: #fff; }
+  body[data-mode=focus] #osd { color: rgba(255,255,255,.9); }
+  body[data-mode=focus] #hint { color: rgba(255,255,255,.55); }
 </style>
 </head>
 <body>
@@ -52,12 +56,12 @@
   <h1 id="title" class="sr-only">SONDR × Cortez by D·Hardin</h1>
   <button id="back" type="button">← Back</button>
 </div>
-<div class="lbl" id="lbl-red"><b>Left</b><span>24.12.2003</span></div>
-<div class="lbl" id="lbl-blue"><b>Right</b><span>16.02.2006</span></div>
+<div class="lbl" id="lbl-red"><b>Left</b><span>1 of 1</span></div>
+<div class="lbl" id="lbl-blue"><b>Right</b><span>1 of 1</span></div>
 <div id="osd"><span>SONDR × Cortez</span><span>By D·Hardin</span><span data-k="side">1 of 1</span></div>
 <button id="swap" type="button">Switch shoe</button>
 <div id="hint"></div>
-<script>window.SHOE_GLB_URL="cortez.glb";window.SHOE_TEX={red_pz:"art/red_pz.webp",red_nz:"art/red_nz.webp",blue_pz:"art/blue_pz.webp",blue_nz:"art/blue_nz.webp",red_heel:"art/red_heel.webp",blue_heel:"art/blue_heel.webp",red_toe:"art/red_toe.webp",blue_toe:"art/blue_toe.webp"};</script>
+<script>window.SHOE_TEX={};window.SHOE_PLAIN={"len": 1.900153934955597, "rot": 3.14159, "x": -0.0007494361968997512, "y": 0.24479805747260455, "z": -4.6035004547791616e-05, "decals": [{"tex": "sig_sondr_red.webp", "n": [-0.36, 0.93, 0], "c": [-0.615, 0.02, 0], "w": 0.26, "h": 0.1}, {"tex": "sig_dh_red.webp", "n": [-0.38, 0.92, 0], "c": [-0.745, -0.052, 0], "w": 0.3, "h": 0.12}, {"tex": "logo_red.webp", "axis": "z", "n": [0, 0, -1], "c": [-0.445, -0.11, 0], "w": 0.42, "h": 0.38}]};window.SHOE_PLAINS=[{"len": 1.900153934955597, "rot": 3.14159, "x": -0.0007494361968997512, "y": 0.24479805747260455, "z": -4.6035004547791616e-05, "decals": [{"tex": "sig_sondr_red.webp", "n": [-0.36, 0.93, 0], "c": [-0.615, 0.02, 0], "w": 0.26, "h": 0.1}, {"tex": "sig_dh_red.webp", "n": [-0.38, 0.92, 0], "c": [-0.745, -0.052, 0], "w": 0.3, "h": 0.12}, {"tex": "logo_red.webp", "axis": "z", "n": [0, 0, -1], "c": [-0.445, -0.11, 0], "w": 0.42, "h": 0.38}]}, {"len": 1.9017400741577148, "rot": 3.14159, "x": -0.00029815709958531147, "y": 0.22887249958502978, "z": -0.00033312095603253505, "decals": [{"tex": "sig_sondr.webp", "n": [-0.36, 0.93, 0], "c": [-0.615, 0.02, 0], "w": 0.26, "h": 0.1}, {"tex": "sig_dh.webp", "n": [-0.38, 0.92, 0], "c": [-0.745, -0.052, 0], "w": 0.3, "h": 0.12}, {"tex": "logo_blue.webp", "axis": "z", "n": [0, 0, -1], "c": [-0.41, -0.11, 0], "w": 0.47, "h": 0.43}]}];window.SHOE_GLB_URLS=["left.glb","right.glb"];window.SHOE_ART=[{"pz": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4XmNgYGBgAAAABQABGWkDzwAAAABJRU5ErkJggg==", "nz": "red_in.webp", "range": [-0.96, 0.96, -0.47, 0.47], "toeFade": [-5, -4.9], "blankN": 1}, {}];</script>
 <script src="viewer.js"></script>
 </body>
 </html>

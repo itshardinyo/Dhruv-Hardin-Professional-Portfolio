@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const PAIRS = [
-  { key: "cortez", title: "SONDR × Cortez", src: "/collabs/viewer.html" },
+  { key: "cortez", title: "SONDR × Cortez", src: "/collabs/cortez/viewer.html" },
   { key: "converse", title: "SONDR × Converse Star Player 76", src: "/collabs/converse/viewer.html" },
 ];
 
