@@ -18,10 +18,10 @@ export default function Page() {
   return (
     <>
       <CinematicsIntro />
-      <div className="gallery-page gallery-page--logo-led">
+      <div className="gallery-page gallery-page--logo-led page-dark page-cine">
         <header className="brand-head">
           <Image
-            className="brand-logo" src="/brands/sondr-cinematics-red.webp" alt="Sondr Cinematics logo: a hand-drawn camera"
+            className="brand-logo" src="/brands/sondr-cinematics-yellow.webp" alt="Sondr Cinematics logo: a hand-drawn camera"
             width={982} height={700} priority sizes="(max-width: 639px) 86vw, 46vw"
           />
           <h1 className="display-rough brand-name">Sondr Cinematics</h1>

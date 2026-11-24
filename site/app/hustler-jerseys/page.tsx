@@ -13,7 +13,7 @@ const category = PROJECTS.find((c) => c.id === "hustler-jerseys")!;
 /** Hustler Jerseys on its own page (Projects → Hustler Jerseys). Content lives in lib/galleries.ts. */
 export default function Page() {
   return (
-    <div className="gallery-page gallery-page--logo-led">
+    <div className="gallery-page gallery-page--logo-led page-dark page-hustler">
       {/* the Hustler Jerseys logo leads the page; the title stays for screen readers and search */}
       <h1 className="sr-only">Hustler Jerseys</h1>
       <CategoryGallery category={category} hint={false} />

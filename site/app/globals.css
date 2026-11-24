@@ -8,6 +8,7 @@
 @theme static {
   --color-*: initial;
   --color-red: #F80A02;
+  --color-yellow: #E7C427; /* the Hustler Jerseys logo's yellow (dark pages) */
   --color-cream: #FFF3D8;
   --color-black: #000000;
   --color-white: #FFFFFF;
@@ -180,13 +181,13 @@ html.lenis, html.lenis body { height: auto; }
 .dock-chip.is-active .dock-link { color: var(--color-white); }
 .dock-link:focus-visible { outline: none; }
 .dock-chip:has(.dock-link:focus-visible) { outline: 3px solid var(--color-red); outline-offset: 3px; }
-/* Projects drop-down: no box, just chips like the nav ones, stacked one under another; they drop in one by one */
+/* Projects drop-down: no box, just chips like the nav ones, stacked one under another from the chip's left edge; they drop in one by one */
 .dock-chip.has-menu { position: relative; }
 .dock-menu-btn { background: none; border: 0; padding: 0 .35em .04em; font: inherit; color: inherit; cursor: pointer; }
 .dock-chip.is-active .dock-menu-btn { color: var(--color-white); }
 .dock-menu {
-  position: absolute; top: 100%; right: 0; z-index: 30; padding-top: .28em;
-  display: flex; flex-direction: column; align-items: flex-end; gap: .22em;
+  position: absolute; top: 100%; left: 0; z-index: 30; padding-top: .28em;
+  display: flex; flex-direction: column; align-items: flex-start; gap: .22em;
   visibility: hidden; pointer-events: none; transition: visibility 0s .3s;
 }
 .dock-menu.is-open { visibility: visible; pointer-events: auto; transition: none; }
@@ -692,3 +693,15 @@ html.cine-on, html.cine-on body { overflow: hidden; }
   .sheet { margin: 24px 16px 0; padding: 24px 16px 20px; }
   .sheet-grid { --sheet-cols: 2; }
 }
+
+/* ==========================================================================
+   Dark pages (.page-dark on the page wrapper): black page + header, logos turned white.
+   /sondr-cinematics: yellow camera logo, red name and section titles. /hustler-jerseys: yellow lettering round the logo.
+   ========================================================================== */
+html:has(.page-dark), html:has(.page-dark) body { background: var(--color-black); }
+html:has(.page-dark) .site-header.is-sticky { background: var(--color-black); }
+html:has(.page-dark) .mark img, html:has(.page-dark) .brand-mark img, html:has(.page-dark) .brand-float-link img { filter: invert(1); }
+.page-dark { color: var(--color-white); }
+.page-dark .cat-hint, .page-dark .coming { color: var(--color-white); }
+.page-cine .brand-name, .page-cine .cat-title { color: var(--color-red); }
+.page-hustler .cat-arc-text { fill: var(--color-yellow); stroke: var(--color-yellow); }
