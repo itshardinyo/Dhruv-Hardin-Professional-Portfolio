@@ -709,5 +709,7 @@ html.dark-page .mark img, html.dark-page .brand-mark img, html.dark-page .brand-
 .page-cine .sheet-print { color: var(--color-red); }
 /* /case-studies: red title, lifted clear of the rotating gallery */
 .page-cases .cat-title { color: var(--color-red); }
+/* /hustler-jerseys: the logo has the first screen to itself; the gallery starts below the fold */
+.page-hustler .cat-head { margin-bottom: max(80px, 22vh); }
 .page-cases .cat-head { margin-bottom: max(32px, calc(90 * var(--u))); }
 .page-hustler .cat-arc-text { fill: var(--color-yellow); stroke: var(--color-yellow); }
