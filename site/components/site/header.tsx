@@ -14,9 +14,9 @@ import { BRANDS } from "@/lib/brands";
 const MARK_IDS = ["sondr-mark", "sondr-mark-float"];
 
 const PROJECTS_MENU = [
-  { link: "/hustler-jerseys", label: "Hustler Jerseys" },
-  { link: "/case-studies", label: "Case Studies" },
   { link: "/collabs", label: "Collabs" },
+  { link: "/case-studies", label: "Case Studies" },
+  { link: "/hustler-jerseys", label: "Hustler Jerseys" },
 ];
 
 const PAGES = [
