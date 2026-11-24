@@ -122,6 +122,7 @@ If a slot says "(empty)", build that slot's default and mark it "pending" here.
 - Lint: `react-hooks/refs` and `react-hooks/set-state-in-effect` are warnings on purpose (pasted components' patterns; mount-time browser reads).
 
 ## Changelog
+- Step 4p: Collabs art rebuilt from Dhruv's full-res photos (Nov 2026: IMG_1984 heels, IMG_1985/1986 sides, IMG_1988 toes): each side warped onto the model with landmarks (thin-plate spline), shadows evened out, ink deepened and colour richened; heels/toes locked to the full-res shots by feature matching. Viewer uses Neutral tone mapping (ACES was washing the art out). Back button sits far left, level with SONDR × CORTEZ.
 - Step 4o: three tracks added: Soul Love (David Bowie), Mr. Jones (Counting Crows), Follow My Lead (50 Cent); 128 kbps, file tags stripped (eight tracks).
 - Step 4n: Sondr Cinematics camera logo now transparent (public/brands/sondr-cinematics-black.webp, made from logo-white.webp's alpha; the old one had a baked-in white background) so the pinned copy shows only the drawing.
 - Step 4m: pinned SONDR + brand logos lose their white backgrounds (thin white outline via drop-shadow instead); music card scrollbar hidden (still scrolls).
