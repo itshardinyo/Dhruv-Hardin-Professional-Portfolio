@@ -715,4 +715,4 @@ html.dark-page .mark img, html.dark-page .brand-mark img, html.dark-page .brand-
 /* /hustler-jerseys: the logo has the first screen to itself; the gallery starts below the fold */
 .page-hustler .cat-head { margin-bottom: max(80px, 22vh); }
 .page-cases .cat-head { margin-bottom: max(32px, calc(90 * var(--u))); }
-.page-hustler .cat-arc-text { fill: var(--color-red); stroke: var(--color-red); }
+.page-hustler .cat-arc-text { fill: var(--color-black); stroke: var(--color-black); }
