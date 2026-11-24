@@ -707,6 +707,9 @@ html.dark-page .mark img, html.dark-page .brand-mark img, html.dark-page .brand-
 .page-dark .sheet { background: var(--color-black) !important; } /* contact-sheet.tsx sets white inline */
 .page-dark .sheet-print { color: var(--color-white); }
 .page-cine .sheet-print { color: var(--color-red); }
+/* /artsy: same black treatment, ARTSY in yellow, category titles red */
+.page-artsy .artsy-title { color: var(--color-yellow); }
+.page-artsy .cat-title, .page-artsy .sheet-print { color: var(--color-red); }
 /* /case-studies: red title, lifted clear of the rotating gallery */
 .page-cases .cat-title { color: var(--color-red); }
 /* /hustler-jerseys: the logo has the first screen to itself; the gallery starts below the fold */
