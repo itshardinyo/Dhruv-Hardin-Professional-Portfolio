@@ -20,6 +20,7 @@ import {
   useTransform,
 } from "motion/react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 
 export interface AnimatedDockProps {
@@ -43,10 +44,6 @@ export interface DockItemData {
 export interface DockMenuItem {
   link: string
   label: string
-  /** small VT323 note on the right, e.g. "•EST 2024•" */
-  note?: string
-  /** show the note as a black tag (e.g. "NEW · 1/1") */
-  tag?: boolean
 }
 
 export const AnimatedDock = ({ className, items, base }: AnimatedDockProps) => {
@@ -102,17 +99,20 @@ export const AnimatedDock = ({ className, items, base }: AnimatedDockProps) => {
   )
 }
 
-/** SONDR: the cream drop-down card (approved mockup): Bebas rows, VT323 notes, red row on hover. */
-const DockMenu = ({ id, items, open, onPick }: { id: string; items: DockMenuItem[]; open: boolean; onPick: () => void }) => (
-  <div id={id} role="menu" className={cn("dock-menu", open && "is-open")}>
-    {items.map((m) => (
-      <Link key={m.link} role="menuitem" href={m.link} tabIndex={open ? 0 : -1} onClick={onPick} className="dock-menu-row">
-        <span className="dock-menu-label">{m.label}</span>
-        {m.note && <span className={cn("dock-menu-note", m.tag && "is-tag")}>{m.note}</span>}
-      </Link>
-    ))}
-  </div>
-)
+/** SONDR: the Projects drop-down: no box, each entry is its own cream chip, stacked under the Projects chip. */
+const DockMenu = ({ id, items, open, onPick }: { id: string; items: DockMenuItem[]; open: boolean; onPick: () => void }) => {
+  const pathname = usePathname()
+  return (
+    <div id={id} role="menu" className={cn("dock-menu", open && "is-open")}>
+      {items.map((m) => (
+        <Link key={m.link} role="menuitem" href={m.link} tabIndex={open ? 0 : -1} onClick={onPick}
+          aria-current={pathname === m.link ? "page" : undefined} className="dock-menu-row">
+          {m.label}
+        </Link>
+      ))}
+    </div>
+  )
+}
 
 interface DockItemProps {
   mouseX: MotionValue<number>

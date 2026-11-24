@@ -14,14 +14,14 @@ import { BRANDS } from "@/lib/brands";
 const MARK_IDS = ["sondr-mark", "sondr-mark-float"];
 
 const PROJECTS_MENU = [
-  { link: "/projects#hustler-jerseys", label: "Hustler Jerseys", note: "•EST 2024•" },
-  { link: "/projects#school", label: "Case Studies", note: "strategy" },
-  { link: "/collabs", label: "Collabs", note: "NEW · 1/1", tag: true },
+  { link: "/hustler-jerseys", label: "Hustler Jerseys" },
+  { link: "/case-studies", label: "Case Studies" },
+  { link: "/collabs", label: "Collabs" },
 ];
 
 const PAGES = [
   { link: "/artsy", label: "Artsy" },
-  { link: "/projects", label: "Projects", menu: PROJECTS_MENU, also: ["/collabs"] },
+  { link: "/projects", label: "Projects", menu: PROJECTS_MENU, also: ["/hustler-jerseys", "/case-studies", "/collabs"] },
   { link: "/about", label: "About me" },
 ];
 

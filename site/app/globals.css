@@ -180,29 +180,27 @@ html.lenis, html.lenis body { height: auto; }
 .dock-chip.is-active .dock-link { color: var(--color-white); }
 .dock-link:focus-visible { outline: none; }
 .dock-chip:has(.dock-link:focus-visible) { outline: 3px solid var(--color-red); outline-offset: 3px; }
-/* Projects drop-down (approved mockup): cream card, black rule + hard shadow, Bebas rows, red row on hover */
+/* Projects drop-down: no box, just chips like the nav ones, stacked one under another; they drop in one by one */
 .dock-chip.has-menu { position: relative; }
 .dock-menu-btn { background: none; border: 0; padding: 0 .35em .04em; font: inherit; color: inherit; cursor: pointer; }
 .dock-chip.is-active .dock-menu-btn { color: var(--color-white); }
 .dock-menu {
-  position: absolute; top: calc(100% + 12px); right: 0; z-index: 30;
-  min-width: max(250px, calc(340 * var(--u))); padding: 8px 0;
-  display: flex; flex-direction: column;
-  background: var(--color-cream); border: 3px solid var(--color-black); box-shadow: 8px 8px 0 var(--color-black);
-  opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .18s, transform .18s, visibility .18s;
+  position: absolute; top: 100%; right: 0; z-index: 30; padding-top: .28em;
+  display: flex; flex-direction: column; align-items: flex-end; gap: .22em;
+  visibility: hidden; pointer-events: none; transition: visibility 0s .3s;
 }
-.dock-menu.is-open { opacity: 1; visibility: visible; transform: none; }
-.dock-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -15px; height: 15px; } /* keeps hover alive across the gap */
+.dock-menu.is-open { visibility: visible; pointer-events: auto; transition: none; }
 .dock-menu-row {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 20px;
-  color: var(--color-black); text-decoration: none; transition: background .15s, color .15s, transform .15s;
+  display: flex; align-items: center; justify-content: center; height: 1.37em; padding: 0 .45em .04em;
+  background: var(--color-cream); color: var(--color-black); text-decoration: none; white-space: nowrap; line-height: 1;
+  opacity: 0; transform: translateY(-.35em); transition: opacity .2s, transform .25s cubic-bezier(.25,1.4,.5,1), background .15s, color .15s;
 }
-.dock-menu-row:hover, .dock-menu-row:focus-visible { background: var(--color-red); color: var(--color-white); transform: translateX(6px) rotate(-.6deg); outline: none; }
-.dock-menu-label { font-family: var(--font-display); font-size: max(26px, calc(38 * var(--u))); line-height: 1; letter-spacing: .5px; white-space: nowrap; }
-.dock-menu-note { font-family: var(--font-osd); font-size: max(15px, calc(20 * var(--u))); white-space: nowrap; }
-.dock-menu-note.is-tag { background: var(--color-black); color: var(--color-white); padding: 0 6px; }
-.dock-menu-row:hover .dock-menu-note.is-tag { background: var(--color-white); color: var(--color-black); }
-@media (prefers-reduced-motion: reduce) { .dock-menu, .dock-menu-row { transition: none; } .dock-menu-row:hover { transform: none; } }
+.dock-menu.is-open .dock-menu-row { opacity: 1; transform: none; }
+.dock-menu.is-open .dock-menu-row:nth-child(2) { transition-delay: .05s, .05s, 0s, 0s; }
+.dock-menu.is-open .dock-menu-row:nth-child(3) { transition-delay: .1s, .1s, 0s, 0s; }
+.dock-menu-row:hover, .dock-menu-row:focus-visible, .dock-menu-row[aria-current="page"] { background: var(--color-red); color: var(--color-white); outline: none; }
+.dock-menu-row:focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .dock-menu-row { transition: none; } }
 
 /* /collabs: the SONDR × Cortez 3D viewer (public/collabs/viewer.html) fills the screen under the header */
 .collabs-page { height: calc(100svh - (max(12px, 24 * var(--u)) + max(47px, 175 * var(--u)) + 16px)); min-height: 420px; }
