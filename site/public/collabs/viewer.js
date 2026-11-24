@@ -4237,7 +4237,7 @@ float seamY(float x) {
   vec4 aP = texture2D(uPlusZ, uv), aM = texture2D(uMinusZ, uv);
   vec4 side = mix(aM, aP, smoothstep(-0.2, 0.2, N.z));
   float above = smoothstep(-0.004, 0.008, yab);
-  float a = side.a * (1.0 - smoothstep(0.5, 0.8, abs(N.y))) * above;
+  float a = side.a * (1.0 - smoothstep(0.75, 0.95, abs(N.y))) * above;
   vec4 h = texture2D(uHeel, vec2(0.5 - P.z / 0.62, clamp(yab / 0.56, 0.0, 1.0)));
   float wh = h.a * smoothstep(0.45, 0.8, N.x) * smoothstep(0.72, 0.86, P.x) * above;
   // front: Hardin's front photo projected from the camera it was taken with (toe, vamp, signature, S-O-N-D-R, date)
