@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <style>
-  :root { --dark: 0; }
+  :root { --dark: 1; }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; overflow: hidden; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; color: #111; }
   body { background: #f5f5f3; }
@@ -32,17 +32,22 @@
     font-weight: 500; font-size: clamp(11px, 1vw, 13px); letter-spacing: .2em; color: #111; transition: color .9s; text-transform: uppercase; }
   body[data-mode=split] .lbl { opacity: 1; }
   body[data-mode=split] #back, body[data-mode=focus] #back { opacity: 1; }
-  body[data-mode=focus] #back { color: #fff; }
+  
   body[data-mode=focus] #title { opacity: 0; }
   #osd > span:last-child { text-align: right; }
-  body[data-mode=focus] #osd { color: rgba(255,255,255,.9); }
+  
   body[data-mode=focus] #swap { opacity: 1; pointer-events: auto; }
-  body[data-mode=focus] #hint { color: rgba(255,255,255,.55); }
+  
   body.touched[data-mode=focus] #hint { opacity: 0; }
   body[data-mode=pair] #hint::after { content: 'Drag to rotate · Click to view'; }
   body[data-mode=split] #hint::after { content: 'Select a shoe'; }
   body[data-mode=focus] #hint::after { content: 'Drag to rotate · Swipe to switch · Click to go back'; }
   @media (max-width: 640px) { #osd { grid-template-columns: 1fr; justify-items: center; gap: 8px; top: 14%; } #osd > span:last-child { text-align: center; } .top { top: 20px; left: 20px; right: 20px; } #back { top: 20px; left: 20px; } }
+  /* dark studio for the pair and split, light for a single shoe */
+  body:not([data-mode=focus]) #back, body:not([data-mode=focus]) #osd, body:not([data-mode=focus]) .lbl b { color: rgba(255,255,255,.92); }
+  body:not([data-mode=focus]) .lbl span, body:not([data-mode=focus]) #title span { color: rgba(255,255,255,.55); }
+  body:not([data-mode=focus]) #hint { color: rgba(255,255,255,.55); }
+  #swap { color: #111; }
 </style>
 </head>
 <body>

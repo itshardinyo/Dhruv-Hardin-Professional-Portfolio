@@ -13,10 +13,11 @@ import { BRANDS } from "@/lib/brands";
 
 const MARK_IDS = ["sondr-mark", "sondr-mark-float"];
 
+// shortest name first
 const PROJECTS_MENU = [
-  { link: "/collabs", label: "Shoe Collabs" },
   { link: "/case-studies", label: "Case Studies" },
   { link: "/hustler-jerseys", label: "Hustler Jerseys" },
+  { link: "/collabs", label: "Shoe Collaborations" },
 ];
 
 const PAGES = [
