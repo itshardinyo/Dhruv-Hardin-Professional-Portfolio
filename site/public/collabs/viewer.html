@@ -42,7 +42,7 @@
   body[data-mode=pair] #hint::after { content: 'Drag to rotate · Click to view'; }
   body[data-mode=split] #hint::after { content: 'Select a shoe'; }
   body[data-mode=focus] #hint::after { content: 'Drag to rotate · Scroll to zoom'; }
-  @media (max-width: 640px) { #osd { grid-template-columns: 1fr; justify-items: center; gap: 8px; top: 14%; } #osd > span:first-child { display: none; } #osd > span:last-child { text-align: center; } .top { top: 20px; left: 20px; right: 20px; } }
+  @media (max-width: 640px) { #osd { grid-template-columns: 1fr; justify-items: center; gap: 8px; top: 14%; } #osd > span:last-child { text-align: center; } .top { top: 20px; left: 20px; right: 20px; } }
 </style>
 </head>
 <body>
@@ -54,7 +54,7 @@
 </div>
 <div class="lbl" id="lbl-red"><b>Left</b><span>24.12.2003</span></div>
 <div class="lbl" id="lbl-blue"><b>Right</b><span>11.02.2006</span></div>
-<div id="osd"><span></span><span>SONDR × Cortez by D·Hardin</span><span data-k="side">1 of 1</span></div>
+<div id="osd"><span>SONDR × Cortez</span><span>By D·Hardin</span><span data-k="side">1 of 1</span></div>
 <button id="swap" type="button">Switch shoe</button>
 <div id="hint"></div>
 <script>window.SHOE_GLB_URL="cortez.glb";window.SHOE_TEX={red_pz:"art/red_pz.webp",red_nz:"art/red_nz.webp",blue_pz:"art/blue_pz.webp",blue_nz:"art/blue_nz.webp",red_heel:"art/red_heel.webp",blue_heel:"art/blue_heel.webp",red_toe:"art/red_toe.webp",blue_toe:"art/blue_toe.webp"};</script>
