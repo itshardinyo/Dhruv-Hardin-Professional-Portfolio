@@ -4238,6 +4238,7 @@ float seamY(float x) {
   vec4 side = mix(aM, aP, smoothstep(-0.2, 0.2, N.z));
   float above = smoothstep(-0.004, 0.008, yab);
   float a = side.a * (1.0 - smoothstep(0.75, 0.95, abs(N.y))) * above;
+  a *= mix(1.0, smoothstep(0.3, 0.6, abs(N.z)), 1.0 - smoothstep(-0.8, -0.65, P.x)); // side photos don't wrap round the toe tip
   vec4 h = texture2D(uHeel, vec2(0.5 - P.z / 0.62, clamp(yab / 0.56, 0.0, 1.0)));
   float wh = h.a * smoothstep(0.45, 0.8, N.x) * smoothstep(0.72, 0.86, P.x) * above;
   // front: Hardin's front photo projected from the camera it was taken with (toe, vamp, signature, S-O-N-D-R, date)
@@ -4245,7 +4246,7 @@ float seamY(float x) {
   vec2 tuv = q.xy / q.z;
   vec4 t = texture2D(uToe, clamp(tuv, 0.0, 1.0));
   float inb = step(0.0, q.z) * step(0.0, tuv.x) * step(tuv.x, 1.0) * step(0.0, tuv.y) * step(tuv.y, 1.0);
-  float wt = t.a * inb * smoothstep(0.45, 0.75, dot(N, normalize(uTCam - P))) * (1.0 - smoothstep(-0.5, -0.4, P.x)) * above;
+  float wt = smoothstep(0.035, 0.06, yab) * t.a * inb * smoothstep(0.55, 0.8, dot(N, normalize(uTCam - P))) * (1.0 - smoothstep(-0.5, -0.4, P.x)) * above;
   vec3 c = diffuseColor.rgb;
   c = mix(c, side.rgb, a);
   c = mix(c, h.rgb, wh);
