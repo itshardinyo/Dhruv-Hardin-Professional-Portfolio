@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 
 const DESC = "SONDR × Cortez and SONDR × Converse Star Player 76 by D·Hardin: hand-drawn one-of-one pairs, in 3D.";
 export const metadata: Metadata = {
-  title: "Collabs · Dhruv Hardin",
+  title: "Shoe Collabs · Dhruv Hardin",
   description: DESC,
-  openGraph: { title: "Collabs · Dhruv Hardin", description: DESC },
+  openGraph: { title: "Shoe Collabs · Dhruv Hardin", description: DESC },
 };
 
 const PAIRS = [
@@ -20,7 +20,7 @@ const PAIRS = [
 export default function Page() {
   return (
     <div className="collabs-stack">
-      <h1 className="sr-only">Collabs: SONDR × Cortez and SONDR × Converse Star Player 76 by D·Hardin</h1>
+      <h1 className="sr-only">Shoe Collabs: SONDR × Cortez and SONDR × Converse Star Player 76 by D·Hardin</h1>
       {PAIRS.map((p) => (
         <section key={p.key} className="collabs-page" aria-label={`${p.title} by D·Hardin`}>
           <iframe className="collabs-frame" src={p.src} title={`${p.title} by D·Hardin, 3D viewer`} allow="fullscreen" loading={p.key === "cortez" ? "eager" : "lazy"} />
