@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import CollabsSwitch from "@/components/site/collabs-switch";
 
 export const metadata: Metadata = {
   title: "Collabs · Dhruv Hardin",
-  description: "SONDR × Cortez by D·Hardin: a hand-drawn one-of-one Nike Cortez pair, in 3D.",
-  openGraph: { title: "Collabs · Dhruv Hardin", description: "SONDR × Cortez by D·Hardin: a hand-drawn one-of-one Nike Cortez pair, in 3D." },
+  description: "SONDR × Cortez and SONDR × Converse by D·Hardin: hand-drawn one-of-one pairs, in 3D.",
+  openGraph: { title: "Collabs · Dhruv Hardin", description: "SONDR × Cortez and SONDR × Converse by D·Hardin: hand-drawn one-of-one pairs, in 3D." },
 };
 
 /**
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="collabs-page">
-      <h1 className="sr-only">Collabs: SONDR × Cortez by D·Hardin</h1>
-      <iframe className="collabs-frame" src="/collabs/viewer.html" title="SONDR × Cortez by D·Hardin, 3D viewer" allow="fullscreen" />
+      <h1 className="sr-only">Collabs: SONDR × Cortez and SONDR × Converse by D·Hardin</h1>
+      <CollabsSwitch />
     </div>
   );
 }
