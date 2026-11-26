@@ -65,5 +65,6 @@
 <div id="hint"></div>
 <script>window.SHOE_PAIR_DARK=true;window.SHOE_TEX={};window.SHOE_PLAIN={"len": 1.9016, "rot": 3.14159, "x": -0.00021034694691571436, "y": 0.20782498948254102, "z": -0.0008413972767302715};window.SHOE_ART=[{"pz": "art/left_a.webp", "nz": "art/left_b.webp"}, {"pz": "art/right_a.webp", "nz": "art/right_b.webp"}];window.SHOE_TAG="art/tag.webp";window.SHOE_VAMP="art/vamp.webp";window.SHOE_HEEL="art/heel.webp";window.SHOE_PATCH="art/patch.webp";window.SHOE_GLB_URL="converse.glb";</script>
 <script src="viewer.js"></script>
+<script>(function(){function fit(){var c=window.__shoe&&__shoe.camera;if(!c)return false;var a=innerWidth/Math.max(1,innerHeight);c.zoom=Math.min(1,a/1.4);c.updateProjectionMatrix();return true}var i=setInterval(function(){if(fit())clearInterval(i)},300);addEventListener("resize",function(){setTimeout(fit,50)});})();</script>
 </body>
 </html>
