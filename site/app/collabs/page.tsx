@@ -11,10 +11,11 @@ const PAIRS = [
   { key: "cortez", title: "SONDR × Cortez", src: "/collabs/cortez/viewer.html" },
   { key: "converse", title: "SONDR × Converse Star Player 76", src: "/collabs/converse/viewer.html" },
   { key: "chuck", title: "SONDR × Chuck Taylor All Star", src: "/collabs/chuck/viewer.html" },
+  { key: "mizuno", title: "SONDR × Mizuno Morelia Neo IV", src: "/collabs/mizuno/viewer.html" },
 ];
 
 /**
- * Collabs: each pair is a self-contained 3D viewer page in public/collabs/ (cortez/, converse/, chuck/ — each with its own viewer.html),
+ * Collabs: each pair is a self-contained 3D viewer page in public/collabs/ (cortez/, converse/, chuck/, mizuno/ — each with its own viewer.html),
  * stacked one per screen; scroll down to go from one pair to the next.
  * Pair spins (drag to rotate) → click splits into left/right → click one for the dark full-screen view.
  */
