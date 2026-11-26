@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SONDR × Chuck Taylor by D·Hardin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --dark: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; color: #111; }
+  body { background: #fff; }
+  #bg-dark { position: fixed; inset: 0; opacity: var(--dark); pointer-events: none;
+    background: linear-gradient(#000 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 78%, #000 100%), radial-gradient(120% 90% at 50% 45%, #343c3f 0%, #15191b 50%, #000 100%); }
+  #stage { position: fixed; inset: 0; }
+  #stage canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+  .top { position: fixed; top: 28px; left: 32px; right: 32px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: flex-start; pointer-events: none; z-index: 3; }
+  #title.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  #title { margin: 0; font-weight: 600; font-size: 15px; letter-spacing: .16em; line-height: 1.5; text-transform: uppercase; transition: opacity .5s; }
+  #title span { display: block; font-weight: 400; font-size: 12px; color: #6b6b6b; letter-spacing: .16em; }
+  button { font-family: inherit; cursor: pointer; pointer-events: auto; }
+  #back { position: fixed; top: 28px; left: 7vw; pointer-events: auto; background: none; border: 0; padding: 10px 0; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: .16em; color: #111; opacity: 0; transition: opacity .4s, color .5s; text-transform: uppercase; }
+  #back:hover { text-decoration: underline; text-underline-offset: 4px; }
+  #swap { position: fixed; right: 32px; bottom: 26px; z-index: 3; background: none; border: 0; color: #fff; font-size: 12px; font-weight: 500; letter-spacing: .16em; padding: 10px 0; min-height: 44px; opacity: 0; pointer-events: none; transition: opacity .5s; text-transform: uppercase; }
+  #swap:hover { text-decoration: underline; text-underline-offset: 4px; }
+  #hint { position: fixed; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 3; font-size: 11px; font-weight: 500; letter-spacing: .2em; color: #8a8a8a; transition: opacity .5s, color .5s; white-space: nowrap; text-transform: uppercase; }
+  .lbl { position: fixed; left: 0; top: 0; z-index: 2; pointer-events: none; text-align: center; opacity: 0; transition: opacity .4s; text-transform: uppercase; }
+  .lbl b { display: block; font-weight: 600; font-size: 13px; letter-spacing: .16em; }
+  .lbl span { font-size: 11px; color: #6b6b6b; letter-spacing: .14em; }
+  #osd { position: fixed; left: 0; right: 0; top: 50%; z-index: 2; display: grid; grid-template-columns: 1fr auto 1fr; padding: 0 7vw; pointer-events: none;
+    font-weight: 500; font-size: clamp(11px, 1vw, 13px); letter-spacing: .2em; color: #111; transition: color .9s; text-transform: uppercase; }
+  body[data-mode=split] .lbl { opacity: 1; }
+  body[data-mode=split] #back, body[data-mode=focus] #back { opacity: 1; }
+  
+  body[data-mode=focus] #title { opacity: 0; }
+  #osd > span:last-child { text-align: right; }
+  
+  body[data-mode=focus] #swap { opacity: 1; pointer-events: auto; }
+  
+  body.touched[data-mode=focus] #hint { opacity: 0; }
+  body[data-mode=pair] #hint::after { content: 'Drag to rotate · Click to view'; }
+  body[data-mode=split] #hint::after { content: 'Select a shoe'; }
+  body[data-mode=focus] #hint::after { content: 'Drag to rotate · Swipe to switch · Click to go back'; }
+  @media (max-width: 640px) { #osd { grid-template-columns: 1fr; justify-items: center; gap: 8px; top: 14%; } #osd > span:last-child { text-align: center; } .top { top: 20px; left: 20px; right: 20px; } #back { top: 20px; left: 20px; } }
+  /* light pair on the page's white, dark studio for a single shoe */
+  body[data-mode=focus] #back { color: #fff; }
+  body[data-mode=focus] #osd { color: rgba(255,255,255,.9); }
+  body[data-mode=focus] #hint { color: rgba(255,255,255,.55); }
+</style>
+</head>
+<body>
+<div id="bg-dark"></div>
+<div id="stage"></div>
+<div class="top">
+  <h1 id="title" class="sr-only">SONDR × Chuck Taylor by D·Hardin</h1>
+  <button id="back" type="button">← Back</button>
+</div>
+<div class="lbl" id="lbl-red"><b>Left</b><span>1 of 1</span></div>
+<div class="lbl" id="lbl-blue"><b>Right</b><span>1 of 1</span></div>
+<div id="osd"><span>SONDR × Chuck Taylor</span><span>By D·Hardin</span><span data-k="side">1 of 1</span></div>
+<button id="swap" type="button">Switch shoe</button>
+<div id="hint"></div>
+<script>window.SHOE_TEX={};window.SHOE_PLAIN={"len": 1.899094045162201, "rot": 3.14159, "x": -0.0008183844275664875, "y": 0.315031198614529, "z": -0.006334423976093603, "decals": [{"tex": "art/patch_canvas.png", "axis": "z", "n": [0, 0, 1], "c": [0.777, 0.198, 0], "w": 0.11, "h": 0.11}, {"tex": "art/patch_canvas.png", "axis": "z", "n": [0, 0, 1], "c": [0.747, 0.357, 0], "w": 0.11, "h": 0.11}, {"tex": "art/heel_back.png", "axis": "x", "n": [1, 0, 0], "c": [0.9, 0.06, 0.0], "w": 0.17, "h": 0.78}, {"tex": "art/dinho.png", "axis": "x", "n": [1, 0, 0], "c": [0.9, 0.06, 0.0], "w": 0.14, "h": 0.62}, {"tex": "art/red_tongue_top.png", "n": [-0.918, 0.394, -0.03], "c": [0.13, 0.5, -0.018], "w": 0.27, "h": 0.22}]};window.SHOE_PLAINS=[{"len": 1.899094045162201, "rot": 3.14159, "x": -0.0008183844275664875, "y": 0.315031198614529, "z": -0.006334423976093603, "decals": [{"tex": "art/patch_canvas.png", "axis": "z", "n": [0, 0, 1], "c": [0.777, 0.198, 0], "w": 0.11, "h": 0.11}, {"tex": "art/patch_canvas.png", "axis": "z", "n": [0, 0, 1], "c": [0.747, 0.357, 0], "w": 0.11, "h": 0.11}, {"tex": "art/heel_back.png", "axis": "x", "n": [1, 0, 0], "c": [0.9, 0.06, 0.0], "w": 0.17, "h": 0.78}, {"tex": "art/dinho.png", "axis": "x", "n": [1, 0, 0], "c": [0.9, 0.06, 0.0], "w": 0.14, "h": 0.62}, {"tex": "art/red_tongue_top.png", "n": [-0.918, 0.394, -0.03], "c": [0.13, 0.5, -0.018], "w": 0.27, "h": 0.22}]}, {"len": 1.897956669330597, "rot": 3.14159, "x": -0.0003866086017067795, "y": 0.3013974216602634, "z": 0.0006739974934986049, "decals": [{"tex": "art/heel_back.png", "axis": "x", "n": [1, 0, 0], "c": [0.88, 0.06, -0.05], "w": 0.17, "h": 0.78}, {"tex": "art/here.png", "axis": "x", "n": [1, 0, 0], "c": [0.88, 0.08, -0.05], "w": 0.14, "h": 0.5}, {"tex": "art/blue_tongue_top.png", "n": [-0.881, 0.468, -0.067], "c": [0.22, 0.49, -0.06], "w": 0.27, "h": 0.22}]}];window.SHOE_GLB_URLS=["red.glb","blue.glb"];window.SHOE_ART=[{"pz": "art/red_pz.webp", "nz": "art/red_nz.webp", "range": [-0.951, 0.95, -0.59, 0.589], "toeFade": [-5, -4.9], "blankN": 1}, {"pz": "art/blue_pz.webp", "nz": "art/blue_nz.webp", "range": [-0.951, 0.95, -0.57, 0.567], "toeFade": [-5, -4.9], "blankP": 1}];</script>
+<script src="viewer.js"></script>
+<button id="lace" type="button" style="position:fixed;left:32px;bottom:26px;z-index:4;background:none;border:0;padding:10px 0;min-height:44px;font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.92)">Delace</button>
+<script>(function(){var b=document.getElementById('lace'),cur=null;
+function sync(){b.style.color=document.body.dataset.mode==='focus'?'#111':'rgba(255,255,255,.92)';}
+new MutationObserver(sync).observe(document.body,{attributes:true});
+var t=setInterval(function(){if(!window.__shoe)return;clearInterval(t);var f=__shoe.toFocus;__shoe.toFocus=function(w){cur=w;return f(w)};
+var h=location.hash.slice(1);if(h==='red'||h==='blue')setTimeout(function(){__shoe.toFocus(h)},1500);},200);
+b.addEventListener('click',function(){location.href='viewer_dl.html'+(cur&&document.body.dataset.mode==='focus'?'#'+cur:'');});})();</script>
+</body>
+</html>

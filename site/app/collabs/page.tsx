@@ -10,10 +10,11 @@ export const metadata: Metadata = {
 const PAIRS = [
   { key: "cortez", title: "SONDR × Cortez", src: "/collabs/cortez/viewer.html" },
   { key: "converse", title: "SONDR × Converse Star Player 76", src: "/collabs/converse/viewer.html" },
+  { key: "chuck", title: "SONDR × Chuck Taylor", src: "/collabs/chuck/viewer.html" },
 ];
 
 /**
- * Collabs: each pair is a self-contained 3D viewer page in public/collabs/ (Cortez: viewer.html; Converse: converse/viewer.html),
+ * Collabs: each pair is a self-contained 3D viewer page in public/collabs/ (cortez/, converse/, chuck/ — each with its own viewer.html),
  * stacked one per screen; scroll down to go from one pair to the next.
  * Pair spins (drag to rotate) → click splits into left/right → click one for the dark full-screen view.
  */
