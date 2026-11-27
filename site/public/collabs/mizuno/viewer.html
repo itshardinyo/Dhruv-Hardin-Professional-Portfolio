@@ -49,6 +49,12 @@
   body[data-mode=focus] #osd { color: rgba(255,255,255,.9); }
   body[data-mode=focus] #hint { color: rgba(255,255,255,.55); }
 </style>
+<style>
+  body[data-mode=pair] #osd, body[data-mode=split] #osd { color: #fff; }
+  body[data-mode=pair] #hint, body[data-mode=split] #hint { color: rgba(255,255,255,.85); }
+  body[data-mode=pair] #hint::after { content: "DINHO II\2019S"; letter-spacing: .3em; }
+  body[data-mode=focus] #osd { color: #111; } body[data-mode=focus] #hint { color: #8a8a8a; } body[data-mode=focus] #back { color: #111; }
+</style>
 </head>
 <body>
 <div id="bg-dark"></div>
