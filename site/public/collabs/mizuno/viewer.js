@@ -4278,11 +4278,16 @@ uniform sampler2D uArtP, uArtN;`+Object.keys(h).filter(f=>h[f]).map(f=>" uniform
 `+u.fragmentShader.replace("#include <map_fragment>",`#include <map_fragment>
   { vec3 N = normalize(vArtN); vec2 auv = vec2((vArtPos.x - uArtR.x) / (uArtR.y - uArtR.x), (vArtPos.y - uArtR.z) / (uArtR.w - uArtR.z));
     vec4 ap = texture2D(uArtP, auv), an = texture2D(uArtN, auv);
+    vec3 base0 = diffuseColor.rgb;
     // this side was mirrored by the generator: start from clean white leather before the art goes on
     if (uBlankN > 0.5) diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.93, 0.93, 0.92), smoothstep(0.02, 0.2, -N.z));
     if (uBlankP > 0.5) diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.93, 0.93, 0.92), smoothstep(0.02, 0.2, N.z));
     float fx = smoothstep(uToeF.x, uToeF.y, vArtPos.x); float zc = ${(t.zc||0).toFixed(3)}; float hf = smoothstep(0.62, 0.78, vArtPos.x); float wp = mix(smoothstep(0.0, 0.12, N.z), smoothstep(0.25, 0.5, N.z), hf) * ap.a * fx * smoothstep(-0.03, 0.03, vArtPos.z - zc), wn = mix(smoothstep(0.0, 0.12, -N.z), smoothstep(0.25, 0.5, -N.z), hf) * an.a * fx * smoothstep(-0.03, 0.03, zc - vArtPos.z);
-    diffuseColor.rgb = mix(diffuseColor.rgb, ap.rgb, wp); diffuseColor.rgb = mix(diffuseColor.rgb, an.rgb, wn);${s.darkStuds?" diffuseColor.rgb *= mix(0.12, 1.0, smoothstep(-0.40, -0.35, vArtPos.y));":""}
+    diffuseColor.rgb = mix(diffuseColor.rgb, ap.rgb, wp); diffuseColor.rgb = mix(diffuseColor.rgb, an.rgb, wn);${s.toeRed?` { float wob = 0.03 * sin(vArtPos.z * 38.0 + 1.3) + 0.018 * sin(vArtPos.y * 61.0 + vArtPos.z * 23.0) + 0.01 * sin(vArtPos.z * 140.0); float tw = (1.0 - smoothstep(${s.toeRed[0].toFixed(3)}, ${s.toeRed[1].toFixed(3)}, vArtPos.x + wob)) * smoothstep(-0.34, -0.29, vArtPos.y) * step(0.0, dot(N, N));
+      float l = dot(base0, vec3(0.299, 0.587, 0.114)); float g = fract(sin(dot(floor(vArtPos.xz * 900.0), vec2(12.9898, 78.233))) * 43758.5453);
+      float st = 0.5 + 0.5 * sin(vArtPos.z * 210.0 + vArtPos.x * 35.0 + sin(vArtPos.x * 90.0) * 2.0 + g * 2.5);
+      vec3 mk = vec3(0.52, 0.03, 0.035) * (0.62 + 4.5 * l) * (0.88 + 0.14 * st) * (0.92 + 0.12 * g);
+      diffuseColor.rgb = mix(diffuseColor.rgb, min(mk, vec3(0.95, 0.2, 0.2)), tw); }`:""}${s.darkStuds?" diffuseColor.rgb *= mix(0.12, 1.0, smoothstep(-0.40, -0.35, vArtPos.y));":""}
 ${h.uTag?`    vec3 tn = vec3(-0.66463, 0.74703, 0.01455), ty = vec3(0.74711, 0.6647, 0.0);
     float tu = (vArtPos.z + 0.142) / 0.284, tv = (dot(vArtPos, ty) - 0.322) / 0.133, td = dot(vArtPos, tn);
     if (tu > 0.0 && tu < 1.0 && tv > 0.0 && tv < 1.0 && td > 0.045 && td < 0.13 && dot(N, tn) > 0.45) { vec4 tg = texture2D(uTag, vec2(tu, tv)); diffuseColor.rgb = mix(diffuseColor.rgb, tg.rgb, tg.a); }`:""}
