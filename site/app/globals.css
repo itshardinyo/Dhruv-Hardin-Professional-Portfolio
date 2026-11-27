@@ -497,24 +497,24 @@ html.cine-on, html.cine-on body { overflow: hidden; }
    Phones (under 640px)
    ========================================================================== */
 @media (max-width: 639px) {
-  .site-header { height: 104px; } /* room for the brand logo under the SONDR logo */
-  .collabs-page { height: calc(100svh - 104px); }
-  .mark { width: 72px; top: 16px; }
-  .nav { top: 21px; right: 16px; font-size: 18px; }
-  .dock { gap: 6px; }
+  .site-header { height: 80px; } /* SONDR logo with the brand logo beside it */
+  .collabs-page { height: calc(100svh - 80px); }
+  .mark { width: 62px; top: 14px; left: 14px; }
+  .nav { top: 21px; right: 12px; font-size: 16px; }
+  .dock { gap: 4px; }
   .dock-chip { min-width: 0; height: 36px; }
   .dock-link { padding: 0 .55em .04em; }
   .hero-body { left: 16px; top: calc(50% - 1.3158em); font-size: min(calc((100vw - 32px) / 5.53), 19.3vh); }
   .sig { width: 160px; right: 16px; bottom: 24px; }
   .hero { --ms-h: min(42vh, 300px); }
-  .placeholder { min-height: calc(100vh - 104px); padding: 32px 16px 64px; }
+  .placeholder { min-height: calc(100vh - 80px); padding: 32px 16px 64px; }
   .about { --ms-h: min(46vh, 340px); padding-bottom: calc(var(--ms-h) * .9); }
   .about .mr-sondr { left: -40px; }
   .about-body { width: 100%; padding: 24px 16px 24px; }
   .display-rough { font-size: min(calc((100vw - 32px) / 4.2), 96px); white-space: normal; }
   .footer-slot .hwf-root { --hwf-size: 18px; }
   .brand-logo { width: min(86vw, 420px); }
-  .brand-marks { left: 16px; top: 66px; height: 40px; gap: 8px; }
+  .brand-marks { left: 84px; top: 21px; height: 36px; gap: 6px; } /* beside the SONDR logo, not under it */
   .brand-mark { height: 100%; }
   .cine-video { object-fit: cover; -webkit-mask-image: none; mask-image: none; }
   .cine-bars { display: none; }

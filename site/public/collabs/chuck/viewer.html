@@ -70,5 +70,15 @@
 function sync(){var f=document.body.dataset.mode==='focus';var sw=document.getElementById('swap');if(sw)b.style.color=getComputedStyle(sw).color;b.style.opacity=f?'1':'0';b.style.pointerEvents=f?'auto':'none';if(!f&&on){on=false;b.textContent='Delace';window.__shoe&&__shoe.setDelace(false);}}
 sync();new MutationObserver(function(){sync();setTimeout(sync,600);}).observe(document.body,{attributes:true});
 b.addEventListener('click',function(e){e.stopPropagation();if(!window.__shoe)return;on=!on;b.textContent=on?'Lace up':'Delace';__shoe.setDelace(on);});})();</script>
+<script>(function(){
+// phones: a vertical swipe scrolls the page (to the next pair); sideways drags still turn the shoe, taps still work
+if(!(window.matchMedia&&matchMedia('(pointer: coarse)').matches))return;
+var st=document.createElement('style');st.textContent='html,body,canvas{touch-action:pan-y!important}';document.head.appendChild(st);
+function fix(){var c=document.querySelectorAll('canvas');for(var i=0;i<c.length;i++)c[i].style.touchAction='pan-y';}
+addEventListener('DOMContentLoaded',fix);addEventListener('load',function(){fix();setTimeout(fix,400);setTimeout(fix,1500);});
+// scrolled away from a pair while one shoe was open: it's back to the pair when you return
+try{var was=true;new IntersectionObserver(function(e){var v=e[e.length-1].isIntersecting;if(was&&!v&&window.__shoe&&__shoe.toPair){try{__shoe.toPair();}catch(_){}}was=v;},{threshold:0}).observe(document.documentElement);}catch(_){}
+})();</script>
+
 </body>
 </html>

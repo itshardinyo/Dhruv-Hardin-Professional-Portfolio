@@ -66,5 +66,15 @@
 <script>window.SHOE_PAIR_DARK=true;window.SHOE_TEX={};window.SHOE_PLAIN={"len": 1.9016, "rot": 3.14159, "x": -0.00021034694691571436, "y": 0.20782498948254102, "z": -0.0008413972767302715};window.SHOE_ART=[{"pz": "art/left_a.webp", "nz": "art/left_b.webp"}, {"pz": "art/right_a.webp", "nz": "art/right_b.webp"}];window.SHOE_TAG="art/tag.webp";window.SHOE_VAMP="art/vamp.webp";window.SHOE_HEEL="art/heel.webp";window.SHOE_PATCH="art/patch.webp";window.SHOE_GLB_URL="converse.glb";</script>
 <script src="viewer.js"></script>
 <script>(function(){function fit(){var c=window.__shoe&&__shoe.camera;if(!c)return false;var a=innerWidth/Math.max(1,innerHeight);c.zoom=Math.min(1,a/1.4);c.updateProjectionMatrix();return true}var i=setInterval(function(){if(fit())clearInterval(i)},300);addEventListener("resize",function(){setTimeout(fit,50)});})();</script>
+<script>(function(){
+// phones: a vertical swipe scrolls the page (to the next pair); sideways drags still turn the shoe, taps still work
+if(!(window.matchMedia&&matchMedia('(pointer: coarse)').matches))return;
+var st=document.createElement('style');st.textContent='html,body,canvas{touch-action:pan-y!important}';document.head.appendChild(st);
+function fix(){var c=document.querySelectorAll('canvas');for(var i=0;i<c.length;i++)c[i].style.touchAction='pan-y';}
+addEventListener('DOMContentLoaded',fix);addEventListener('load',function(){fix();setTimeout(fix,400);setTimeout(fix,1500);});
+// scrolled away from a pair while one shoe was open: it's back to the pair when you return
+try{var was=true;new IntersectionObserver(function(e){var v=e[e.length-1].isIntersecting;if(was&&!v&&window.__shoe&&__shoe.toPair){try{__shoe.toPair();}catch(_){}}was=v;},{threshold:0}).observe(document.documentElement);}catch(_){}
+})();</script>
+
 </body>
 </html>
